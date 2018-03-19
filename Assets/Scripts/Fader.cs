@@ -12,6 +12,8 @@ public class Fader : MonoBehaviour {
     [SerializeField]
     private bool enableConsoleLog;
 
+    [Space(10f)]
+
     [SerializeField]
     private float screenFadeDuration;
     [SerializeField]
@@ -20,7 +22,7 @@ public class Fader : MonoBehaviour {
     private float alphaTargetValue;
 
     // Hidden
-    public Action onCallback;
+    public Action onFadeCallback;
 
     // Singleton!
     public static Fader Singleton
@@ -46,39 +48,35 @@ public class Fader : MonoBehaviour {
 
     private void FadeScreen(GameObject parent)
     {
-        CheckAlphaStatus(parent);
-
         // Getting components from screen parent
         Image[] images = parent.GetComponentsInChildren<Image>();
         Text[] texts = parent.GetComponentsInChildren<Text>();
         Button[] buttons = parent.GetComponentsInChildren<Button>();
 
+        CheckAlphaStatus(parent, images, texts, buttons);
+
         // Tweens the alpha value for all the images of the screen
         foreach (Image image in images)
         {
-            image.DOFade(screenFadeEndValue, screenFadeDuration).OnComplete(OnCallback);
+            image.DOFade(screenFadeEndValue, screenFadeDuration).OnComplete(OnFadeCallback);
         }
 
         // Tweens the alpha value for all the texts of the screen
         foreach (Text text in texts)
         {
-            text.DOFade(screenFadeEndValue, screenFadeDuration).OnComplete(OnCallback);
+            text.DOFade(screenFadeEndValue, screenFadeDuration).OnComplete(OnFadeCallback);
         }
 
         // Tweens the alpha value for all the buttons of the screen
         foreach (Button button in buttons)
         {
-            button.image.DOFade(screenFadeEndValue, screenFadeDuration).OnComplete(OnCallback);
+            button.image.DOFade(screenFadeEndValue, screenFadeDuration).OnComplete(OnFadeCallback);
         }
     }
 
-    private void CheckAlphaStatus(GameObject parent)
+    private void CheckAlphaStatus(GameObject parent, Image[] images, Text[] texts, Button[] buttons)
     {
-        // Getting components from screen parent
-        Image[] images = parent.GetComponentsInChildren<Image>();
-        Text[] texts = parent.GetComponentsInChildren<Text>();
-        Button[] buttons = parent.GetComponentsInChildren<Button>();
-
+        // Checking values for images
         foreach (Image image in images)
         {
             if (image.color.a != alphaTargetValue)
@@ -89,18 +87,36 @@ public class Fader : MonoBehaviour {
                     alphaTargetValue);
         }
 
-        // TODO Check value for texts
+        // Checking values for texts
+        foreach (Text text in texts)
+        {
+            if (text.color.a != alphaTargetValue)
+                text.color = new Color(
+                    text.color.r,
+                    text.color.g,
+                    text.color.b,
+                    alphaTargetValue);
+        }
 
-        // TODO Check value for buttons
+        // Checking values for buttons
+        foreach (Button button in buttons)
+        {
+            if (button.image.color.a != alphaTargetValue)
+                button.image.color = new Color(
+                    button.image.color.r,
+                    button.image.color.g,
+                    button.image.color.b,
+                    alphaTargetValue);
+        }
     }
 
-    private void OnCallback()
+    private void OnFadeCallback()
     {
         if (enableConsoleLog)
             Debug.Log("Fader :: OnCallback");
 
-        if (onCallback != null)
-            onCallback();
+        if (onFadeCallback != null)
+            onFadeCallback();
     }
 
     #endregion
