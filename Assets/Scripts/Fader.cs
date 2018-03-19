@@ -19,7 +19,7 @@ public class Fader : MonoBehaviour {
     [SerializeField]
     private float screenFadeEndValue;
     [SerializeField]
-    private float alphaTargetValue;
+    private float alphaInitialValue;
 
     // Hidden
     public Action onFadeCallback;
@@ -37,16 +37,21 @@ public class Fader : MonoBehaviour {
     private void Awake()
     {
         if (Singleton != null)
-            DestroyImmediate(Singleton);
+            DestroyImmediate(gameObject);
         else
             Singleton = this;
+    }
+
+    private void Start()
+    {
+        Observer.Singleton.onDataScreenFade += FadeScreen;
     }
 
     #endregion
 
     #region Class functions
 
-    private void FadeScreen(GameObject parent)
+    public void FadeScreen(GameObject parent)
     {
         // Getting components from screen parent
         Image[] images = parent.GetComponentsInChildren<Image>();
@@ -79,34 +84,34 @@ public class Fader : MonoBehaviour {
         // Checking values for images
         foreach (Image image in images)
         {
-            if (image.color.a != alphaTargetValue)
+            if (image.color.a != alphaInitialValue)
                 image.color = new Color(
                     image.color.r,
                     image.color.g,
                     image.color.b,
-                    alphaTargetValue);
+                    alphaInitialValue);
         }
 
         // Checking values for texts
         foreach (Text text in texts)
         {
-            if (text.color.a != alphaTargetValue)
+            if (text.color.a != alphaInitialValue)
                 text.color = new Color(
                     text.color.r,
                     text.color.g,
                     text.color.b,
-                    alphaTargetValue);
+                    alphaInitialValue);
         }
 
         // Checking values for buttons
         foreach (Button button in buttons)
         {
-            if (button.image.color.a != alphaTargetValue)
+            if (button.image.color.a != alphaInitialValue)
                 button.image.color = new Color(
                     button.image.color.r,
                     button.image.color.g,
                     button.image.color.b,
-                    alphaTargetValue);
+                    alphaInitialValue);
         }
     }
 

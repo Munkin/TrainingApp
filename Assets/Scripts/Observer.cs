@@ -20,7 +20,11 @@ public class Observer : MonoBehaviour {
     public Action onTestResult;
     public Action onTestEnd;
 
-    // Training Actions
+    // Fade Actions ***
+
+    public Action<GameObject> onDataScreenFade;
+
+    // Training Actions ***
 
     // WarmingUp
     public Action onWarmingUpScreenStart;
@@ -71,6 +75,7 @@ public class Observer : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("Observer :: OnIntroductionScreen");
 
+        // Event call!
         if (onIntroductionScreen != null)
             onIntroductionScreen();
     }
@@ -80,6 +85,11 @@ public class Observer : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("Observer :: OnDataScreen");
 
+        // Fade event!
+        if (onDataScreenFade != null)
+            onDataScreenFade(UIManager.Singleton.screens[2]);
+        
+        // Event call!
         if (onDataScreen != null)
             onDataScreen();
     }
@@ -89,6 +99,7 @@ public class Observer : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("Observer :: OnExerciseDataScreen");
 
+        // Event call!
         if (onExerciseDataScreen != null)
             onExerciseDataScreen();
     }
@@ -98,6 +109,7 @@ public class Observer : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("Observer :: OnTestResult");
 
+        // Event call!
         if (onTestResult != null)
             onTestResult();
     }
@@ -107,6 +119,7 @@ public class Observer : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("Observer :: OnTestEnd");
 
+        // Event call!
         if (onTestEnd != null)
             onTestEnd();
     }
@@ -118,6 +131,7 @@ public class Observer : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("Observer :: OnWarmingUpScreenStart");
 
+        // Event call!
         if (onWarmingUpScreenStart != null)
             onWarmingUpScreenStart();
     }
@@ -127,6 +141,7 @@ public class Observer : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("Observer :: OnWarmingUpScreenEnd");
 
+        // Event call!
         if (onWarmingUpScreenEnd != null)
             onWarmingUpScreenEnd();
     }
@@ -138,6 +153,7 @@ public class Observer : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("Observer :: OnTrainingScreenStart");
 
+        // Event call!
         if (onTrainingScreenStart != null)
             onTrainingScreenStart();
     }
@@ -147,6 +163,7 @@ public class Observer : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("Observer :: OnTrainingScreenEnd");
 
+        // Event call!
         if (onTrainingScreenEnd != null)
             onTrainingScreenEnd();
     }
@@ -158,6 +175,7 @@ public class Observer : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("Observer :: OnStretchingScreenStart");
 
+        // Event call!
         if (onStretchingScreenStart != null)
             onStretchingScreenStart();
     }
@@ -167,6 +185,7 @@ public class Observer : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("Observer :: OnStretchingScreenEnd");
 
+        // Event call!
         if (onStretchingScreenEnd != null)
             onStretchingScreenEnd();
     }
@@ -178,6 +197,7 @@ public class Observer : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("Observer :: OnSave");
 
+        // Event call!
         if (onSave != null)
             onSave();
     }
@@ -187,6 +207,7 @@ public class Observer : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("Observer :: OnLoad");
 
+        // Event call!
         if (onLoad != null)
             onLoad();
     }
@@ -196,6 +217,7 @@ public class Observer : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("Observer :: OnTimerDone");
 
+        // Event call!
         if (onTimerDone != null)
             onTimerDone();
     }

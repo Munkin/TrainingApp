@@ -11,10 +11,21 @@ public class UIManager : MonoBehaviour {
 
     #region Properties
 
+    [SerializeField]
+    private bool enableConsoleLog;
+
     [Header("Screens")]
 
-    [SerializeField]
-    private GameObject[] screens;
+    public GameObject[] screens;
+    /*
+     * 0. Interlude
+     * 1. Data
+     * 2. Exercise Data
+     * 3. Complete Test
+     * 4. Training
+     * 5. Rest
+     * 6. Menu
+    */
 
     [Space(10f)]
 
@@ -66,11 +77,6 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     private string[] stretchingTexts;
 
-    [Space(10f)]
-
-    [SerializeField]
-    private bool enableConsoleLog;
-
     // Hidden
     private int textIndex = 0;
     private int question = 0;
@@ -108,7 +114,7 @@ public class UIManager : MonoBehaviour {
     {
         // *** GENERAL EVENTS ***
 
-        Observer.Singleton.onIntroductionScreen += FadeIn;
+        Observer.Singleton.onIntroductionScreen += FadeInInterlude;
         Observer.Singleton.onDataScreen += EnableDataScreen;
         Observer.Singleton.onExerciseDataScreen += EnableExerciseDataScreen;
         // OnTestResult Events
@@ -149,7 +155,7 @@ public class UIManager : MonoBehaviour {
 
     // *** INTERLUDE FUNCTIONS ***
 
-    private void FadeOut()
+    private void FadeOutInterlude()
     {
         if (enableConsoleLog)
             Debug.Log("UIManager :: FadeOut");
@@ -159,10 +165,10 @@ public class UIManager : MonoBehaviour {
 
     private void FadeInterlude()
     {
-        interludeText.DOFade(interludeText.color.a, timeToFadeOut).OnComplete(FadeOut);
+        interludeText.DOFade(interludeText.color.a, timeToFadeOut).OnComplete(FadeOutInterlude);
     }
 
-    private void FadeIn()
+    private void FadeInInterlude()
     {
         if (enableConsoleLog)
             Debug.Log("UIManager :: FadeIn");
@@ -181,7 +187,7 @@ public class UIManager : MonoBehaviour {
         {
             interludeText.text = interludeTexts[textIndex];
 
-            FadeIn();
+            FadeInInterlude();
         }
     }
 

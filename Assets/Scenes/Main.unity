@@ -638,6 +638,50 @@ MonoBehaviour:
   seconds: 0
   minutes: 0
   timeText: {fileID: 384269757}
+--- !u!1 &282996663
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 282996665}
+  - component: {fileID: 282996664}
+  m_Layer: 0
+  m_Name: Fader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &282996664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 282996663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0594c8d5b877eb348acc163789a8430d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableConsoleLog: 1
+  screenFadeDuration: 2
+  screenFadeEndValue: 1
+  alphaInitialValue: 0
+--- !u!4 &282996665
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 282996663}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &341563460
 Prefab:
   m_ObjectHideFlags: 0
@@ -5049,7 +5093,7 @@ GameObject:
   - component: {fileID: 1056003705}
   - component: {fileID: 1056003706}
   m_Layer: 0
-  m_Name: DeveloperTools
+  m_Name: _DeveloperTools
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8494,6 +8538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66736f92c88e57744a9fe5a14326ad08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableConsoleLog: 0
   screens:
   - {fileID: 138263731}
   - {fileID: 158352632}
@@ -8540,7 +8585,6 @@ MonoBehaviour:
   stretchingTexts:
   - Felicitaciones, has completado los ejercicios
   - Es hora de estirar
-  enableConsoleLog: 0
 --- !u!4 &1874453971
 Transform:
   m_ObjectHideFlags: 0
@@ -8729,7 +8773,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1917975507
 Transform:
   m_ObjectHideFlags: 0
