@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     private bool enableConsoleLog;
 
-    [Header("Screens")]
+    [Space(10f)] [Header("Screens")]
 
     public GameObject[] screens;
     /*

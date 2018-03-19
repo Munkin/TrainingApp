@@ -1,4 +1,9 @@
-﻿using System;
+﻿// <copyright file="Fader.cs" company="Up Up Down Studios">
+// Copyright (c) 2018 All Rights Reserved
+// </copyright>
+// <summary>Class that hadle fade events.</summary>
+
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -75,10 +80,7 @@ public class Fader : MonoBehaviour {
         foreach (Image image in images)
         {
             // Is the image a non fade element ?
-            if (!image.CompareTag("Toggle") &&
-                !image.CompareTag("MaterialButtonLayer") &&
-                !image.CompareTag("MaterialText") &&
-                !image.CompareTag("Shadow"))
+            if (!image.CompareTag("NonFadeElement") && !image.CompareTag("MaterialButtonLayer"))
                 image.DOFade(screenFadeEndValue, screenFadeDuration).OnComplete(OnFadeCallback);
         }
 
@@ -95,10 +97,7 @@ public class Fader : MonoBehaviour {
         foreach (Image image in images)
         {
             // Is the image a non fade element ?
-            if (!image.CompareTag("Toggle") &&
-                !image.CompareTag("MaterialButtonLayer") &&
-                !image.CompareTag("MaterialText") &&
-                !image.CompareTag("Shadow"))
+            if (!image.CompareTag("NonFadeElement") && !image.CompareTag("MaterialButtonLayer"))
             {
                 if (image.color.a != alphaInitialValue)
                     image.color = new Color(

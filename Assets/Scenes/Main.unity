@@ -1625,7 +1625,7 @@ GameObject:
   - component: {fileID: 482897340}
   m_Layer: 5
   m_Name: Toggle
-  m_TagString: Untagged
+  m_TagString: NonFadeElement
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3250,7 +3250,7 @@ GameObject:
   - component: {fileID: 824313776}
   m_Layer: 5
   m_Name: Toggle
-  m_TagString: Untagged
+  m_TagString: NonFadeElement
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4517,7 +4517,7 @@ GameObject:
   - component: {fileID: 969450815}
   m_Layer: 5
   m_Name: Toggle
-  m_TagString: Untagged
+  m_TagString: NonFadeElement
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6045,16 +6045,6 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1874453970}
-    - target: {fileID: 224084983140039130, guid: 7c6b60c06f19d394f80fbc5f59c2424f,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 73.44263
-      objectReference: {fileID: 0}
-    - target: {fileID: 224084983140039130, guid: 7c6b60c06f19d394f80fbc5f59c2424f,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 14.4262295
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c6b60c06f19d394f80fbc5f59c2424f, type: 2}
   m_IsPrefabParent: 0
@@ -9397,7 +9387,7 @@ GameObject:
   - component: {fileID: 2091897980}
   m_Layer: 5
   m_Name: Toggle
-  m_TagString: Untagged
+  m_TagString: NonFadeElement
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
