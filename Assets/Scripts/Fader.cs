@@ -56,9 +56,13 @@ public class Fader : MonoBehaviour {
         alphaInitialValue = (alphaInitialValue < 0 || alphaInitialValue > 1) ? Mathf.Clamp01(alphaInitialValue) : alphaInitialValue;
 
         // Fade events
-        Observer.Singleton.onDataFade += FadeScreen;
-        Observer.Singleton.onExerciseDataFade += FadeScreen;
-        Observer.Singleton.onTestEndFade += FadeScreen;
+        Observer.Singleton.onDataScreenFade += FadeScreen;
+        Observer.Singleton.onExerciseDataScreenFade += FadeScreen;
+        Observer.Singleton.onTestEndScreenFade += FadeScreen;
+        // Training fade events
+        Observer.Singleton.onWarmingUpScreenEndFade += FadeScreen;
+        Observer.Singleton.onTrainingScreenEndFade += FadeScreen;
+        Observer.Singleton.onStretchingScreenEndFade += FadeScreen;
     }
 
     #endregion

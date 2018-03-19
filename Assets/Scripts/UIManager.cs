@@ -563,7 +563,7 @@ public class UIManager : MonoBehaviour {
         }
     }
 
-    // *** WARMING UP ***
+    // *** TRAINING ***
 
     public void TrainingReady()
     {
@@ -572,6 +572,14 @@ public class UIManager : MonoBehaviour {
 
     public void TrainingContinue()
     {
+        // Fade event!
+        foreach (GameObject trainingScreen in trainingScreens)
+        {
+            // Is any training screen active ?
+            if (trainingScreen.activeInHierarchy)
+                Fader.Singleton.FadeScreen(trainingScreen);
+        }
+
         Training.Singleton.Continue();
     }
 

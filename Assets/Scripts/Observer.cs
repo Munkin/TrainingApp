@@ -13,18 +13,13 @@ public class Observer : MonoBehaviour {
     [SerializeField]
     private bool enableConsoleLog;
 
-    // General Actions
+    // General Actions ***
+
     public Action onIntroductionScreen;
     public Action onDataScreen;
     public Action onExerciseDataScreen;
     public Action onTestResult;
     public Action onTestEnd;
-
-    // Fade Actions ***
-
-    public Action<GameObject> onDataFade;
-    public Action<GameObject> onExerciseDataFade;
-    public Action<GameObject> onTestEndFade;
 
     // Training Actions ***
 
@@ -38,11 +33,22 @@ public class Observer : MonoBehaviour {
     public Action onStretchingScreenStart;
     public Action onStretchingScreenEnd;
 
+    // Fade Actions ***
+
+    public Action<GameObject> onDataScreenFade;
+    public Action<GameObject> onExerciseDataScreenFade;
+    public Action<GameObject> onTestEndScreenFade;
+    public Action<GameObject> onWarmingUpScreenEndFade;
+    public Action<GameObject> onTrainingScreenEndFade;
+    public Action<GameObject> onStretchingScreenEndFade;
+
+    // Others ***
+
     // Data Actions
     public Action onSave;
     public Action onLoad;
 
-    // Others
+    // Time actions
     public Action onTimerDone;
 
     // Singleton!
@@ -88,8 +94,8 @@ public class Observer : MonoBehaviour {
             Debug.Log("Observer :: OnDataScreen");
 
         // Fade event!
-        if (onDataFade != null)
-            onDataFade(UIManager.Singleton.screens[1]);
+        if (onDataScreenFade != null)
+            onDataScreenFade(UIManager.Singleton.screens[1]);
         
         // Event call!
         if (onDataScreen != null)
@@ -102,8 +108,8 @@ public class Observer : MonoBehaviour {
             Debug.Log("Observer :: OnExerciseDataScreen");
 
         // Fade event!
-        if (onExerciseDataFade != null)
-            onExerciseDataFade(UIManager.Singleton.screens[2]);
+        if (onExerciseDataScreenFade != null)
+            onExerciseDataScreenFade(UIManager.Singleton.screens[2]);
 
         // Event call!
         if (onExerciseDataScreen != null)
@@ -126,8 +132,8 @@ public class Observer : MonoBehaviour {
             Debug.Log("Observer :: OnTestEnd");
 
         // Fade event!
-        if (onTestEndFade != null)
-            onTestEndFade(UIManager.Singleton.screens[3]);
+        if (onTestEndScreenFade != null)
+            onTestEndScreenFade(UIManager.Singleton.screens[3]);
 
         // Event call!
         if (onTestEnd != null)
@@ -151,6 +157,10 @@ public class Observer : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("Observer :: OnWarmingUpScreenEnd");
 
+        // Fade event!
+        if (onWarmingUpScreenEndFade != null)
+            onWarmingUpScreenEndFade(UIManager.Singleton.screens[4]);
+
         // Event call!
         if (onWarmingUpScreenEnd != null)
             onWarmingUpScreenEnd();
@@ -173,6 +183,10 @@ public class Observer : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("Observer :: OnTrainingScreenEnd");
 
+        // Fade event!
+        if (onTrainingScreenEndFade != null)
+            onTrainingScreenEndFade(UIManager.Singleton.screens[4]);
+
         // Event call!
         if (onTrainingScreenEnd != null)
             onTrainingScreenEnd();
@@ -194,6 +208,10 @@ public class Observer : MonoBehaviour {
     {
         if (enableConsoleLog)
             Debug.Log("Observer :: OnStretchingScreenEnd");
+
+        // Fade event!
+        if (onStretchingScreenEndFade != null)
+            onStretchingScreenEndFade(UIManager.Singleton.screens[4]);
 
         // Event call!
         if (onStretchingScreenEnd != null)

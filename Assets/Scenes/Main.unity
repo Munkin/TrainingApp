@@ -665,7 +665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0594c8d5b877eb348acc163789a8430d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableConsoleLog: 1
+  enableConsoleLog: 0
   screenFadeDuration: 1
   screenFadeEndValue: 1
   alphaInitialValue: 0
@@ -5135,7 +5135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407faa3e0da6a4e43afad82cf4af8200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeScale: 3
+  timeScale: 5
 --- !u!1001 &1071197227
 Prefab:
   m_ObjectHideFlags: 0
@@ -5500,7 +5500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be476b56e5ba6a42be032dda46847d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableConsoleLog: 0
+  enableConsoleLog: 1
 --- !u!4 &1192865137
 Transform:
   m_ObjectHideFlags: 0
