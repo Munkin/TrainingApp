@@ -22,7 +22,9 @@ public class Observer : MonoBehaviour {
 
     // Fade Actions ***
 
-    public Action<GameObject> onDataScreenFade;
+    public Action<GameObject> onDataFade;
+    public Action<GameObject> onExerciseDataFade;
+    public Action<GameObject> onTestEndFade;
 
     // Training Actions ***
 
@@ -86,8 +88,8 @@ public class Observer : MonoBehaviour {
             Debug.Log("Observer :: OnDataScreen");
 
         // Fade event!
-        if (onDataScreenFade != null)
-            onDataScreenFade(UIManager.Singleton.screens[2]);
+        if (onDataFade != null)
+            onDataFade(UIManager.Singleton.screens[1]);
         
         // Event call!
         if (onDataScreen != null)
@@ -98,6 +100,10 @@ public class Observer : MonoBehaviour {
     {
         if (enableConsoleLog)
             Debug.Log("Observer :: OnExerciseDataScreen");
+
+        // Fade event!
+        if (onExerciseDataFade != null)
+            onExerciseDataFade(UIManager.Singleton.screens[2]);
 
         // Event call!
         if (onExerciseDataScreen != null)
@@ -118,6 +124,10 @@ public class Observer : MonoBehaviour {
     {
         if (enableConsoleLog)
             Debug.Log("Observer :: OnTestEnd");
+
+        // Fade event!
+        if (onTestEndFade != null)
+            onTestEndFade(UIManager.Singleton.screens[3]);
 
         // Event call!
         if (onTestEnd != null)

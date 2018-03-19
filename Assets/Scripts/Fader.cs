@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -16,13 +14,17 @@ public class Fader : MonoBehaviour {
 
     [SerializeField]
     private float screenFadeDuration;
-    [SerializeField]
+    [SerializeField] [Tooltip("0, 1 Value")]
     private float screenFadeEndValue;
-    [SerializeField]
+    [SerializeField] [Tooltip("0, 1 Value")]
     private float alphaInitialValue;
 
-    // Hidden
+    // Events
     public Action onFadeCallback;
+
+    // Cached Components
+    private Image[] images;
+    private Text[] texts;
 
     // Singleton!
     public static Fader Singleton
@@ -44,7 +46,14 @@ public class Fader : MonoBehaviour {
 
     private void Start()
     {
-        Observer.Singleton.onDataScreenFade += FadeScreen;
+        screenFadeEndValue = (screenFadeEndValue < 0 || screenFadeEndValue > 1) ? Mathf.Clamp01(screenFadeEndValue) : screenFadeEndValue;
+
+        alphaInitialValue = (alphaInitialValue < 0 || alphaInitialValue > 1) ? Mathf.Clamp01(alphaInitialValue) : alphaInitialValue;
+
+        // Fade events
+        Observer.Singleton.onDataFade += FadeScreen;
+        Observer.Singleton.onExerciseDataFade += FadeScreen;
+        Observer.Singleton.onTestEndFade += FadeScreen;
     }
 
     #endregion
@@ -53,17 +62,24 @@ public class Fader : MonoBehaviour {
 
     public void FadeScreen(GameObject parent)
     {
-        // Getting components from screen parent
-        Image[] images = parent.GetComponentsInChildren<Image>();
-        Text[] texts = parent.GetComponentsInChildren<Text>();
-        Button[] buttons = parent.GetComponentsInChildren<Button>();
+        if (enableConsoleLog)
+            Debug.Log("Fader :: FadeScreen");
 
-        CheckAlphaStatus(parent, images, texts, buttons);
+        // Getting components from screen parent
+        images = parent.GetComponentsInChildren<Image>();
+        texts = parent.GetComponentsInChildren<Text>();
+
+        CheckAlphaStatus(parent);
 
         // Tweens the alpha value for all the images of the screen
         foreach (Image image in images)
         {
-            image.DOFade(screenFadeEndValue, screenFadeDuration).OnComplete(OnFadeCallback);
+            // Is the image a non fade element ?
+            if (!image.CompareTag("Toggle") &&
+                !image.CompareTag("MaterialButtonLayer") &&
+                !image.CompareTag("MaterialText") &&
+                !image.CompareTag("Shadow"))
+                image.DOFade(screenFadeEndValue, screenFadeDuration).OnComplete(OnFadeCallback);
         }
 
         // Tweens the alpha value for all the texts of the screen
@@ -71,25 +87,26 @@ public class Fader : MonoBehaviour {
         {
             text.DOFade(screenFadeEndValue, screenFadeDuration).OnComplete(OnFadeCallback);
         }
-
-        // Tweens the alpha value for all the buttons of the screen
-        foreach (Button button in buttons)
-        {
-            button.image.DOFade(screenFadeEndValue, screenFadeDuration).OnComplete(OnFadeCallback);
-        }
     }
 
-    private void CheckAlphaStatus(GameObject parent, Image[] images, Text[] texts, Button[] buttons)
+    private void CheckAlphaStatus(GameObject parent)
     {
         // Checking values for images
         foreach (Image image in images)
         {
-            if (image.color.a != alphaInitialValue)
-                image.color = new Color(
-                    image.color.r,
-                    image.color.g,
-                    image.color.b,
-                    alphaInitialValue);
+            // Is the image a non fade element ?
+            if (!image.CompareTag("Toggle") &&
+                !image.CompareTag("MaterialButtonLayer") &&
+                !image.CompareTag("MaterialText") &&
+                !image.CompareTag("Shadow"))
+            {
+                if (image.color.a != alphaInitialValue)
+                    image.color = new Color(
+                        image.color.r,
+                        image.color.g,
+                        image.color.b,
+                        alphaInitialValue);
+            }
         }
 
         // Checking values for texts
@@ -102,17 +119,6 @@ public class Fader : MonoBehaviour {
                     text.color.b,
                     alphaInitialValue);
         }
-
-        // Checking values for buttons
-        foreach (Button button in buttons)
-        {
-            if (button.image.color.a != alphaInitialValue)
-                button.image.color = new Color(
-                    button.image.color.r,
-                    button.image.color.g,
-                    button.image.color.b,
-                    alphaInitialValue);
-        }
     }
 
     private void OnFadeCallback()
@@ -120,6 +126,7 @@ public class Fader : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("Fader :: OnCallback");
 
+        // Event call!
         if (onFadeCallback != null)
             onFadeCallback();
     }

@@ -158,7 +158,7 @@ public class UIManager : MonoBehaviour {
     private void FadeOutInterlude()
     {
         if (enableConsoleLog)
-            Debug.Log("UIManager :: FadeOut");
+            Debug.Log("UIManager :: FadeOutInterlude");
 
         interludeText.DOFade(0.0f, timeToFadeIn).OnComplete(SetIntroductionText);
     }
@@ -171,7 +171,7 @@ public class UIManager : MonoBehaviour {
     private void FadeInInterlude()
     {
         if (enableConsoleLog)
-            Debug.Log("UIManager :: FadeIn");
+            Debug.Log("UIManager :: FadeInInterlude");
 
         interludeText.DOFade(0.8745f, timeToFadeOut).OnComplete(FadeInterlude);
     }
@@ -384,6 +384,8 @@ public class UIManager : MonoBehaviour {
 
     public void NextQuestion()
     {
+        Fader.Singleton.FadeScreen(screens[2]);
+
         CheckSelectedOption();
 
         if (question >= 4)
