@@ -215,12 +215,17 @@ public class Training : MonoBehaviour {
     {
         if (enableConsoleLog)
             Debug.Log("Training :: NonTimeExercise");
-
-        targetScreen.SetActiveReady(false);
+        
+        // Fade event!
+        Fader.Singleton.FadeOutButton(targetScreen.readyButton.gameObject);
 
         yield return new WaitForSeconds(timeToNonTimeExercise);
 
+        targetScreen.SetActiveReady(false);
         targetScreen.SetActiveContinue(true);
+
+        // Fade event!
+        Fader.Singleton.FadeInButton(targetScreen.continueButton.gameObject);
     }
 
     private IEnumerator Rest()

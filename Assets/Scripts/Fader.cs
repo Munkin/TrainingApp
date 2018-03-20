@@ -28,8 +28,12 @@ public class Fader : MonoBehaviour {
     public Action onFadeCallback;
 
     // Cached Components
+    private float cachedTextAlphaInitialValue;
+
     private Image[] images;
     private Text[] texts;
+
+    private Text cachedText;
 
     // Singleton!
     public static Fader Singleton
@@ -74,10 +78,19 @@ public class Fader : MonoBehaviour {
         Observer.Singleton.onStretchingScreenEndFade += FadeScreen;
     }
 
-    public void FadeScreen(GameObject parent)
+    public void FadeScreen(GameObject parent, float fadeDuration = 1.0f, float fadeEndValue = 1.0f)
     {
         if (enableConsoleLog)
             Debug.Log("Fader :: FadeScreen");
+
+        float tempFadeDuration = screenFadeDuration;
+        float tempFadeEndValue = screenFadeEndValue;
+
+        // Comparing parameters
+        if (fadeDuration != screenFadeDuration)
+            screenFadeDuration = fadeDuration;
+        if (fadeEndValue != screenFadeEndValue)
+            screenFadeEndValue = fadeEndValue;
 
         // Getting components from screen parent
         images = parent.GetComponentsInChildren<Image>();
@@ -98,20 +111,28 @@ public class Fader : MonoBehaviour {
         {
             text.DOFade(screenFadeEndValue, screenFadeDuration).OnComplete(OnFadeCallback);
         }
+
+        // Setting star values
+        screenFadeDuration = tempFadeDuration;
+        screenFadeEndValue = tempFadeEndValue;
     }
 
     public void FadeInButton(GameObject button)
     {
-        Text buttonText = button.GetComponent<Text>();
+        cachedText = button.GetComponentInChildren<Text>();
 
-        buttonText.DOFade(Mathf.Clamp01(screenFadeEndValue), screenFadeDuration);
+        cachedTextAlphaInitialValue = cachedText.color.a;
+
+        cachedText.DOFade(Mathf.Clamp01(screenFadeEndValue), screenFadeDuration).OnComplete(OnFadeButtonCallback);
     }
 
     public void FadeOutButton(GameObject button)
     {
-        Text buttonText = button.GetComponent<Text>();
+        cachedText = button.GetComponentInChildren<Text>();
 
-        buttonText.DOFade(1 - Mathf.Clamp01(screenFadeEndValue), screenFadeDuration);
+        cachedTextAlphaInitialValue = cachedText.color.a;
+
+        cachedText.DOFade(1 - Mathf.Clamp01(screenFadeEndValue), screenFadeDuration).OnComplete(OnFadeButtonCallback);
     }
 
     private void CheckAlphaStatus(GameObject parent)
@@ -146,12 +167,25 @@ public class Fader : MonoBehaviour {
     private void OnFadeCallback()
     {
         if (enableConsoleLog)
-            Debug.Log("Fader :: OnCallback");
+            Debug.Log("Fader :: OnFadeCallback");
 
         // Event call!
         if (onFadeCallback != null)
             onFadeCallback();
     }
 
+    private void OnFadeButtonCallback()
+    {
+        if (enableConsoleLog)
+            Debug.Log("Fader :: OnFadeButtonCallback");
+
+        // Reseting alpha
+        cachedText.color = new Color(
+            cachedText.color.r,
+            cachedText.color.g,
+            cachedText.color.b,
+            cachedTextAlphaInitialValue);
+    }
+    
     #endregion
 }

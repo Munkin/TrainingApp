@@ -113,8 +113,7 @@ public class TrainingScreen
         timer.ExecuteWatch(exercises[actualExercise].time);
 
         // Fade event!
-        if (rootParent.activeInHierarchy)
-            Fader.Singleton.FadeScreen(rootParent);
+        Fader.Singleton.FadeOutButton(readyButton.gameObject);
     }
 
     public bool ActualExerciseHasRest()
