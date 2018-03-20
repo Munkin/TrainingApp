@@ -22,16 +22,16 @@ public class Training : MonoBehaviour {
     #region Properties
 
     [SerializeField]
+    private bool enableConsoleLog;
+
+    [Space(10f)]
+
+    [SerializeField]
     private float timeToNonTimeExercise;
     [SerializeField]
     private float timeToNonRestExercise;
     [SerializeField]
     private TrainingScreen[] trainingScreens;
-
-    [Space(10f)]
-
-    [SerializeField]
-    private bool enableConsoleLog;
 
     // Hidden
     [HideInInspector]
@@ -80,10 +80,11 @@ public class Training : MonoBehaviour {
         foreach (TrainingScreen screen in trainingScreens)
         {
             screen.timer.gameObject.SetActive(false);
-
+            
+            // Timer events
             Observer.Singleton.onTimerDone += screen.ActiveContinue;
-            Observer.Singleton.onTimerDone += StopWatchSound;
             Observer.Singleton.onTimerDone += screen.FadeInContinue;
+            Observer.Singleton.onTimerDone += StopWatchSound;
         }
     }
 
@@ -118,6 +119,8 @@ public class Training : MonoBehaviour {
 
         targetScreen = trainingScreens[0];
         targetScreen.SetupScreen();
+
+        CheckButtonsStatus();
     }
 
     private void SetTraining()
@@ -129,6 +132,8 @@ public class Training : MonoBehaviour {
 
         targetScreen = trainingScreens[1];
         targetScreen.SetupScreen();
+
+        CheckButtonsStatus();
     }
 
     private void SetStretching()
@@ -140,6 +145,8 @@ public class Training : MonoBehaviour {
 
         targetScreen = trainingScreens[2];
         targetScreen.SetupScreen();
+
+        CheckButtonsStatus();
     }
 
     private void CheckReady()
@@ -164,6 +171,15 @@ public class Training : MonoBehaviour {
             targetScreen.readyIsAlreadyPressed = false;
 
         targetScreen.continueIsAlreadyPressed = true;
+    }
+
+    private void CheckButtonsStatus()
+    {
+        //Setting buttons
+        if (!targetScreen.readyButton.gameObject.activeInHierarchy)
+            targetScreen.SetActiveReady(true);
+        if (targetScreen.continueButton.gameObject.activeInHierarchy)
+            targetScreen.SetActiveContinue(false);
     }
 
     private void ExecuteTimeExercise()
@@ -238,6 +254,10 @@ public class Training : MonoBehaviour {
         targetScreen.SetActiveReady(true);
         targetScreen.SetActiveContinue(false);
         targetScreen.SetupExercise();
+
+        // Fade event!
+        if (targetScreen.rootParent.activeInHierarchy)
+            Fader.Singleton.FadeScreen(targetScreen.rootParent);
     }
 
     private IEnumerator NonRest()

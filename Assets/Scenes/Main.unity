@@ -1398,12 +1398,12 @@ Prefab:
     - target: {fileID: 224830822470574772, guid: 7c6b60c06f19d394f80fbc5f59c2424f,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 123.67598
+      value: 122.327866
       objectReference: {fileID: 0}
     - target: {fileID: 224830822470574772, guid: 7c6b60c06f19d394f80fbc5f59c2424f,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 64.748604
+      value: 64.42623
       objectReference: {fileID: 0}
     - target: {fileID: 224830822470574772, guid: 7c6b60c06f19d394f80fbc5f59c2424f,
         type: 2}
@@ -1438,12 +1438,12 @@ Prefab:
     - target: {fileID: 224084983140039130, guid: 7c6b60c06f19d394f80fbc5f59c2424f,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 61.675976
+      value: 60.32787
       objectReference: {fileID: 0}
     - target: {fileID: 224084983140039130, guid: 7c6b60c06f19d394f80fbc5f59c2424f,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 14.748603
+      value: 14.4262295
       objectReference: {fileID: 0}
     - target: {fileID: 114708794587688834, guid: 7c6b60c06f19d394f80fbc5f59c2424f,
         type: 2}
@@ -1855,12 +1855,12 @@ Prefab:
     - target: {fileID: 224830822470574772, guid: 7c6b60c06f19d394f80fbc5f59c2424f,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 123.67598
+      value: 122.327866
       objectReference: {fileID: 0}
     - target: {fileID: 224830822470574772, guid: 7c6b60c06f19d394f80fbc5f59c2424f,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 64.748604
+      value: 64.42623
       objectReference: {fileID: 0}
     - target: {fileID: 224830822470574772, guid: 7c6b60c06f19d394f80fbc5f59c2424f,
         type: 2}
@@ -1895,12 +1895,12 @@ Prefab:
     - target: {fileID: 224084983140039130, guid: 7c6b60c06f19d394f80fbc5f59c2424f,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 61.675976
+      value: 60.32787
       objectReference: {fileID: 0}
     - target: {fileID: 224084983140039130, guid: 7c6b60c06f19d394f80fbc5f59c2424f,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 14.748603
+      value: 14.4262295
       objectReference: {fileID: 0}
     - target: {fileID: 114708794587688834, guid: 7c6b60c06f19d394f80fbc5f59c2424f,
         type: 2}
@@ -4791,7 +4791,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1014663774
 RectTransform:
   m_ObjectHideFlags: 0
