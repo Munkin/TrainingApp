@@ -35,12 +35,12 @@ public class Observer : MonoBehaviour {
 
     // Fade Actions ***
 
-    public Action<GameObject> onDataScreenFade;
-    public Action<GameObject> onExerciseDataScreenFade;
-    public Action<GameObject> onTestEndScreenFade;
-    public Action<GameObject> onWarmingUpScreenEndFade;
-    public Action<GameObject> onTrainingScreenEndFade;
-    public Action<GameObject> onStretchingScreenEndFade;
+    public Action<GameObject, float, float> onDataScreenFade;
+    public Action<GameObject, float, float> onExerciseDataScreenFade;
+    public Action<GameObject, float, float> onTestEndScreenFade;
+    public Action<GameObject, float, float> onWarmingUpScreenEndFade;
+    public Action<GameObject, float, float> onTrainingScreenEndFade;
+    public Action<GameObject, float, float> onStretchingScreenEndFade;
 
     // Others ***
 
@@ -95,8 +95,11 @@ public class Observer : MonoBehaviour {
 
         // Fade event!
         if (onDataScreenFade != null)
-            onDataScreenFade(UIManager.Singleton.screens[1]);
-        
+            onDataScreenFade(
+                UIManager.Singleton.screens[1],
+                Fader.Singleton.screenFadeDuration,
+                Fader.Singleton.screenFadeEndValue);
+
         // Event call!
         if (onDataScreen != null)
             onDataScreen();
@@ -109,7 +112,10 @@ public class Observer : MonoBehaviour {
 
         // Fade event!
         if (onExerciseDataScreenFade != null)
-            onExerciseDataScreenFade(UIManager.Singleton.screens[2]);
+            onExerciseDataScreenFade(
+                UIManager.Singleton.screens[2],
+                Fader.Singleton.screenFadeDuration,
+                Fader.Singleton.screenFadeEndValue);
 
         // Event call!
         if (onExerciseDataScreen != null)
@@ -133,13 +139,16 @@ public class Observer : MonoBehaviour {
 
         // Fade event!
         if (onTestEndScreenFade != null)
-            onTestEndScreenFade(UIManager.Singleton.screens[3]);
+            onTestEndScreenFade(
+                UIManager.Singleton.screens[3],
+                Fader.Singleton.screenFadeDuration,
+                Fader.Singleton.screenFadeEndValue);
 
         // Event call!
         if (onTestEnd != null)
             onTestEnd();
     }
-
+    
     // ***
 
     public void OnWarmingUpScreenStart()
@@ -159,13 +168,16 @@ public class Observer : MonoBehaviour {
 
         // Fade event!
         if (onWarmingUpScreenEndFade != null)
-            onWarmingUpScreenEndFade(UIManager.Singleton.screens[4]);
+            onWarmingUpScreenEndFade(
+                UIManager.Singleton.trainingScreens[0],
+                Fader.Singleton.screenFadeDuration,
+                Fader.Singleton.screenFadeEndValue);
 
         // Event call!
         if (onWarmingUpScreenEnd != null)
             onWarmingUpScreenEnd();
     }
-
+    
     // ***
 
     public void OnTrainingScreenStart()
@@ -185,13 +197,16 @@ public class Observer : MonoBehaviour {
 
         // Fade event!
         if (onTrainingScreenEndFade != null)
-            onTrainingScreenEndFade(UIManager.Singleton.screens[4]);
+            onTrainingScreenEndFade(
+                UIManager.Singleton.trainingScreens[1],
+                Fader.Singleton.screenFadeDuration,
+                Fader.Singleton.screenFadeEndValue);
 
         // Event call!
         if (onTrainingScreenEnd != null)
             onTrainingScreenEnd();
     }
-
+    
     // ***
 
     public void OnStretchingScreenStart()
@@ -211,13 +226,16 @@ public class Observer : MonoBehaviour {
 
         // Fade event!
         if (onStretchingScreenEndFade != null)
-            onStretchingScreenEndFade(UIManager.Singleton.screens[4]);
+            onStretchingScreenEndFade(
+                UIManager.Singleton.trainingScreens[2],
+                Fader.Singleton.screenFadeDuration,
+                Fader.Singleton.screenFadeEndValue);
 
         // Event call!
         if (onStretchingScreenEnd != null)
             onStretchingScreenEnd();
     }
-
+    
     // ***
 
     public void OnSave()

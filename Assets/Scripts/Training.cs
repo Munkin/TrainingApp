@@ -80,8 +80,10 @@ public class Training : MonoBehaviour {
         foreach (TrainingScreen screen in trainingScreens)
         {
             screen.timer.gameObject.SetActive(false);
+
             Observer.Singleton.onTimerDone += screen.ActiveContinue;
             Observer.Singleton.onTimerDone += StopWatchSound;
+            Observer.Singleton.onTimerDone += screen.FadeInContinue;
         }
     }
 
@@ -215,17 +217,15 @@ public class Training : MonoBehaviour {
     {
         if (enableConsoleLog)
             Debug.Log("Training :: NonTimeExercise");
-        
-        // Fade event!
-        Fader.Singleton.FadeOutButton(targetScreen.readyButton.gameObject);
+
+        targetScreen.FadeOutReady();
 
         yield return new WaitForSeconds(timeToNonTimeExercise);
 
         targetScreen.SetActiveReady(false);
         targetScreen.SetActiveContinue(true);
 
-        // Fade event!
-        Fader.Singleton.FadeInButton(targetScreen.continueButton.gameObject);
+        targetScreen.FadeInContinue();
     }
 
     private IEnumerator Rest()
@@ -245,8 +245,7 @@ public class Training : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("Training :: NonRest");
 
-        // Fade event!
-        Fader.Singleton.FadeOutButton(targetScreen.continueButton.gameObject);
+        targetScreen.FadeOutContinue();
 
         yield return new WaitForSeconds(timeToNonRestExercise);
 

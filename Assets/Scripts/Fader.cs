@@ -17,11 +17,10 @@ public class Fader : MonoBehaviour {
 
     [Space(10f)]
 
-    [SerializeField]
-    private float screenFadeDuration;
-    [SerializeField] [Tooltip("0, 1 Value")]
-    private float screenFadeEndValue;
-    [SerializeField] [Tooltip("0, 1 Value")]
+    public float screenFadeDuration;
+    [Tooltip("0, 1 Value")]
+    public float screenFadeEndValue;
+    [Tooltip("0, 1 Value")] [SerializeField]
     private float alphaInitialValue;
 
     // Events
@@ -119,15 +118,27 @@ public class Fader : MonoBehaviour {
 
     public void FadeInButton(GameObject button)
     {
+        if (enableConsoleLog)
+            Debug.Log("Fader :: FadeInButton");
+
         cachedText = button.GetComponentInChildren<Text>();
 
         cachedTextAlphaInitialValue = cachedText.color.a;
+
+        cachedText.color = new Color(
+            cachedText.color.r,
+            cachedText.color.g,
+            cachedText.color.b,
+            1 - Mathf.Clamp01(screenFadeEndValue));
 
         cachedText.DOFade(Mathf.Clamp01(screenFadeEndValue), screenFadeDuration).OnComplete(OnFadeButtonCallback);
     }
 
     public void FadeOutButton(GameObject button)
     {
+        if (enableConsoleLog)
+            Debug.Log("Fader :: FadeOutButton");
+
         cachedText = button.GetComponentInChildren<Text>();
 
         cachedTextAlphaInitialValue = cachedText.color.a;

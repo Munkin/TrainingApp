@@ -2793,7 +2793,7 @@ Prefab:
     - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
         type: 2}
       propertyPath: timeToNonRestExercise
-      value: 1
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
         type: 2}
@@ -2810,6 +2810,11 @@ Prefab:
       propertyPath: trainingScreens.Array.data[2].rootParent
       value: 
       objectReference: {fileID: 1909555744}
+    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
+        type: 2}
+      propertyPath: timeToNonTimeExercise
+      value: 0.95
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3e7a5429b3e988e4f8ce33bf793f8207, type: 2}
   m_IsPrefabParent: 0
@@ -5155,7 +5160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407faa3e0da6a4e43afad82cf4af8200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeScale: 5
+  timeScale: 2.5
 --- !u!1001 &1071197227
 Prefab:
   m_ObjectHideFlags: 0

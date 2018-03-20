@@ -111,9 +111,24 @@ public class TrainingScreen
 
         timer.gameObject.SetActive(true);
         timer.ExecuteWatch(exercises[actualExercise].time);
+    }
 
+    public void FadeOutReady()
+    {
         // Fade event!
         Fader.Singleton.FadeOutButton(readyButton.gameObject);
+    }
+
+    public void FadeInContinue()
+    {
+        // Fade event!
+        Fader.Singleton.FadeInButton(continueButton.gameObject);
+    }
+
+    public void FadeOutContinue()
+    {
+        // Fade event!
+        Fader.Singleton.FadeOutButton(continueButton.gameObject);
     }
 
     public bool ActualExerciseHasRest()

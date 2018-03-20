@@ -68,8 +68,7 @@ public class UIManager : MonoBehaviour {
 
     [Space(10f)] [Header("Screen: Training")]
 
-    [SerializeField]
-    private GameObject[] trainingScreens;
+    public GameObject[] trainingScreens;
     [SerializeField]
     private string[] warmUpTexts;
     [SerializeField]
