@@ -51,10 +51,19 @@ public class Fader : MonoBehaviour {
 
     private void Start()
     {
+        Suscribe();
+
         screenFadeEndValue = (screenFadeEndValue < 0 || screenFadeEndValue > 1) ? Mathf.Clamp01(screenFadeEndValue) : screenFadeEndValue;
 
         alphaInitialValue = (alphaInitialValue < 0 || alphaInitialValue > 1) ? Mathf.Clamp01(alphaInitialValue) : alphaInitialValue;
+    }
 
+    #endregion
+
+    #region Class functions
+
+    private void Suscribe()
+    {
         // Fade events
         Observer.Singleton.onDataScreenFade += FadeScreen;
         Observer.Singleton.onExerciseDataScreenFade += FadeScreen;
@@ -64,10 +73,6 @@ public class Fader : MonoBehaviour {
         Observer.Singleton.onTrainingScreenEndFade += FadeScreen;
         Observer.Singleton.onStretchingScreenEndFade += FadeScreen;
     }
-
-    #endregion
-
-    #region Class functions
 
     public void FadeScreen(GameObject parent)
     {
@@ -93,6 +98,20 @@ public class Fader : MonoBehaviour {
         {
             text.DOFade(screenFadeEndValue, screenFadeDuration).OnComplete(OnFadeCallback);
         }
+    }
+
+    public void FadeInButton(GameObject button)
+    {
+        Text buttonText = button.GetComponent<Text>();
+
+        buttonText.DOFade(Mathf.Clamp01(screenFadeEndValue), screenFadeDuration);
+    }
+
+    public void FadeOutButton(GameObject button)
+    {
+        Text buttonText = button.GetComponent<Text>();
+
+        buttonText.DOFade(1 - Mathf.Clamp01(screenFadeEndValue), screenFadeDuration);
     }
 
     private void CheckAlphaStatus(GameObject parent)

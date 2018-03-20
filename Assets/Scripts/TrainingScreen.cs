@@ -12,16 +12,16 @@ public class TrainingScreen
 {
     #region Properties
 
+    public GameObject rootParent;
     [SerializeField]
     private Text exerciseName;
     [SerializeField]
     private Text exerciseDescription;
     [SerializeField]
     private VideoPlayer videoPlayer;
-    [SerializeField]
-    private Button readyButton;
-    [SerializeField]
-    private Button continueButton;
+    
+    public Button readyButton;
+    public Button continueButton;
 
     [Space(10f)]
 
@@ -32,6 +32,11 @@ public class TrainingScreen
     public Timer timer;
 
     // Hidden
+    [HideInInspector]
+    public bool readyIsAlreadyPressed;
+    [HideInInspector]
+    public bool continueIsAlreadyPressed;
+
     public int actualExercise
     {
         get; private set;
@@ -106,6 +111,10 @@ public class TrainingScreen
 
         timer.gameObject.SetActive(true);
         timer.ExecuteWatch(exercises[actualExercise].time);
+
+        // Fade event!
+        if (rootParent.activeInHierarchy)
+            Fader.Singleton.FadeScreen(rootParent);
     }
 
     public bool ActualExerciseHasRest()

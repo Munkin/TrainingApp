@@ -87,6 +87,9 @@ public class Training : MonoBehaviour {
 
     public void Ready()
     {
+        CheckReady();
+
+        // Ready execution
         if (targetScreen.ActualExerciseHasTime())
             ExecuteTimeExercise();
         else
@@ -95,6 +98,9 @@ public class Training : MonoBehaviour {
 
     public void Continue()
     {
+        CheckContinue();
+
+        // Continue execution
         if (targetScreen.ActualExerciseHasRest())
             ExecuteRest();
         else
@@ -132,6 +138,30 @@ public class Training : MonoBehaviour {
 
         targetScreen = trainingScreens[2];
         targetScreen.SetupScreen();
+    }
+
+    private void CheckReady()
+    {
+        // Constraints
+        if (targetScreen.readyIsAlreadyPressed)
+            return;
+
+        if (targetScreen.continueIsAlreadyPressed)
+            targetScreen.continueIsAlreadyPressed = false;
+
+        targetScreen.readyIsAlreadyPressed = true;
+    }
+
+    private void CheckContinue()
+    {
+        // Constraints
+        if (targetScreen.continueIsAlreadyPressed)
+            return;
+
+        if (targetScreen.readyIsAlreadyPressed)
+            targetScreen.readyIsAlreadyPressed = false;
+
+        targetScreen.continueIsAlreadyPressed = true;
     }
 
     private void ExecuteTimeExercise()
@@ -210,11 +240,18 @@ public class Training : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("Training :: NonRest");
 
+        // Fade event!
+        Fader.Singleton.FadeOutButton(targetScreen.continueButton.gameObject);
+
         yield return new WaitForSeconds(timeToNonRestExercise);
 
         targetScreen.SetActiveReady(true);
         targetScreen.SetActiveContinue(false);
         targetScreen.SetupExercise();
+
+        // Fade event!
+        if (targetScreen.rootParent.activeInHierarchy)
+            Fader.Singleton.FadeScreen(targetScreen.rootParent);
     }
 
     #endregion
