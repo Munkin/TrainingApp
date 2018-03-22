@@ -463,7 +463,7 @@ GameObject:
   m_Component:
   - component: {fileID: 158352633}
   m_Layer: 5
-  m_Name: 02-DataScreen
+  m_Name: 02_DataScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9586,7 +9586,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2096448986}
   m_Layer: 5
-  m_Name: 03-ExerciseDataScreen
+  m_Name: 03_ExerciseDataScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
