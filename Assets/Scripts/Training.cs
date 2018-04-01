@@ -17,7 +17,7 @@ public enum TrainingDay
     One, Two, Three, Four, Five, Six, Seven
 }
 
-public class Training : MonoBehaviour {
+public class Training : MonoBehaviour { //TODO Training instantiate.
 
     #region Properties
 
