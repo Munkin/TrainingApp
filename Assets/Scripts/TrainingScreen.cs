@@ -44,8 +44,6 @@ public class TrainingScreen
 
     #endregion
 
-    // TODO Make frame
-
     #region Class functions
 
     public void SetupExercise()
@@ -86,7 +84,7 @@ public class TrainingScreen
 
         videoPlayer.clip = exercises[actualExercise].videoClip;
         videoPlayer.Play();
-    } // TODO Optimize video player in mobiles
+    } // TODO Optimize video player in mobiles.
 
     public void ActiveContinue()
     {
@@ -136,6 +134,7 @@ public class TrainingScreen
         if (exercises[actualExercise].restTime < 0)
             exercises[actualExercise].restTime = 0;
 
+        // Has the current exercise rest time setted ?
         if (exercises[actualExercise].restTime != 0)
             return true;
         else
@@ -147,6 +146,7 @@ public class TrainingScreen
         if (exercises[actualExercise].time < 0)
             exercises[actualExercise].time = 0;
 
+        // Has the current exercise rest time setted ?
         if (exercises[actualExercise].time != 0)
             return true;
         else

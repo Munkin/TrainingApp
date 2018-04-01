@@ -84,8 +84,6 @@ public class Timer : MonoBehaviour {
             {
                 Observer.Singleton.OnTimerDone();
 
-                yield return null;
-
                 StopWatch();
             }
 

@@ -48,7 +48,11 @@ public class Observer : MonoBehaviour {
     public Action onSave;
     public Action onLoad;
 
-    // Time actions
+    // Fade Actions
+    public Action onScreenFadeCallback;
+    public Action onButtonFadeCallback;
+
+    // Time Actions
     public Action onTimerDone;
 
     // Singleton!
@@ -236,7 +240,7 @@ public class Observer : MonoBehaviour {
             onStretchingScreenEnd();
     }
     
-    // ***
+    // *** OTHER EVENTS ***
 
     public void OnSave()
     {
@@ -256,6 +260,26 @@ public class Observer : MonoBehaviour {
         // Event call!
         if (onLoad != null)
             onLoad();
+    }
+
+    public void OnScreenFadeCallback()
+    {
+        if (enableConsoleLog)
+            Debug.Log("Observer :: OnFadeCallback");
+
+        // Event call!
+        if (onScreenFadeCallback != null)
+            onScreenFadeCallback();
+    }
+
+    public void OnButtonFadeCallback()
+    {
+        if (enableConsoleLog)
+            Debug.Log("Observer :: OnButtonFadeCallback");
+
+        // Event call!
+        if (onButtonFadeCallback != null)
+            onButtonFadeCallback();
     }
 
     public void OnTimerDone()

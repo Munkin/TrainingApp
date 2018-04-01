@@ -21,6 +21,11 @@ public class DataManager : MonoBehaviour {
     #region Properties
 
     [SerializeField]
+    private bool enableConsoleLog;
+
+    [Space(10f)]
+
+    [SerializeField]
     private Data data;
 
     [Space(10f)]
@@ -51,16 +56,11 @@ public class DataManager : MonoBehaviour {
     [SerializeField]
     private Text weightText;
 
-    [Space(10f)]
-
-    [SerializeField]
-    private bool enableConsoleLog;
-
     // Hidden
-    private string userName; private bool isUserName;
-    private int age; private bool isAge;
-    private float height; private bool isHeight;
-    private float weight; private bool isWeight;
+    private string userName; private bool inputFieldHasCorrectUserName;
+    private int age; private bool inputFieldHasCorrectAge;
+    private float height; private bool inputFieldHasCorrectHeight;
+    private float weight; private bool inputFieldHasCorrectWeight;
 
     public float imc
     {
@@ -84,7 +84,7 @@ public class DataManager : MonoBehaviour {
     {
         get; private set;
     }
-    public TrainingLevel training
+    public TrainingLevel trainingLevel
     {
         get; private set;
     }
@@ -112,9 +112,6 @@ public class DataManager : MonoBehaviour {
             Singleton = this;
 
         Suscribe();
-
-        if (!data.isFirstTime)
-            LoadData();
     }
 
     #endregion
@@ -124,9 +121,14 @@ public class DataManager : MonoBehaviour {
     private void Suscribe()
     {
         Observer.Singleton.onExerciseDataScreen += EstimateIMC;
+        // On test result events
         Observer.Singleton.onTestResult += EstimateTotalScore;
         Observer.Singleton.onTestResult += SetTraining;
         Observer.Singleton.onTestResult += SaveData;
+
+        // Data event
+        if (!data.isFirstTime)
+            LoadData();
     }
 
     private void Setup()
@@ -164,7 +166,7 @@ public class DataManager : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("DataManager :: Save");
 
-        data.Save(userName, age, height, weight, imc, score, complexion, training);
+        data.Save(userName, age, height, weight, imc, score, complexion, trainingLevel);
     }
 
     private void LoadData()
@@ -180,7 +182,7 @@ public class DataManager : MonoBehaviour {
         score = data.score;
 
         complexion = data.complexion;
-        training = data.training;
+        trainingLevel = data.training;
     }
 
     public void EstimateIMC()
@@ -257,7 +259,7 @@ public class DataManager : MonoBehaviour {
         if (amount <= 0)
             return;
 
-        score += amount;
+        score -= amount;
     }
 
     public void OnNameEndEdit(string value)
@@ -270,10 +272,11 @@ public class DataManager : MonoBehaviour {
 
         userName = CheckName(value);
 
+        // Is the name input field empty ?
         if (!string.IsNullOrEmpty(userName))
-            isUserName = true;
+            inputFieldHasCorrectUserName = true;
         else
-            isUserName = false;
+            inputFieldHasCorrectUserName = false;
 
         CheckData();
 
@@ -301,10 +304,11 @@ public class DataManager : MonoBehaviour {
             }
         }
 
+        // Is the age in thecorrect range ?
         if (age >= minAge && age <= maxAge)
-            isAge = true;
+            inputFieldHasCorrectAge = true;
         else
-            isAge = false;
+            inputFieldHasCorrectAge = false;
 
         CheckData();
     } // TODO Mobile InputField fix.
@@ -330,14 +334,15 @@ public class DataManager : MonoBehaviour {
             }
         }
 
+        // Is the height input field non a number ?
         if (float.IsNaN(height))
-            isHeight = false;
+            inputFieldHasCorrectHeight = false;
         else
         {
             if (height > 0)
-                isHeight = true;
+                inputFieldHasCorrectHeight = true;
             else
-                isHeight = false;
+                inputFieldHasCorrectHeight = false;
         }
 
         CheckData();
@@ -364,14 +369,15 @@ public class DataManager : MonoBehaviour {
             }
         }
 
+        // Is the height input field non a number ?
         if (float.IsNaN(weight))
-            isWeight = false;
+            inputFieldHasCorrectWeight = false;
         else
         {
             if (weight > 0)
-                isWeight = true;
+                inputFieldHasCorrectWeight = true;
             else
-                isWeight = false;
+                inputFieldHasCorrectWeight = false;
         }
 
         CheckData();
@@ -381,16 +387,16 @@ public class DataManager : MonoBehaviour {
     {
         // Training estimation.
         if (score <= 14)
-            training = TrainingLevel.Begginer;
+            trainingLevel = TrainingLevel.Begginer;
         else if (score >= 15 && score <= 24)
-            training = TrainingLevel.Rookie;
+            trainingLevel = TrainingLevel.Rookie;
         else if (score >= 25 && score <= 34)
-            training = TrainingLevel.Medium;
+            trainingLevel = TrainingLevel.Medium;
         else
-            training = TrainingLevel.Advance;
+            trainingLevel = TrainingLevel.Advance;
 
         if (enableConsoleLog)
-            Debug.Log(string.Format("DataManager :: SetTraining :: {0}", training.ToString()));
+            Debug.Log(string.Format("DataManager :: SetTraining :: {0}", trainingLevel.ToString()));
     }
 
     private string CheckName(string value)
@@ -430,11 +436,12 @@ public class DataManager : MonoBehaviour {
         }
 
         return name;
-    }
+    } // Name validation
 
     private void CheckData()
     {
-        if (isUserName && isAge && isWeight && isHeight)
+        // Are all the input fields with the correct data ?
+        if (inputFieldHasCorrectUserName && inputFieldHasCorrectAge && inputFieldHasCorrectWeight && inputFieldHasCorrectHeight)
             UIManager.Singleton.EnableContinueButton();
         else
             UIManager.Singleton.DisableContinueButton();

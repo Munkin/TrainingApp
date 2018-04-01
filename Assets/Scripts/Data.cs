@@ -48,6 +48,8 @@ public class Data : ScriptableObject {
 
         Observer.Singleton.OnSave();
         */
+
+        // TODO Save data.
     }
 
     public Data Load()

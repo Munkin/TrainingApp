@@ -80,6 +80,11 @@ public class UIManager : MonoBehaviour {
     private int textIndex = 0;
     private int question = 0;
 
+    // Button State Control
+    private bool continueIsAlreadyPressed;
+    private bool nextQuestionIsAlreadyPressed;
+    private bool continueToTrainingIsAlreadyPressed;
+
     // Singleton!
     public static UIManager Singleton
     {
@@ -137,6 +142,11 @@ public class UIManager : MonoBehaviour {
         Observer.Singleton.onStretchingScreenStart += EnableIntroductionScreen;
         Observer.Singleton.onStretchingScreenStart += FadeInToStretching;
         Observer.Singleton.onStretchingScreenEnd += EnableStretching;
+
+        // *** BUTTON CONTROL EVENTS
+
+        Observer.Singleton.onExerciseDataScreen += ContinueCanBePressedAgain;
+        Observer.Singleton.onWarmingUpScreenStart += ContinueToTrainingCanBePressedAgain;
     }
 
     private void Setup()
@@ -358,6 +368,12 @@ public class UIManager : MonoBehaviour {
 
     public void Continue()
     {
+        // Is the button already pressed ?
+        if (continueIsAlreadyPressed)
+            return;
+
+        continueIsAlreadyPressed = true;
+
         Observer.Singleton.OnExerciseDataScreen();
     }
 
@@ -383,12 +399,27 @@ public class UIManager : MonoBehaviour {
 
     public void NextQuestion()
     {
+        // Is the button already pressed ?
+        if (nextQuestionIsAlreadyPressed)
+            return;
+
+        nextQuestionIsAlreadyPressed = true;
+
+        // Suscribing in to fade event
+        Observer.Singleton.onScreenFadeCallback += NextQuestionCanBePressedAgain;
+
         Fader.Singleton.FadeScreen(screens[2]);
 
         CheckSelectedOption();
 
+        // Setting new question
         if (question >= 4)
+        {
             Observer.Singleton.OnTestResult();
+
+            // Unsuscribing from fade event
+            Observer.Singleton.onScreenFadeCallback -= NextQuestionCanBePressedAgain;
+        }
         else
         {
             question++;
@@ -484,6 +515,7 @@ public class UIManager : MonoBehaviour {
                         break;
                 }
 
+                // Reset the toogles
                 optionToggles[i].isOn = false;
                 optionToggles[0].isOn = true;
 
@@ -504,6 +536,12 @@ public class UIManager : MonoBehaviour {
 
     public void ContinueToTraining()
     {
+        // Is the button already pressed ?
+        if (continueToTrainingIsAlreadyPressed)
+            return;
+
+        continueToTrainingIsAlreadyPressed = true;
+
         Observer.Singleton.OnWarmingUpScreenStart();
     }
 
@@ -539,7 +577,7 @@ public class UIManager : MonoBehaviour {
                 break;
         }
 
-        switch (DataManager.Singleton.training)
+        switch (DataManager.Singleton.trainingLevel)
         {
             case TrainingLevel.Begginer:
                 trainingText.text = "NOVATO";
@@ -578,12 +616,14 @@ public class UIManager : MonoBehaviour {
 
     private void EnableScreen(int index)
     {
+        // Loop through every single screen
         for (int i = 0; i < screens.Length; i++)
         {
             if (i == index)
                 screens[i].SetActive(true);
             else
             {
+                // Is other screen active in the scene ?
                 if (screens[i].activeInHierarchy)
                     screens[i].SetActive(false);
             }
@@ -671,6 +711,23 @@ public class UIManager : MonoBehaviour {
             EnableTrainingScreen();
 
         EnableTrainingScreen(2);
+    }
+
+    // *** BUTTONS CAN BE PRESSED AGAIN FUNCTIONS
+
+    private void ContinueCanBePressedAgain()
+    {
+        continueIsAlreadyPressed = false;
+    }
+
+    private void NextQuestionCanBePressedAgain()
+    {
+        nextQuestionIsAlreadyPressed = false;
+    }
+
+    private void ContinueToTrainingCanBePressedAgain()
+    {
+        continueToTrainingIsAlreadyPressed = false;
     }
 
     #endregion

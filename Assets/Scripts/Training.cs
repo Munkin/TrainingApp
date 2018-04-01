@@ -90,7 +90,8 @@ public class Training : MonoBehaviour {
 
     public void Ready()
     {
-        CheckReady();
+        if (ReadyIsAlreadyressed())
+            return;
 
         // Ready execution
         if (targetScreen.ActualExerciseHasTime())
@@ -101,7 +102,8 @@ public class Training : MonoBehaviour {
 
     public void Continue()
     {
-        CheckContinue();
+        if (ContinueIsAlreadyPressed())
+            return;
 
         // Continue execution
         if (targetScreen.ActualExerciseHasRest())
@@ -149,28 +151,32 @@ public class Training : MonoBehaviour {
         CheckButtonsStatus();
     }
 
-    private void CheckReady()
+    private bool ReadyIsAlreadyressed()
     {
         // Constraints
         if (targetScreen.readyIsAlreadyPressed)
-            return;
+            return true;
 
         if (targetScreen.continueIsAlreadyPressed)
             targetScreen.continueIsAlreadyPressed = false;
 
         targetScreen.readyIsAlreadyPressed = true;
+
+        return false;
     }
 
-    private void CheckContinue()
+    private bool ContinueIsAlreadyPressed()
     {
         // Constraints
         if (targetScreen.continueIsAlreadyPressed)
-            return;
+            return true;
 
         if (targetScreen.readyIsAlreadyPressed)
             targetScreen.readyIsAlreadyPressed = false;
 
         targetScreen.continueIsAlreadyPressed = true;
+
+        return false;
     }
 
     private void CheckButtonsStatus()
@@ -178,6 +184,7 @@ public class Training : MonoBehaviour {
         //Setting buttons
         if (!targetScreen.readyButton.gameObject.activeInHierarchy)
             targetScreen.SetActiveReady(true);
+
         if (targetScreen.continueButton.gameObject.activeInHierarchy)
             targetScreen.SetActiveContinue(false);
     }
@@ -207,7 +214,7 @@ public class Training : MonoBehaviour {
         rest = Rest();
 
         StartCoroutine(rest);
-    } // TODO Execute Rest
+    } // TODO Execute Rest.
 
     private void ExecuteNonRest()
     {
