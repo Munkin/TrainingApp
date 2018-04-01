@@ -666,7 +666,7 @@ public class UIManager : MonoBehaviour {
 
     // *** ENABLE TRAINING SCREEN FUNCTIONS ***
 
-    private void EnableTrainingScreen(int index)
+    private void EnablePractice(int index)
     {
         for (int i = 0; i < trainingScreens.Length; i++)
         {
@@ -685,10 +685,11 @@ public class UIManager : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("UIManager :: EnableWarmingUp");
 
+        // Is the training screen active in hierarchy ?
         if (!screens[4].activeInHierarchy)
             EnableTrainingScreen();
 
-        EnableTrainingScreen(0);
+        EnablePractice(0);
     }
 
     private void EnableTraining()
@@ -696,10 +697,11 @@ public class UIManager : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("UIManager :: EnableTraining");
 
+        // Is the training screen active in hierarchy ?
         if (!screens[4].activeInHierarchy)
             EnableTrainingScreen();
 
-        EnableTrainingScreen(1);
+        EnablePractice(1);
     }
 
     private void EnableStretching()
@@ -707,10 +709,11 @@ public class UIManager : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("UIManager :: EnableStretching");
 
+        // Is the training screen active in hierarchy ?
         if (!screens[4].activeInHierarchy)
             EnableTrainingScreen();
 
-        EnableTrainingScreen(2);
+        EnablePractice(2);
     }
 
     // *** BUTTONS CAN BE PRESSED AGAIN FUNCTIONS

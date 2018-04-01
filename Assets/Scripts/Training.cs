@@ -229,7 +229,7 @@ public class Training : MonoBehaviour {
 
     private void StopWatchSound()
     {
-        AudioManager.Singleton.effects[0].Play();
+        AudioManager.Singleton.effects[0].Play(); // Alarm
     }
 
     #endregion

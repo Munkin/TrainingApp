@@ -588,6 +588,66 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 681891075}
   m_Script: {fileID: 1392445389, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+--- !u!1 &275266922
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 275266924}
+  - component: {fileID: 275266923}
+  m_Layer: 0
+  m_Name: VideoPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!328 &275266923
+VideoPlayer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 275266922}
+  m_Enabled: 1
+  m_VideoClip: {fileID: 0}
+  m_TargetCameraAlpha: 1
+  m_TargetCamera3DLayout: 0
+  m_TargetCamera: {fileID: 0}
+  m_TargetTexture: {fileID: 0}
+  m_TimeReference: 0
+  m_TargetMaterialRenderer: {fileID: 0}
+  m_TargetMaterialProperty: _MainTex
+  m_RenderMode: 2
+  m_AspectRatio: 2
+  m_DataSource: 0
+  m_PlaybackSpeed: 1
+  m_AudioOutputMode: 1
+  m_TargetAudioSources: []
+  m_DirectAudioVolumes: []
+  m_Url: 
+  m_EnabledAudioTracks: 
+  m_DirectAudioMutes: 
+  m_ControlledAudioTrackCount: 0
+  m_PlayOnAwake: 1
+  m_SkipOnDrop: 1
+  m_Looping: 0
+  m_WaitForFirstFrame: 1
+  m_FrameReadyEventEnabled: 0
+--- !u!4 &275266924
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 275266922}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &282291807
 GameObject:
   m_ObjectHideFlags: 0
@@ -2510,7 +2570,7 @@ Prefab:
         type: 2}
       propertyPath: trainingScreens.Array.data[0].videoPlayer
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 275266923}
     - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
         type: 2}
       propertyPath: trainingScreens.Array.data[0].readyButton
@@ -2540,7 +2600,7 @@ Prefab:
         type: 2}
       propertyPath: trainingScreens.Array.data[1].videoPlayer
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 275266923}
     - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
         type: 2}
       propertyPath: trainingScreens.Array.data[1].readyButton
@@ -2570,7 +2630,7 @@ Prefab:
         type: 2}
       propertyPath: trainingScreens.Array.data[2].videoPlayer
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 275266923}
     - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
         type: 2}
       propertyPath: trainingScreens.Array.data[2].readyButton
@@ -5155,7 +5215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407faa3e0da6a4e43afad82cf4af8200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeScale: 1
+  timeScale: 5
 --- !u!1001 &1071197227
 Prefab:
   m_ObjectHideFlags: 0
