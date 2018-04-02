@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿// <copyright file="TrainingData.cs" company="Up Up Down Studios">
+// Copyright (c) 2018 All Rights Reserved
+// </copyright>
+// <summary>Training data container.</summary>
+
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "TrainingData", menuName = "Assets/TrainingData", order = 2)]
 public class TrainingData : ScriptableObject {
