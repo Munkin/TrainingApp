@@ -8,6 +8,7 @@ TagManager:
   - MaterialButtonLayer
   - MaterialText
   - NonFadeElement
+  - Toggle
   layers:
   - Default
   - TransparentFX

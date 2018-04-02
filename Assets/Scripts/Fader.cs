@@ -24,6 +24,11 @@ public class Fader : MonoBehaviour {
     [Tooltip("0, 1 Value")] [Range(0, 1)] [SerializeField]
     private float alphaInitialValue;
 
+    [Space(10f)]
+
+    [SerializeField]
+    private Color toggleColor;
+
     // Cached Components
     private float cachedTextAlphaInitialValue;
     private float cachedVideoAlphaInitialValue;
@@ -133,12 +138,22 @@ public class Fader : MonoBehaviour {
                     // Suscribe only ones in the screen fade callback
                     if (isFirstTimeSuscribing)
                     {
-                        image.DOFade(screenFadeEndValue, screenFadeDuration).OnComplete(OnScreenFadeCallback);
+                        // Is the text a toggle element ?
+                        if (image.CompareTag("Toggle"))
+                            image.DOFade(toggleColor.a, screenFadeDuration).OnComplete(OnScreenFadeCallback);
+                        else
+                            image.DOFade(screenFadeEndValue, screenFadeDuration).OnComplete(OnScreenFadeCallback);
 
                         isFirstTimeSuscribing = false;
                     }
                     else
-                        image.DOFade(screenFadeEndValue, screenFadeDuration);
+                    {
+                        // Is the text a toggle element ?
+                        if (image.CompareTag("Toggle"))
+                            image.DOFade(toggleColor.a, screenFadeDuration);
+                        else
+                            image.DOFade(screenFadeEndValue, screenFadeDuration);
+                    }
                 }
             }
         }
@@ -152,12 +167,22 @@ public class Fader : MonoBehaviour {
                 // Suscribe only ones in the screen fade callback
                 if (isFirstTimeSuscribing)
                 {
-                    text.DOFade(screenFadeEndValue, screenFadeDuration).OnComplete(OnScreenFadeCallback);
+                    // Is the text a toggle element ?
+                    if (text.CompareTag("Toggle"))
+                        text.DOFade(toggleColor.a, screenFadeDuration).OnComplete(OnScreenFadeCallback);
+                    else
+                        text.DOFade(screenFadeEndValue, screenFadeDuration).OnComplete(OnScreenFadeCallback);
 
                     isFirstTimeSuscribing = false;
                 }
                 else
-                    text.DOFade(screenFadeEndValue, screenFadeDuration);
+                {
+                    // Is the text a toggle element ?
+                    if (text.CompareTag("Toggle"))
+                        text.DOFade(toggleColor.a, screenFadeDuration);
+                    else
+                        text.DOFade(screenFadeEndValue, screenFadeDuration);
+                }                    
             }
         }
 
