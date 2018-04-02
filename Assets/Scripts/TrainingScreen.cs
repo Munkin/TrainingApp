@@ -83,8 +83,10 @@ public class TrainingScreen
         exerciseDescription.text = exercises[actualExercise].description;
 
         videoPlayer.clip = exercises[actualExercise].videoClip;
-        videoPlayer.Play();
-    } // TODO Optimize video player in mobiles.
+
+        if (!videoPlayer.isPlaying)
+            videoPlayer.Play();
+    }
 
     public void ActiveContinue()
     {

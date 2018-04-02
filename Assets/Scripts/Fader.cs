@@ -4,6 +4,7 @@
 // <summary>Class that hadle fade events.</summary>
 
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -25,11 +26,16 @@ public class Fader : MonoBehaviour {
 
     // Cached Components
     private float cachedTextAlphaInitialValue;
+    private float cachedVideoAlphaInitialValue;
 
     private Image[] images;
     private Text[] texts;
-
     private Text cachedText;
+
+    private Material video;
+
+    // Coroutines
+    private IEnumerator videoFade;
 
     // Singleton!
     public static Fader Singleton
@@ -91,14 +97,24 @@ public class Fader : MonoBehaviour {
         float tempFadeEndValue = screenFadeEndValue;
 
         // Comparing parameters with class values
-        if (fadeDuration != screenFadeDuration)
+        if (screenFadeDuration != fadeDuration)
             screenFadeDuration = fadeDuration;
-        if (fadeEndValue != screenFadeEndValue)
+
+        if (screenFadeEndValue != fadeEndValue)
             screenFadeEndValue = fadeEndValue;
 
         // Getting components from screen parent
         images = parent.GetComponentsInChildren<Image>();
         texts = parent.GetComponentsInChildren<Text>();
+
+        try
+        {
+            video = parent.GetComponentInChildren<RawImage>().material;
+        }
+        catch (Exception)
+        {
+            Debug.LogWarning("No RawImage attached to this object.");
+        }
 
         CheckAlphaStatus(parent);
 
@@ -123,7 +139,6 @@ public class Fader : MonoBehaviour {
                     }
                     else
                         image.DOFade(screenFadeEndValue, screenFadeDuration);
-
                 }
             }
         }
@@ -144,12 +159,16 @@ public class Fader : MonoBehaviour {
                 else
                     text.DOFade(screenFadeEndValue, screenFadeDuration);
             }
-
-            // Setting class values again
-            screenFadeDuration = tempFadeDuration;
-            screenFadeEndValue = tempFadeEndValue;
         }
-    }
+
+        // Is there some video atached to the screen ?
+        if (video != null)
+            ExecuteVideoFade();
+
+        // Setting class values again
+        screenFadeDuration = tempFadeDuration;
+        screenFadeEndValue = tempFadeEndValue;
+    } // TODO Special fade case for toggles
 
     public void FadeInButton(GameObject button)
     {
@@ -184,30 +203,47 @@ public class Fader : MonoBehaviour {
 
     private void CheckAlphaStatus(GameObject parent)
     {
-        // Checking values for images
-        foreach (Image image in images)
+        // Is there some image on the screen ?
+        if (images != null && images.Length > 0)
         {
-            // Is the image a non fade element ?
-            if (!image.CompareTag("NonFadeElement") && !image.CompareTag("MaterialButtonLayer"))
+            // Checking values for images
+            foreach (Image image in images)
             {
-                if (image.color.a != alphaInitialValue)
-                    image.color = new Color(
-                        image.color.r,
-                        image.color.g,
-                        image.color.b,
+                // Is the image a non fade element ?
+                if (!image.CompareTag("NonFadeElement") && !image.CompareTag("MaterialButtonLayer"))
+                {
+                    if (image.color.a != alphaInitialValue)
+                        image.color = new Color(
+                            image.color.r,
+                            image.color.g,
+                            image.color.b,
+                            alphaInitialValue);
+                }
+            }
+        }
+
+        // Is there some text on the screen ?
+        if (texts != null && texts.Length > 0)
+        {
+            // Checking values for texts
+            foreach (Text text in texts)
+            {
+                if (text.color.a != alphaInitialValue)
+                    text.color = new Color(
+                        text.color.r,
+                        text.color.g,
+                        text.color.b,
                         alphaInitialValue);
             }
         }
 
-        // Checking values for texts
-        foreach (Text text in texts)
+        // Is there some video atached to the screen ?
+        if (video != null)
         {
-            if (text.color.a != alphaInitialValue)
-                text.color = new Color(
-                    text.color.r,
-                    text.color.g,
-                    text.color.b,
-                    alphaInitialValue);
+            cachedVideoAlphaInitialValue = video.GetFloat("_Alpha");
+
+            if (cachedVideoAlphaInitialValue != alphaInitialValue)
+                video.SetFloat("_Alpha", alphaInitialValue);
         }
     }
 
@@ -230,6 +266,46 @@ public class Fader : MonoBehaviour {
             cachedText.color.b,
             cachedTextAlphaInitialValue);
     }
-    
+
+    private void ExecuteVideoFade()
+    {
+        // Coroutine execution!
+        StopVideoFade();
+
+        videoFade = VideoFade();
+
+        StartCoroutine(videoFade);
+    }
+
+    private void StopVideoFade()
+    {
+        if (videoFade != null)
+            StopCoroutine(videoFade);
+    }
+
+    #endregion
+
+    #region Coroutines
+
+    private IEnumerator VideoFade()
+    {
+        // Time Control
+        float fadeTime = 0;
+        float fadeValue;
+
+        while (fadeTime < screenFadeDuration)
+        {
+            fadeValue = Mathf.Clamp01(fadeTime / screenFadeDuration) * screenFadeEndValue;
+
+            video.SetFloat("_Alpha", fadeValue);
+
+            fadeTime += Time.deltaTime;
+
+            yield return null;
+        }
+
+        video = null;
+    }
+
     #endregion
 }

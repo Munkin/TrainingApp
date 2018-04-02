@@ -1358,7 +1358,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &618546947
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3784,7 +3784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407faa3e0da6a4e43afad82cf4af8200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeScale: 10
+  timeScale: 1
 --- !u!1001 &1071197227
 Prefab:
   m_ObjectHideFlags: 0
@@ -5780,8 +5780,8 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
+  m_HDR: 0
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -6355,8 +6355,8 @@ MonoBehaviour:
   - Este es tu resultado
   trainingScreens:
   - {fileID: 1014663773}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 548500941}
+  - {fileID: 262317482}
   warmUpTexts:
   - Muy bien, hora de comenzar tu entrenamiento
   - Para ello, vamos a calentar primero
