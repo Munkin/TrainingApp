@@ -120,7 +120,7 @@ public class Training : MonoBehaviour { //TODO Training instantiate.
             ExecuteNonRest();
     }
 
-    // *** SET TRAINING DATA
+    // *** SET TRAINING DATA ***
 
     public void SetTrainingData()
     {
@@ -186,7 +186,7 @@ public class Training : MonoBehaviour { //TODO Training instantiate.
         }
     }
 
-    // *** GENERAL FUNCTIONS
+    // *** GENERAL FUNCTIONS ***
 
     private void SetWarmingUp()
     {
@@ -333,6 +333,8 @@ public class Training : MonoBehaviour { //TODO Training instantiate.
             Debug.Log("Training :: Rest");
 
         yield return null;
+
+        Observer.Singleton.OnRestStart();
 
         targetScreen.SetActiveReady(true);
         targetScreen.SetActiveContinue(false);

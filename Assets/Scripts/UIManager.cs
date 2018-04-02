@@ -76,6 +76,11 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     private string[] stretchingTexts;
 
+    [Space(10f)] [Header("Screen: Rest")]
+
+    [SerializeField]
+    private string[] restTexts;
+
     // Hidden
     private int textIndex = 0;
     private int question = 0;
@@ -84,6 +89,14 @@ public class UIManager : MonoBehaviour {
     private bool continueIsAlreadyPressed;
     private bool nextQuestionIsAlreadyPressed;
     private bool continueToTrainingIsAlreadyPressed;
+
+    // Fade Control
+    private bool fadeInterludeFirstTime;
+    private bool fadeResultFirstTime;
+    private bool fadeWarmingUpFirstTime;
+    private bool fadeTrainingFirstTime;
+    private bool fadeStretchingFirstTime;
+    private bool fadeRestFirstTime;
 
     // Singleton!
     public static UIManager Singleton
@@ -120,6 +133,7 @@ public class UIManager : MonoBehaviour {
 
         Observer.Singleton.onIntroductionScreen += FadeInInterlude;
         Observer.Singleton.onDataScreen += EnableDataScreen;
+        Observer.Singleton.onDataScreen += ResetInterludeFadeValues;
         Observer.Singleton.onExerciseDataScreen += EnableExerciseDataScreen;
         // OnTestResult Events
         Observer.Singleton.onTestResult += EnableIntroductionScreen;
@@ -127,6 +141,7 @@ public class UIManager : MonoBehaviour {
         // OnTestEnd Events
         Observer.Singleton.onTestEnd += EnableCompleteTestScreen;
         Observer.Singleton.onTestEnd += ShowResults;
+        Observer.Singleton.onTestEnd += ResetResultFadeValues;
 
         // *** TRAINING EVENTS ***
 
@@ -134,16 +149,26 @@ public class UIManager : MonoBehaviour {
         Observer.Singleton.onWarmingUpScreenStart += EnableIntroductionScreen;
         Observer.Singleton.onWarmingUpScreenStart += FadeInToWarmingUp;
         Observer.Singleton.onWarmingUpScreenEnd += EnableWarmingUp;
+        Observer.Singleton.onWarmingUpScreenEnd += ResetWarmingUpFadeValues;
         // OnWarmingUpScreen Events
         Observer.Singleton.onTrainingScreenStart += EnableIntroductionScreen;
         Observer.Singleton.onTrainingScreenStart += FadeInToTraining;
         Observer.Singleton.onTrainingScreenEnd += EnableTraining;
+        Observer.Singleton.onTrainingScreenEnd += ResetTrainingFadeValues;
         // OnTrainingScreen Events
         Observer.Singleton.onStretchingScreenStart += EnableIntroductionScreen;
         Observer.Singleton.onStretchingScreenStart += FadeInToStretching;
         Observer.Singleton.onStretchingScreenEnd += EnableStretching;
+        Observer.Singleton.onStretchingScreenEnd += ResetStretchingFadeValues;
 
-        // *** BUTTON CONTROL EVENTS
+        // *** REST EVENTS ***
+
+        Observer.Singleton.onRestStart += EnableIntroductionScreen;
+        Observer.Singleton.onRestStart += FadeInRest;
+        Observer.Singleton.onRestEnd += EnableTrainingScreen;
+        Observer.Singleton.onRestEnd += ResetRestFadeValues;
+
+        // *** BUTTON CONTROL EVENTS ***
 
         Observer.Singleton.onExerciseDataScreen += ContinueCanBePressedAgain;
         Observer.Singleton.onWarmingUpScreenStart += ContinueToTrainingCanBePressedAgain;
@@ -151,15 +176,7 @@ public class UIManager : MonoBehaviour {
 
     private void Setup()
     {
-        interludeText.text = interludeTexts[textIndex];
-
-        for (int i = 0; i < screens.Length; i++)
-        {
-            if (i != 0)
-                screens[i].SetActive(false);
-            else
-                screens[i].SetActive(true);
-        }
+        EnableScreen(0);
     }
 
     // *** INTERLUDE FUNCTIONS ***
@@ -182,8 +199,16 @@ public class UIManager : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("UIManager :: FadeInInterlude");
 
+        // Is the first fade of the entire fade sequence ?
+        if (fadeInterludeFirstTime)
+        {
+            interludeText.text = interludeTexts[0];
+
+            fadeInterludeFirstTime = false;
+        }
+
         interludeText.DOFade(0.8745f, timeToFadeOut).OnComplete(FadeInterlude);
-    }
+    } // 1.
 
     private void SetIntroductionText()
     {
@@ -192,6 +217,7 @@ public class UIManager : MonoBehaviour {
         else
             Observer.Singleton.OnDataScreen();
 
+        // Is the interlude screen active in hierarchy ?
         if (screens[0].activeInHierarchy)
         {
             interludeText.text = interludeTexts[textIndex];
@@ -199,6 +225,11 @@ public class UIManager : MonoBehaviour {
             FadeInInterlude();
         }
     }
+
+    private void ResetInterludeFadeValues()
+    {
+        fadeInterludeFirstTime = true;
+    } // Control function
 
     // ***
 
@@ -220,11 +251,16 @@ public class UIManager : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("UIManager :: FadeInResult");
 
-        if (interludeText.text == interludeTexts[interludeTexts.Length - 1])
+        // Is the first fade of the entire fade sequence ?
+        if (fadeResultFirstTime)
+        {
             interludeText.text = completeTestTexts[0];
 
+            fadeResultFirstTime = false;
+        }
+
         interludeText.DOFade(0.8745f, timeToFadeOut).OnComplete(FadeInterludeResult);
-    }
+    } // 1.
 
     private void SetResultText()
     {
@@ -233,6 +269,7 @@ public class UIManager : MonoBehaviour {
         else
             Observer.Singleton.OnTestEnd();
 
+        // Is the interlude screen active in hierarchy ?
         if (screens[0].activeInHierarchy)
         {
             interludeText.text = completeTestTexts[textIndex];
@@ -240,7 +277,12 @@ public class UIManager : MonoBehaviour {
             FadeInResult();
         }
     }
-    
+
+    private void ResetResultFadeValues()
+    {
+        fadeResultFirstTime = true;
+    } // Control function
+
     // ***
 
     private void FadeOutToWarmingUp()
@@ -261,11 +303,16 @@ public class UIManager : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("UIManager :: FadeInToWarmingUp");
 
-        if (interludeText.text == completeTestTexts[completeTestTexts.Length - 1])
+        // Is the first fade of the entire fade sequence ?
+        if (fadeWarmingUpFirstTime)
+        {
             interludeText.text = warmUpTexts[0];
 
+            fadeWarmingUpFirstTime = false;
+        }
+
         interludeText.DOFade(0.8745f, timeToFadeOut).OnComplete(FadeInterludeToWarmingUp);
-    }
+    } // 1.
 
     private void SetToWarmingUp()
     {
@@ -274,6 +321,7 @@ public class UIManager : MonoBehaviour {
         else
             Observer.Singleton.OnWarmingUpScreenEnd();
 
+        // Is the interlude screen active in hierarchy ?
         if (screens[0].activeInHierarchy)
         {
             interludeText.text = warmUpTexts[textIndex];
@@ -281,6 +329,11 @@ public class UIManager : MonoBehaviour {
             FadeInToWarmingUp();
         }
     }
+
+    private void ResetWarmingUpFadeValues()
+    {
+        fadeWarmingUpFirstTime = true;
+    } // Control function
 
     // ***
 
@@ -302,11 +355,16 @@ public class UIManager : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("UIManager :: FadeInToTraining");
 
-        if (interludeText.text == warmUpTexts[warmUpTexts.Length - 1])
+        // Is the first fade of the entire fade sequence ?
+        if (fadeTrainingFirstTime)
+        {
             interludeText.text = trainingTexts[0];
 
+            fadeTrainingFirstTime = false;
+        }
+
         interludeText.DOFade(0.8745f, timeToFadeOut).OnComplete(FadeInterludeToTraining);
-    }
+    } // 1.
 
     private void SetToTraining()
     {
@@ -315,6 +373,7 @@ public class UIManager : MonoBehaviour {
         else
             Observer.Singleton.OnTrainingScreenEnd();
 
+        // Is the interlude screen active in hierarchy ?
         if (screens[0].activeInHierarchy)
         {
             interludeText.text = trainingTexts[textIndex];
@@ -322,6 +381,11 @@ public class UIManager : MonoBehaviour {
             FadeInToTraining();
         }
     }
+
+    private void ResetTrainingFadeValues()
+    {
+        fadeTrainingFirstTime = true;
+    } // Control function
 
     // ***
 
@@ -343,11 +407,16 @@ public class UIManager : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("UIManager :: FadeInToStretching");
 
-        if (interludeText.text == trainingTexts[trainingTexts.Length - 1])
+        // Is the first fade of the entire fade sequence ?
+        if (fadeStretchingFirstTime)
+        {
             interludeText.text = stretchingTexts[0];
 
+            fadeStretchingFirstTime = false;
+        }
+
         interludeText.DOFade(0.8745f, timeToFadeOut).OnComplete(FadeInterludeToStretching);
-    }
+    } // 1.
 
     private void SetToStretching()
     {
@@ -356,6 +425,7 @@ public class UIManager : MonoBehaviour {
         else
             Observer.Singleton.OnStretchingScreenEnd();
 
+        // Is the interlude screen active in hierarchy ?
         if (screens[0].activeInHierarchy)
         {
             interludeText.text = stretchingTexts[textIndex];
@@ -363,6 +433,63 @@ public class UIManager : MonoBehaviour {
             FadeInToStretching();
         }
     }
+
+    private void ResetStretchingFadeValues()
+    {
+        fadeStretchingFirstTime = true;
+    } // Control function
+
+    // ***
+
+    private void FadeOutRest()
+    {
+        if (enableConsoleLog)
+            Debug.Log("UIManager :: FadeOutRest");
+
+        interludeText.DOFade(0.0f, timeToFadeIn).OnComplete(SetRestText);
+    }
+
+    private void FadeInterludeRest()
+    {
+        interludeText.DOFade(interludeText.color.a, timeToFadeOut).OnComplete(FadeOutRest);
+    }
+
+    private void FadeInRest() // 1.
+    {
+        if (enableConsoleLog)
+            Debug.Log("UIManager :: FadeInRest");
+
+        // Is the first fade of the entire fade sequence ?
+        if (fadeRestFirstTime)
+        {
+            interludeText.text = restTexts[0];
+
+            fadeRestFirstTime = false;
+        }
+
+        interludeText.DOFade(0.8745f, timeToFadeOut).OnComplete(FadeInterludeRest);
+    }
+
+    private void SetRestText()
+    {
+        if (textIndex < restTexts.Length - 1)
+            textIndex++;
+        else
+            Observer.Singleton.OnRestEnd();
+
+        // Is the interlude screen active in hierarchy ?
+        if (screens[0].activeInHierarchy)
+        {
+            interludeText.text = restTexts[textIndex];
+
+            FadeInRest();
+        }
+    }
+
+    private void ResetRestFadeValues()
+    {
+        fadeRestFirstTime = true;
+    } // Control function
 
     // *** DATA SCREEN ***
 
@@ -632,6 +759,7 @@ public class UIManager : MonoBehaviour {
 
     private void EnableIntroductionScreen()
     {
+        // Reset the text index
         textIndex = 0;
 
         EnableScreen(0);
@@ -716,7 +844,7 @@ public class UIManager : MonoBehaviour {
         EnablePractice(2);
     }
 
-    // *** BUTTONS CAN BE PRESSED AGAIN FUNCTIONS
+    // *** BUTTONS CAN BE PRESSED AGAIN FUNCTIONS ***
 
     private void ContinueCanBePressedAgain()
     {

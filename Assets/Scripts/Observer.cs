@@ -42,16 +42,21 @@ public class Observer : MonoBehaviour {
     public Action<GameObject, float, float> onTrainingScreenEndFade;
     public Action<GameObject, float, float> onStretchingScreenEndFade;
 
-    // Others ***
+    // Data Actions ***
 
-    // Data Actions
     public Action onSave;
     public Action onLoad;
+
+    // Rest Actions ***
+
+    public Action onRestStart;
+    public Action onRestEnd;
+
+    // Other actions ***
 
     // Fade Actions
     public Action onScreenFadeCallback;
     public Action onButtonFadeCallback;
-
     // Time Actions
     public Action onTimerDone;
 
@@ -240,7 +245,7 @@ public class Observer : MonoBehaviour {
             onStretchingScreenEnd();
     }
     
-    // *** OTHER EVENTS ***
+    // *** DATA EVENTS ***
 
     public void OnSave()
     {
@@ -261,6 +266,30 @@ public class Observer : MonoBehaviour {
         if (onLoad != null)
             onLoad();
     }
+
+    // *** REST EVENTS ***
+
+    public void OnRestStart()
+    {
+        if (enableConsoleLog)
+            Debug.Log("Observer :: OnRestStart");
+
+        // Event call!
+        if (onRestStart != null)
+            onRestStart();
+    }
+
+    public void OnRestEnd()
+    {
+        if (enableConsoleLog)
+            Debug.Log("Observer :: OnRestEnd");
+
+        // Event call!
+        if (onRestEnd != null)
+            onRestEnd();
+    }
+
+    // *** OTHER EVENTS ***
 
     public void OnScreenFadeCallback()
     {
