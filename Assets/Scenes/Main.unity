@@ -528,6 +528,11 @@ Prefab:
       propertyPath: m_SizeDelta.y
       value: 14.4262295
       objectReference: {fileID: 0}
+    - target: {fileID: 114051181466131732, guid: 21fb3ffcd9ad127459f930a14ed61567,
+        type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 2dcc275f3e78462459f905422ef71b8b, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 21fb3ffcd9ad127459f930a14ed61567, type: 2}
   m_IsPrefabParent: 0
@@ -1286,6 +1291,11 @@ Prefab:
       propertyPath: m_TargetTexture
       value: 
       objectReference: {fileID: 8400000, guid: d2e262899116089439c58a47d11db515, type: 2}
+    - target: {fileID: 114051181466131732, guid: 21fb3ffcd9ad127459f930a14ed61567,
+        type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 72f0e27f4d2967a47b44ba9022323039, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 21fb3ffcd9ad127459f930a14ed61567, type: 2}
   m_IsPrefabParent: 0
@@ -2120,12 +2130,22 @@ Prefab:
     - target: {fileID: 224026023748842780, guid: 21fb3ffcd9ad127459f930a14ed61567,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 96
+      value: 122.327866
       objectReference: {fileID: 0}
     - target: {fileID: 224026023748842780, guid: 21fb3ffcd9ad127459f930a14ed61567,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 50
+      value: 64.42623
+      objectReference: {fileID: 0}
+    - target: {fileID: 224855344735324348, guid: 21fb3ffcd9ad127459f930a14ed61567,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 60.32787
+      objectReference: {fileID: 0}
+    - target: {fileID: 224855344735324348, guid: 21fb3ffcd9ad127459f930a14ed61567,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 14.4262295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 21fb3ffcd9ad127459f930a14ed61567, type: 2}
@@ -3764,7 +3784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407faa3e0da6a4e43afad82cf4af8200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeScale: 1
+  timeScale: 10
 --- !u!1001 &1071197227
 Prefab:
   m_ObjectHideFlags: 0
