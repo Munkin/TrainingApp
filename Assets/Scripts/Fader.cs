@@ -193,7 +193,7 @@ public class Fader : MonoBehaviour {
         // Setting class values again
         screenFadeDuration = tempFadeDuration;
         screenFadeEndValue = tempFadeEndValue;
-    } // TODO Special fade case for toggles
+    }
 
     public void FadeInButton(GameObject button)
     {

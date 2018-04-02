@@ -824,6 +824,117 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 841478395}
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+--- !u!1 &426486921
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1163022554178520, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 426486923}
+  - component: {fileID: 426486922}
+  m_Layer: 0
+  m_Name: Training
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &426486922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 426486921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66735dfa4c09a3941b3ea79125be4cc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableConsoleLog: 0
+  timeToNonTimeExercise: 0.95
+  timeToNonRestExercise: 0.95
+  trainingScreens:
+  - rootParent: {fileID: 1014663773}
+    exerciseName: {fileID: 1195741708}
+    exerciseDescription: {fileID: 1191212502}
+    videoPlayer: {fileID: 8589632}
+    readyButton: {fileID: 900888916}
+    continueButton: {fileID: 184511325}
+    screenData:
+      exercises:
+      - name: EJERCICIO 1
+        description: "Esta es la descripci\xF3n del ejercicio"
+        time: 0
+        restTime: 0
+        videoClip: {fileID: 32900000, guid: 7b901116f4ea8e84c95e45fd19f3037a, type: 3}
+      - name: EJERCICIO 2
+        description: "Esta es la descripci\xF3n del ejercicio"
+        time: 5
+        restTime: 0
+        videoClip: {fileID: 32900000, guid: cd20aa4e659d0394a8156db36c557536, type: 3}
+    timer: {fileID: 282291809}
+    readyIsAlreadyPressed: 0
+    continueIsAlreadyPressed: 0
+  - rootParent: {fileID: 548500941}
+    exerciseName: {fileID: 548500940}
+    exerciseDescription: {fileID: 548500939}
+    videoPlayer: {fileID: 548500942}
+    readyButton: {fileID: 548500938}
+    continueButton: {fileID: 548500937}
+    screenData:
+      exercises:
+      - name: EJERCICIO 1
+        description: "Esta es la descripci\xF3n del ejercicio"
+        time: 0
+        restTime: 0
+        videoClip: {fileID: 32900000, guid: 9d91cdf4f0df692458527c3ad593a341, type: 3}
+      - name: EJERCICIO 2
+        description: "Esta es la descripci\xF3n del ejercicio"
+        time: 5
+        restTime: 0
+        videoClip: {fileID: 32900000, guid: 81620bda5d91984448e2b0f02c951479, type: 3}
+    timer: {fileID: 548500936}
+    readyIsAlreadyPressed: 0
+    continueIsAlreadyPressed: 0
+  - rootParent: {fileID: 262317482}
+    exerciseName: {fileID: 262317481}
+    exerciseDescription: {fileID: 262317480}
+    videoPlayer: {fileID: 262317483}
+    readyButton: {fileID: 262317479}
+    continueButton: {fileID: 262317478}
+    screenData:
+      exercises:
+      - name: EJERCICIO 1
+        description: "Esta es la descripci\xF3n del ejercicio"
+        time: 0
+        restTime: 0
+        videoClip: {fileID: 32900000, guid: b15f7b4a8eeea4c47a117f10bd643e1d, type: 3}
+      - name: EJERCICIO 2
+        description: "Esta es la descripci\xF3n del ejercicio"
+        time: 5
+        restTime: 0
+        videoClip: {fileID: 32900000, guid: c3988002d479ef949b9e1df15b853c5e, type: 3}
+    timer: {fileID: 262317477}
+    readyIsAlreadyPressed: 0
+    continueIsAlreadyPressed: 0
+  trainingStage: 0
+--- !u!4 &426486923
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4528063974928696, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 426486921}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &444412723
 GameObject:
   m_ObjectHideFlags: 0
@@ -1540,376 +1651,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!1001 &692358181
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].exercises.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].exercises.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4528063974928696, guid: 3e7a5429b3e988e4f8ce33bf793f8207, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4528063974928696, guid: 3e7a5429b3e988e4f8ce33bf793f8207, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4528063974928696, guid: 3e7a5429b3e988e4f8ce33bf793f8207, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4528063974928696, guid: 3e7a5429b3e988e4f8ce33bf793f8207, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4528063974928696, guid: 3e7a5429b3e988e4f8ce33bf793f8207, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4528063974928696, guid: 3e7a5429b3e988e4f8ce33bf793f8207, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4528063974928696, guid: 3e7a5429b3e988e4f8ce33bf793f8207, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4528063974928696, guid: 3e7a5429b3e988e4f8ce33bf793f8207, type: 2}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[0].exerciseName
-      value: 
-      objectReference: {fileID: 1195741708}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[0].exerciseDescription
-      value: 
-      objectReference: {fileID: 1191212502}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[0].videoPlayer
-      value: 
-      objectReference: {fileID: 8589632}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[0].readyButton
-      value: 
-      objectReference: {fileID: 900888916}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[0].continueButton
-      value: 
-      objectReference: {fileID: 184511325}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[0].timer
-      value: 
-      objectReference: {fileID: 282291809}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].exerciseName
-      value: 
-      objectReference: {fileID: 548500940}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].exerciseDescription
-      value: 
-      objectReference: {fileID: 548500939}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].videoPlayer
-      value: 
-      objectReference: {fileID: 548500942}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].readyButton
-      value: 
-      objectReference: {fileID: 548500938}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].continueButton
-      value: 
-      objectReference: {fileID: 548500937}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].timer
-      value: 
-      objectReference: {fileID: 548500936}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].exerciseName
-      value: 
-      objectReference: {fileID: 262317481}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].exerciseDescription
-      value: 
-      objectReference: {fileID: 262317480}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].videoPlayer
-      value: 
-      objectReference: {fileID: 262317483}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].readyButton
-      value: 
-      objectReference: {fileID: 262317479}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].continueButton
-      value: 
-      objectReference: {fileID: 262317478}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].timer
-      value: 
-      objectReference: {fileID: 262317477}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: enableConsoleLog
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1163022554178520, guid: 3e7a5429b3e988e4f8ce33bf793f8207, type: 2}
-      propertyPath: m_Name
-      value: Training
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].exercises.Array.data[2].name
-      value: EJERCICIO 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].exercises.Array.data[2].description
-      value: "Esta es la descripci\xF3n del EJERCICIO 3"
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].exercises.Array.data[2].time
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].exercises.Array.data[2].videoClip
-      value: 
-      objectReference: {fileID: 32900000, guid: f88343dab2396784ba8e4b52c3b2bd91,
-        type: 3}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].exercises.Array.data[3].name
-      value: EJERCICIO 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].exercises.Array.data[3].description
-      value: "Esta es la descripci\xF3n del EJERCICIO 4"
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].exercises.Array.data[3].videoClip
-      value: 
-      objectReference: {fileID: 32900000, guid: 6b999464d2dc7314c85d4bc613aad3a8,
-        type: 3}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].exercises.Array.data[4].name
-      value: EJERCICIO 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].exercises.Array.data[4].description
-      value: "Esta es la descripci\xF3n del EJERCICIO 5"
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].exercises.Array.data[4].time
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].exercises.Array.data[4].videoClip
-      value: 
-      objectReference: {fileID: 32900000, guid: 474c7c1beefbab44fbc07fe4efb24eb9,
-        type: 3}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].exercises.Array.data[5].name
-      value: EJERCICIO 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].exercises.Array.data[5].description
-      value: "Esta es la descripci\xF3n del EJERCICIO 6"
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].exercises.Array.data[5].videoClip
-      value: 
-      objectReference: {fileID: 32900000, guid: 710173f6e0c940d4cb24b9257cdba983,
-        type: 3}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].exercises.Array.data[6].name
-      value: EJERCICIO 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].exercises.Array.data[6].description
-      value: "Esta es la descripci\xF3n del EJERCICIO 7"
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].exercises.Array.data[6].time
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].exercises.Array.data[6].videoClip
-      value: 
-      objectReference: {fileID: 32900000, guid: 6ff8d33ce89a2e7499171893780927a9,
-        type: 3}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].exercises.Array.data[2].name
-      value: EJERCICIO 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].exercises.Array.data[2].description
-      value: "Esta es la descripci\xF3n del EJERCICIO 3"
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].exercises.Array.data[2].time
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].exercises.Array.data[2].videoClip
-      value: 
-      objectReference: {fileID: 32900000, guid: f88343dab2396784ba8e4b52c3b2bd91,
-        type: 3}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].exercises.Array.data[3].name
-      value: EJERCICIO 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].exercises.Array.data[3].description
-      value: "Esta es la descripci\xF3n del EJERCICIO 4"
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].exercises.Array.data[3].videoClip
-      value: 
-      objectReference: {fileID: 32900000, guid: 6b999464d2dc7314c85d4bc613aad3a8,
-        type: 3}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].exercises.Array.data[4].name
-      value: EJERCICIO 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].exercises.Array.data[4].description
-      value: "Esta es la descripci\xF3n del EJERCICIO 5"
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].exercises.Array.data[4].time
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].exercises.Array.data[4].videoClip
-      value: 
-      objectReference: {fileID: 32900000, guid: 474c7c1beefbab44fbc07fe4efb24eb9,
-        type: 3}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].exercises.Array.data[5].name
-      value: EJERCICIO 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].exercises.Array.data[5].description
-      value: "Esta es la descripci\xF3n del EJERCICIO 6"
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].exercises.Array.data[5].videoClip
-      value: 
-      objectReference: {fileID: 32900000, guid: 710173f6e0c940d4cb24b9257cdba983,
-        type: 3}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].exercises.Array.data[6].name
-      value: EJERCICIO 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].exercises.Array.data[6].description
-      value: "Esta es la descripci\xF3n del EJERCICIO 7"
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].exercises.Array.data[6].time
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].exercises.Array.data[6].videoClip
-      value: 
-      objectReference: {fileID: 32900000, guid: 6ff8d33ce89a2e7499171893780927a9,
-        type: 3}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: timeToNonRestExercise
-      value: 0.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[0].rootParent
-      value: 
-      objectReference: {fileID: 1014663773}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[1].rootParent
-      value: 
-      objectReference: {fileID: 548500941}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: trainingScreens.Array.data[2].rootParent
-      value: 
-      objectReference: {fileID: 262317482}
-    - target: {fileID: 114830525350230838, guid: 3e7a5429b3e988e4f8ce33bf793f8207,
-        type: 2}
-      propertyPath: timeToNonTimeExercise
-      value: 0.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 1163022554178520, guid: 3e7a5429b3e988e4f8ce33bf793f8207, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 3e7a5429b3e988e4f8ce33bf793f8207, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &739778942
 GameObject:
   m_ObjectHideFlags: 0
