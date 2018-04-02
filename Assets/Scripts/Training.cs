@@ -33,12 +33,18 @@ public class Training : MonoBehaviour { //TODO Training instantiate.
     [SerializeField]
     private TrainingScreen[] trainingScreens;
 
+    [Space(10f)]
+
+    [SerializeField]
+    private TrainingData[] data;
+
     // Hidden
     [HideInInspector]
     public TrainingStage trainingStage;
 
     // Cached Components
     private TrainingScreen targetScreen;
+    private TrainingData cachedData;
 
     // Coroutines
     private IEnumerator nonTimeExercise;
@@ -71,6 +77,8 @@ public class Training : MonoBehaviour { //TODO Training instantiate.
 
     private void Suscribe()
     {
+        Observer.Singleton.onTestEnd += SetTrainingData;
+
         // Training screens Events
         Observer.Singleton.onWarmingUpScreenEnd += SetWarmingUp;
         Observer.Singleton.onTrainingScreenEnd += SetTraining;
@@ -111,6 +119,74 @@ public class Training : MonoBehaviour { //TODO Training instantiate.
         else
             ExecuteNonRest();
     }
+
+    // *** SET TRAINING DATA
+
+    public void SetTrainingData()
+    {
+        TrainingLevel level = DataManager.Singleton.trainingLevel;
+
+        switch (level)
+        {
+            case TrainingLevel.Begginer:
+                SetBegginerLevel();
+                break;
+
+            case TrainingLevel.Rookie:
+                SetRookieLevel();
+                break;
+
+            case TrainingLevel.Medium:
+                SetMediumLevel();
+                break;
+
+            case TrainingLevel.Advance:
+                SetAdavanceLevel();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    private void SetBegginerLevel()
+    {
+        // Setting training level data
+        cachedData = data[0];
+
+        AllocateData();
+    }
+
+    private void SetRookieLevel()
+    {
+        cachedData = data[1];
+
+        AllocateData();
+    }
+
+    private void SetMediumLevel()
+    {
+        cachedData = data[2];
+
+        AllocateData();
+    }
+
+    private void SetAdavanceLevel()
+    {
+        cachedData = data[3];
+
+        AllocateData();
+    }
+
+    private void AllocateData()
+    {
+        for (int i = 0; i < trainingScreens.Length; i++)
+        {
+            trainingScreens[i].data = cachedData.trainingScreens[i];
+        }
+    }
+
+    // *** GENERAL FUNCTIONS
 
     private void SetWarmingUp()
     {

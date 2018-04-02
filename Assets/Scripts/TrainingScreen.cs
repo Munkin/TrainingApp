@@ -25,7 +25,7 @@ public class TrainingScreen
 
     [Space(10f)]
 
-    public TrainingScreenData screenData;
+    public TrainingScreenData data;
 
     [Space(10f)]
 
@@ -49,7 +49,7 @@ public class TrainingScreen
     public void SetupExercise()
     {
         // Increase index
-        if (actualExercise >= 0 && actualExercise < screenData.exercises.Length - 1)
+        if (actualExercise >= 0 && actualExercise < data.exercises.Length - 1)
             actualExercise++;
         else
         {
@@ -79,10 +79,10 @@ public class TrainingScreen
 
     public void SetupScreen()
     {
-        exerciseName.text = screenData.exercises[actualExercise].name;
-        exerciseDescription.text = screenData.exercises[actualExercise].description;
+        exerciseName.text = data.exercises[actualExercise].name;
+        exerciseDescription.text = data.exercises[actualExercise].description;
 
-        videoPlayer.clip = screenData.exercises[actualExercise].videoClip;
+        videoPlayer.clip = data.exercises[actualExercise].videoClip;
 
         if (!videoPlayer.isPlaying)
             videoPlayer.Play();
@@ -110,7 +110,7 @@ public class TrainingScreen
         SetActiveReady(false);
 
         timer.gameObject.SetActive(true);
-        timer.ExecuteWatch(screenData.exercises[actualExercise].time);
+        timer.ExecuteWatch(data.exercises[actualExercise].time);
     }
 
     public void FadeOutReady()
@@ -133,11 +133,11 @@ public class TrainingScreen
 
     public bool ActualExerciseHasRest()
     {
-        if (screenData.exercises[actualExercise].restTime < 0)
-            screenData.exercises[actualExercise].restTime = 0;
+        if (data.exercises[actualExercise].restTime < 0)
+            data.exercises[actualExercise].restTime = 0;
 
         // Has the current exercise rest time setted ?
-        if (screenData.exercises[actualExercise].restTime != 0)
+        if (data.exercises[actualExercise].restTime != 0)
             return true;
         else
             return false;
@@ -145,11 +145,11 @@ public class TrainingScreen
 
     public bool ActualExerciseHasTime()
     {
-        if (screenData.exercises[actualExercise].time < 0)
-            screenData.exercises[actualExercise].time = 0;
+        if (data.exercises[actualExercise].time < 0)
+            data.exercises[actualExercise].time = 0;
 
         // Has the current exercise rest time setted ?
-        if (screenData.exercises[actualExercise].time != 0)
+        if (data.exercises[actualExercise].time != 0)
             return true;
         else
             return false;
