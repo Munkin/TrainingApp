@@ -94,6 +94,9 @@ public class Training : MonoBehaviour { //TODO Training instantiate.
             Observer.Singleton.onTimerDone += screen.FadeInContinue;
             Observer.Singleton.onTimerDone += StopWatchSound;
         }
+
+        // Rest Events
+        Observer.Singleton.onRestEnd += RestContinue;
     }
 
     public void Ready()
@@ -308,6 +311,17 @@ public class Training : MonoBehaviour { //TODO Training instantiate.
         AudioManager.Singleton.effects[0].Play(); // Alarm
     }
 
+    private void RestContinue()
+    {
+        targetScreen.SetActiveReady(true);
+        targetScreen.SetActiveContinue(false);
+        targetScreen.SetupExercise();
+
+        // Fade event!
+        if (targetScreen.rootParent.activeInHierarchy)
+            Fader.Singleton.FadeScreen(targetScreen.rootParent);
+    }
+
     #endregion
 
     #region Coroutines
@@ -335,14 +349,6 @@ public class Training : MonoBehaviour { //TODO Training instantiate.
         yield return null;
 
         Observer.Singleton.OnRestStart();
-
-        targetScreen.SetActiveReady(true);
-        targetScreen.SetActiveContinue(false);
-        targetScreen.SetupExercise();
-
-        // Fade event!
-        if (targetScreen.rootParent.activeInHierarchy)
-            Fader.Singleton.FadeScreen(targetScreen.rootParent);
     }
 
     private IEnumerator NonRest()
@@ -354,13 +360,7 @@ public class Training : MonoBehaviour { //TODO Training instantiate.
 
         yield return new WaitForSeconds(timeToNonRestExercise);
 
-        targetScreen.SetActiveReady(true);
-        targetScreen.SetActiveContinue(false);
-        targetScreen.SetupExercise();
-
-        // Fade event!
-        if (targetScreen.rootParent.activeInHierarchy)
-            Fader.Singleton.FadeScreen(targetScreen.rootParent);
+        RestContinue();
     }
 
     #endregion

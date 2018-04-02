@@ -6083,6 +6083,9 @@ MonoBehaviour:
   stretchingTexts:
   - Felicitaciones, has completado los ejercicios
   - Es hora de estirar
+  restTexts:
+  - "\xA1Muy bien hecho!"
+  - Ahora descansa un poco
 --- !u!4 &1874453971
 Transform:
   m_ObjectHideFlags: 0

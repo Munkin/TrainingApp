@@ -91,12 +91,12 @@ public class UIManager : MonoBehaviour {
     private bool continueToTrainingIsAlreadyPressed;
 
     // Fade Control
-    private bool fadeInterludeFirstTime;
-    private bool fadeResultFirstTime;
-    private bool fadeWarmingUpFirstTime;
-    private bool fadeTrainingFirstTime;
-    private bool fadeStretchingFirstTime;
-    private bool fadeRestFirstTime;
+    private bool fadeInterludeFirstTime = true;
+    private bool fadeResultFirstTime = true;
+    private bool fadeWarmingUpFirstTime = true;
+    private bool fadeTrainingFirstTime = true;
+    private bool fadeStretchingFirstTime = true;
+    private bool fadeRestFirstTime = true;
 
     // Singleton!
     public static UIManager Singleton
@@ -454,7 +454,7 @@ public class UIManager : MonoBehaviour {
         interludeText.DOFade(interludeText.color.a, timeToFadeOut).OnComplete(FadeOutRest);
     }
 
-    private void FadeInRest() // 1.
+    private void FadeInRest()
     {
         if (enableConsoleLog)
             Debug.Log("UIManager :: FadeInRest");
@@ -468,7 +468,7 @@ public class UIManager : MonoBehaviour {
         }
 
         interludeText.DOFade(0.8745f, timeToFadeOut).OnComplete(FadeInterludeRest);
-    }
+    } // 1.
 
     private void SetRestText()
     {
