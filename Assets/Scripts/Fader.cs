@@ -118,7 +118,8 @@ public class Fader : MonoBehaviour {
         }
         catch (Exception)
         {
-            Debug.LogWarning("No RawImage attached to this object.");
+            if (enableConsoleLog)
+                Debug.LogWarning("No RawImage attached to this object.");
         }
 
         CheckAlphaStatus(parent);

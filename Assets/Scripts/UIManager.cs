@@ -474,10 +474,7 @@ public class UIManager : MonoBehaviour {
         if (textIndex < restTexts.Length - 1)
             textIndex++;
         else
-        {
-            if (textIndex != restTexts.Length - 1)
-                textIndex = restTexts.Length - 1;
-        }
+            textIndex = restTexts.Length - 1;
             
 
         // Is the interlude screen active in hierarchy ?
