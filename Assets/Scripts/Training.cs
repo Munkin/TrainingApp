@@ -17,7 +17,7 @@ public enum TrainingDay
     One, Two, Three, Four, Five, Six, Seven
 }
 
-public class Training : MonoBehaviour { //TODO Training instantiate.
+public class Training : MonoBehaviour {
 
     #region Properties
 
@@ -293,7 +293,7 @@ public class Training : MonoBehaviour { //TODO Training instantiate.
         rest = Rest();
 
         StartCoroutine(rest);
-    } // TODO Execute Rest.
+    }
 
     private void ExecuteNonRest()
     {
