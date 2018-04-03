@@ -12,6 +12,8 @@ public class Observer : MonoBehaviour {
 
     [SerializeField]
     private bool enableConsoleLog;
+    [SerializeField]
+    private bool enableFadeCallbacksConsoleLog;
 
     // General Actions ***
 
@@ -293,7 +295,7 @@ public class Observer : MonoBehaviour {
 
     public void OnScreenFadeCallback()
     {
-        if (enableConsoleLog)
+        if (enableFadeCallbacksConsoleLog)
             Debug.Log("Observer :: OnFadeCallback");
 
         // Event call!
@@ -303,7 +305,7 @@ public class Observer : MonoBehaviour {
 
     public void OnButtonFadeCallback()
     {
-        if (enableConsoleLog)
+        if (enableFadeCallbacksConsoleLog)
             Debug.Log("Observer :: OnButtonFadeCallback");
 
         // Event call!

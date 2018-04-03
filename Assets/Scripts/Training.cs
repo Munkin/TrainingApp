@@ -370,6 +370,8 @@ public class Training : MonoBehaviour {
         // Event execution!
         if (!isTheLastExercise)
             Observer.Singleton.OnRestEnd();
+        else
+            yield return null; // Fix a fade error
 
         if (isTheLastExercise)
             Observer.Singleton.onRestEnd -= UIManager.Singleton.OnLastExerciseRest;
@@ -377,7 +379,7 @@ public class Training : MonoBehaviour {
             Observer.Singleton.onRestEnd -= UIManager.Singleton.OnCommonExerciseRest;
 
         RestContinue();
-    } // TODO Fix the last exercise rest
+    }
 
     private IEnumerator NonRest()
     {
