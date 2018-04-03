@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using UnityEngine.Video;
 
 [System.Serializable]
-public class TrainingScreen // TODO Fix continue and ready activation next from a practice screen
+public class TrainingScreen
 {
     #region Properties
 

@@ -42,6 +42,9 @@ public class Training : MonoBehaviour {
     [HideInInspector]
     public TrainingStage trainingStage;
 
+    // Consts
+    public const float fadeFixFactor = 0.125f;
+
     // Cached Components
     private TrainingScreen targetScreen;
     private TrainingData cachedData;
@@ -258,11 +261,8 @@ public class Training : MonoBehaviour {
     private void CheckButtonsStatus()
     {
         //Setting buttons
-        if (!targetScreen.readyButton.gameObject.activeInHierarchy)
-            targetScreen.SetActiveReady(true);
-
-        if (targetScreen.continueButton.gameObject.activeInHierarchy)
-            targetScreen.SetActiveContinue(false);
+        targetScreen.SetActiveReady(true);
+        targetScreen.SetActiveContinue(false);
     }
 
     private void ExecuteTimeExercise()
@@ -371,7 +371,7 @@ public class Training : MonoBehaviour {
         if (!isTheLastExercise)
             Observer.Singleton.OnRestEnd();
         else
-            yield return null; // Fix a fade error
+            yield return new WaitForSeconds(fadeFixFactor); // Fix a fade error
 
         if (isTheLastExercise)
             Observer.Singleton.onRestEnd -= UIManager.Singleton.OnLastExerciseRest;
