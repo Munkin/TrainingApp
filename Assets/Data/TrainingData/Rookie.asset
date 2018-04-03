@@ -23,7 +23,7 @@ MonoBehaviour:
     - name: "B\xC1SICO 2"
       description: "Esta es la descripci\xF3n del calentamiento"
       time: 5
-      restTime: 0
+      restTime: 10
       videoClip: {fileID: 32900000, guid: cd20aa4e659d0394a8156db36c557536, type: 3}
   - exercises:
     - name: "B\xC1SICO 1"
@@ -34,7 +34,7 @@ MonoBehaviour:
     - name: "B\xC1SICO 2"
       description: "Esta es la descripci\xF3n del entrenamiento"
       time: 5
-      restTime: 0
+      restTime: 10
       videoClip: {fileID: 32900000, guid: 81620bda5d91984448e2b0f02c951479, type: 3}
   - exercises:
     - name: "B\xC1SICO 1"
@@ -45,5 +45,5 @@ MonoBehaviour:
     - name: "B\xC1SICO 2"
       description: "Esta es la descripci\xF3n del estiramiento"
       time: 5
-      restTime: 0
+      restTime: 10
       videoClip: {fileID: 32900000, guid: c3988002d479ef949b9e1df15b853c5e, type: 3}

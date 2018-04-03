@@ -94,9 +94,6 @@ public class Training : MonoBehaviour {
             Observer.Singleton.onTimerDone += screen.FadeInContinue;
             Observer.Singleton.onTimerDone += StopWatchSound;
         }
-
-        // Rest Events
-        Observer.Singleton.onRestEnd += RestContinue;
     }
 
     public void Ready()
@@ -346,12 +343,41 @@ public class Training : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("Training :: Rest");
 
+        targetScreen.FadeOutContinue();
+
+        yield return new WaitForSeconds(timeToNonRestExercise);
+
         Observer.Singleton.OnRestStart();
 
         yield return new WaitForSeconds(targetScreen.data.exercises[targetScreen.actualExercise].restTime);
 
-        Observer.Singleton.OnRestEnd();
-    }
+        bool isTheLastExercise;
+
+        // Is the last exercise of the practice sequence ?
+        isTheLastExercise = (targetScreen.actualExercise < targetScreen.data.exercises.Length - 1) ? false : true;
+
+        if (isTheLastExercise)
+            Observer.Singleton.onRestEnd += UIManager.Singleton.OnLastExerciseRest;
+        else
+            Observer.Singleton.onRestEnd += UIManager.Singleton.OnCommonExerciseRest;
+
+        // Event execution!
+        if (isTheLastExercise)
+            Observer.Singleton.OnRestEnd();
+
+        yield return null;
+
+        // Event execution!
+        if (!isTheLastExercise)
+            Observer.Singleton.OnRestEnd();
+
+        if (isTheLastExercise)
+            Observer.Singleton.onRestEnd -= UIManager.Singleton.OnLastExerciseRest;
+        else
+            Observer.Singleton.onRestEnd -= UIManager.Singleton.OnCommonExerciseRest;
+
+        RestContinue();
+    } // TODO Fix the last exercise rest
 
     private IEnumerator NonRest()
     {

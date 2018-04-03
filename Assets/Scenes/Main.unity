@@ -863,33 +863,33 @@ MonoBehaviour:
     videoPlayer: {fileID: 8589632}
     readyButton: {fileID: 900888916}
     continueButton: {fileID: 184511325}
-    data:
-      exercises: []
     timer: {fileID: 282291809}
     readyIsAlreadyPressed: 0
     continueIsAlreadyPressed: 0
+    data:
+      exercises: []
   - rootParent: {fileID: 548500941}
     exerciseName: {fileID: 548500940}
     exerciseDescription: {fileID: 548500939}
     videoPlayer: {fileID: 548500942}
     readyButton: {fileID: 548500938}
     continueButton: {fileID: 548500937}
-    data:
-      exercises: []
     timer: {fileID: 548500936}
     readyIsAlreadyPressed: 0
     continueIsAlreadyPressed: 0
+    data:
+      exercises: []
   - rootParent: {fileID: 262317482}
     exerciseName: {fileID: 262317481}
     exerciseDescription: {fileID: 262317480}
     videoPlayer: {fileID: 262317483}
     readyButton: {fileID: 262317479}
     continueButton: {fileID: 262317478}
-    data:
-      exercises: []
     timer: {fileID: 262317477}
     readyIsAlreadyPressed: 0
     continueIsAlreadyPressed: 0
+    data:
+      exercises: []
   data:
   - {fileID: 11400000, guid: ea0944bffa5c41b49a0d4076cd61677f, type: 2}
   - {fileID: 11400000, guid: 158dc20297e61d84fabdfd0ec9098792, type: 2}
@@ -3501,7 +3501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407faa3e0da6a4e43afad82cf4af8200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeScale: 1
+  timeScale: 5
 --- !u!1001 &1071197227
 Prefab:
   m_ObjectHideFlags: 0
@@ -3860,7 +3860,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be476b56e5ba6a42be032dda46847d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableConsoleLog: 0
+  enableConsoleLog: 1
 --- !u!4 &1192865137
 Transform:
   m_ObjectHideFlags: 0

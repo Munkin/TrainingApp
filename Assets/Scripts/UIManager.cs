@@ -165,7 +165,6 @@ public class UIManager : MonoBehaviour {
 
         Observer.Singleton.onRestStart += EnableIntroductionScreen;
         Observer.Singleton.onRestStart += FadeInRest;
-        Observer.Singleton.onRestEnd += EnableTrainingScreen;
         Observer.Singleton.onRestEnd += ResetRestFadeValues;
 
         // *** BUTTON CONTROL EVENTS ***
@@ -475,7 +474,11 @@ public class UIManager : MonoBehaviour {
         if (textIndex < restTexts.Length - 1)
             textIndex++;
         else
-            textIndex = restTexts.Length - 1;
+        {
+            if (textIndex != restTexts.Length - 1)
+                textIndex = restTexts.Length - 1;
+        }
+            
 
         // Is the interlude screen active in hierarchy ?
         if (screens[0].activeInHierarchy)
@@ -739,6 +742,18 @@ public class UIManager : MonoBehaviour {
         Training.Singleton.Continue();
     }
 
+    // *** REST FUNCTIONS ***
+
+    public void OnCommonExerciseRest()
+    {
+        EnableTrainingScreen();
+    }
+
+    public void OnLastExerciseRest()
+    {
+        DisableAllScreens();
+    }
+
     // *** ENABLE SCREEN FUNCTIONS ***
 
     private void EnableScreen(int index)
@@ -792,6 +807,13 @@ public class UIManager : MonoBehaviour {
         EnableScreen(5);
     }
 
+    private void DisableAllScreens()
+    {
+        // Loop through every single screen
+        for (int i = 0; i < screens.Length; i++)
+            screens[i].SetActive(false);
+    }
+
     // *** ENABLE TRAINING SCREEN FUNCTIONS ***
 
     private void EnablePractice(int index)
@@ -842,6 +864,12 @@ public class UIManager : MonoBehaviour {
             EnableTrainingScreen();
 
         EnablePractice(2);
+    }
+
+    private void DisableAllPracticeScreens()
+    {
+        for (int i = 0; i < trainingScreens.Length; i++)
+            trainingScreens[i].SetActive(false);
     }
 
     // *** BUTTONS CAN BE PRESSED AGAIN FUNCTIONS ***
