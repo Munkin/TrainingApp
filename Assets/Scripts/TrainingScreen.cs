@@ -25,10 +25,6 @@ public class TrainingScreen
 
     [Space(10f)]
 
-    public TrainingScreenData data;
-
-    [Space(10f)]
-
     public Timer timer;
 
     // Hidden
@@ -36,6 +32,8 @@ public class TrainingScreen
     public bool readyIsAlreadyPressed;
     [HideInInspector]
     public bool continueIsAlreadyPressed;
+    [HideInInspector]
+    public TrainingScreenData data;
 
     public int actualExercise
     {

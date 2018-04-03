@@ -475,7 +475,7 @@ public class UIManager : MonoBehaviour {
         if (textIndex < restTexts.Length - 1)
             textIndex++;
         else
-            Observer.Singleton.OnRestEnd();
+            textIndex = restTexts.Length - 1;
 
         // Is the interlude screen active in hierarchy ?
         if (screens[0].activeInHierarchy)

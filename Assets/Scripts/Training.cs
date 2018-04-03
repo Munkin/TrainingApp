@@ -346,9 +346,11 @@ public class Training : MonoBehaviour { //TODO Training instantiate.
         if (enableConsoleLog)
             Debug.Log("Training :: Rest");
 
-        yield return null;
-
         Observer.Singleton.OnRestStart();
+
+        yield return new WaitForSeconds(targetScreen.data.exercises[targetScreen.actualExercise].restTime);
+
+        Observer.Singleton.OnRestEnd();
     }
 
     private IEnumerator NonRest()
