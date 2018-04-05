@@ -62,7 +62,7 @@ public class TrainingScreen
                     break;
 
                 case TrainingStage.Stretching:
-                    Observer.Singleton.OnWarmingUpScreenEnd();
+                    Observer.Singleton.OnTrainingEnd();
                     break;
 
                 default:

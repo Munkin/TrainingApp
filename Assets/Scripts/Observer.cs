@@ -22,6 +22,9 @@ public class Observer : MonoBehaviour {
     public Action onExerciseDataScreen;
     public Action onTestResult;
     public Action onTestEnd;
+    public Action onTrainingStart;
+    public Action onTrainingEnd;
+    public Action onAppEnd;
 
     // Training Actions ***
 
@@ -158,6 +161,36 @@ public class Observer : MonoBehaviour {
         // Event call!
         if (onTestEnd != null)
             onTestEnd();
+    }
+
+    public void OnTrainingStart()
+    {
+        if (enableConsoleLog)
+            Debug.Log("Observer :: OnTrainingStart");
+
+        // Event call!
+        if (onTrainingStart != null)
+            onTrainingStart();
+    }
+
+    public void OnTrainingEnd()
+    {
+        if (enableConsoleLog)
+            Debug.Log("Observer :: OnTrainingEnd");
+
+        // Event call!
+        if (onTrainingEnd != null)
+            onTrainingEnd();
+    }
+
+    public void OnAppEnd()
+    {
+        if (enableConsoleLog)
+            Debug.Log("UIManager :: OnAppEnd");
+
+        // Event call!
+        if (onAppEnd != null)
+            onAppEnd();
     }
     
     // ***

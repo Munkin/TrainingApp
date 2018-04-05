@@ -6087,6 +6087,10 @@ MonoBehaviour:
   restTexts:
   - "\xA1Muy bien hecho!"
   - Ahora descansa un poco ...
+  trainingEndTexts:
+  - Excelente has completado el entrenamiento completo
+  - "Vuelve ma\xF1ana"
+  - Nos vemos ...
 --- !u!4 &1874453971
 Transform:
   m_ObjectHideFlags: 0

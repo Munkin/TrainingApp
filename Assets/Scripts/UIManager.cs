@@ -81,6 +81,11 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     private string[] restTexts;
 
+    [Space(10f)] [Header("Others")]
+
+    [SerializeField]
+    private string[] trainingEndTexts;
+
     // Hidden
     private int textIndex = 0;
     private int question = 0;
@@ -91,12 +96,13 @@ public class UIManager : MonoBehaviour {
     private bool continueToTrainingIsAlreadyPressed;
 
     // Fade Control
-    private bool fadeInterludeFirstTime = true;
+    private bool fadeInterludeFirstTime = true; // TODO Only one bool for fade events.
     private bool fadeResultFirstTime = true;
     private bool fadeWarmingUpFirstTime = true;
     private bool fadeTrainingFirstTime = true;
     private bool fadeStretchingFirstTime = true;
     private bool fadeRestFirstTime = true;
+    private bool fadeTrainingEnd = true;
 
     // Singleton!
     public static UIManager Singleton
@@ -144,6 +150,11 @@ public class UIManager : MonoBehaviour {
         Observer.Singleton.onTestEnd += ResetResultFadeValues;
 
         // *** TRAINING EVENTS ***
+
+        //OnTrainingEnd
+        Observer.Singleton.onTrainingEnd += EnableIntroductionScreen;
+        Observer.Singleton.onTrainingEnd += FadeInTrainingEnd;
+        Observer.Singleton.onAppEnd += ResetTrainingEndFadeValues;
 
         // OnTrainingStart Events
         Observer.Singleton.onWarmingUpScreenStart += EnableIntroductionScreen;
@@ -489,6 +500,64 @@ public class UIManager : MonoBehaviour {
     private void ResetRestFadeValues()
     {
         fadeRestFirstTime = true;
+    } // Control function
+
+    // ***
+
+    private void FadeOutTrainingEnd()
+    {
+        if (enableConsoleLog)
+            Debug.Log("UIManager :: FadeOutTrainingEnd");
+
+        interludeText.DOFade(0.0f, timeToFadeIn).OnComplete(SetTrainingEndText);
+    }
+
+    private void FadeInterludeTrainingEnd()
+    {
+        interludeText.DOFade(interludeText.color.a, timeToFadeOut).OnComplete(FadeOutTrainingEnd);
+    }
+
+    private void FadeInTrainingEnd()
+    {
+        if (enableConsoleLog)
+            Debug.Log("UIManager :: FadeInTrainingEnd");
+
+        // Is the first fade of the entire fade sequence ?
+        if (fadeTrainingEnd)
+        {
+            interludeText.text = trainingEndTexts[0];
+
+            fadeTrainingEnd = false;
+        }
+
+        interludeText.DOFade(0.8745f, timeToFadeOut).OnComplete(FadeInterludeTrainingEnd);
+    } // 1.
+
+    private void SetTrainingEndText()
+    {
+        if (textIndex < completeTestTexts.Length - 1)
+            textIndex++;
+        else
+        {
+            Observer.Singleton.OnAppEnd();
+
+            interludeText.DOFade(0.8745f, timeToFadeOut);
+
+            return; // End of the application
+        }
+
+        // Is the interlude screen active in hierarchy ?
+        if (screens[0].activeInHierarchy)
+        {
+            interludeText.text = trainingEndTexts[textIndex];
+
+            FadeInTrainingEnd();
+        }
+    }
+
+    private void ResetTrainingEndFadeValues()
+    {
+        fadeTrainingEnd = true;
     } // Control function
 
     // *** DATA SCREEN ***
