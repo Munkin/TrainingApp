@@ -3860,7 +3860,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be476b56e5ba6a42be032dda46847d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableConsoleLog: 1
+  enableConsoleLog: 0
   enableFadeCallbacksConsoleLog: 0
 --- !u!4 &1192865137
 Transform:
