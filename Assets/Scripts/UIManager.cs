@@ -535,13 +535,17 @@ public class UIManager : MonoBehaviour {
 
     private void SetTrainingEndText()
     {
-        if (textIndex < completeTestTexts.Length - 1)
+        if (textIndex < trainingEndTexts.Length - 2)
             textIndex++;
         else
         {
-            Observer.Singleton.OnAppEnd();
+            textIndex++;
+
+            interludeText.text = trainingEndTexts[textIndex];
 
             interludeText.DOFade(0.8745f, timeToFadeOut);
+
+            Observer.Singleton.OnAppEnd();
 
             return; // End of the application
         }
