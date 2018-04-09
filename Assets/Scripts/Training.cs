@@ -127,7 +127,7 @@ public class Training : MonoBehaviour {
 
     public void SetTrainingData()
     {
-        TrainingLevel level = DataManager.Singleton.trainingLevel;
+        TrainingLevel level = DataManager.Singleton.training;
 
         switch (level)
         {

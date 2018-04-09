@@ -57,11 +57,34 @@ public class DataManager : MonoBehaviour {
     private Text weightText;
 
     // Hidden
-    private string userName; private bool inputFieldHasCorrectUserName;
-    private int age; private bool inputFieldHasCorrectAge;
-    private float height; private bool inputFieldHasCorrectHeight;
-    private float weight; private bool inputFieldHasCorrectWeight;
+    public string userName
+    {
+        get; private set;
+    }
+    private bool inputFieldHasCorrectUserName;
+    
+    // ***
+    public int age
+    {
+        get; private set;
+    }
+    private bool inputFieldHasCorrectAge;
+    
+    // ***
+    public float height
+    {
+        get; private set;
+    }
+    private bool inputFieldHasCorrectHeight;
+    
+    // ***
+    public float weight
+    {
+        get; private set;
+    }
+    private bool inputFieldHasCorrectWeight;
 
+    // ***
     public float imc
     {
         get; private set;
@@ -84,7 +107,7 @@ public class DataManager : MonoBehaviour {
     {
         get; private set;
     }
-    public TrainingLevel trainingLevel
+    public TrainingLevel training
     {
         get; private set;
     }
@@ -161,28 +184,12 @@ public class DataManager : MonoBehaviour {
         };
     }
 
-    private void SaveData()
+    public bool IsTheFirstAppOpening()
     {
-        if (enableConsoleLog)
-            Debug.Log("DataManager :: Save");
-
-        data.Save(userName, age, height, weight, imc, score, complexion, trainingLevel);
-    }
-
-    private void LoadData()
-    {
-        if (enableConsoleLog)
-            Debug.Log("DataManager :: Load");
-
-        userName = data.userName;
-        age = data.age;
-        height = data.height;
-        weight = data.weight;
-        imc = data.imc;
-        score = data.score;
-
-        complexion = data.complexion;
-        trainingLevel = data.training;
+        if (data.isFirstTime)
+            return true;
+        else
+            return false;
     }
 
     public void EstimateIMC()
@@ -387,16 +394,49 @@ public class DataManager : MonoBehaviour {
     {
         // Training estimation.
         if (score <= 14)
-            trainingLevel = TrainingLevel.Begginer;
+            training = TrainingLevel.Begginer;
         else if (score >= 15 && score <= 24)
-            trainingLevel = TrainingLevel.Rookie;
+            training = TrainingLevel.Rookie;
         else if (score >= 25 && score <= 34)
-            trainingLevel = TrainingLevel.Medium;
+            training = TrainingLevel.Medium;
         else
-            trainingLevel = TrainingLevel.Advance;
+            training = TrainingLevel.Advance;
 
         if (enableConsoleLog)
-            Debug.Log(string.Format("DataManager :: SetTraining :: {0}", trainingLevel.ToString()));
+            Debug.Log(string.Format("DataManager :: SetTraining :: {0}", training.ToString()));
+    }
+
+    private void CheckData()
+    {
+        // Are all the input fields with the correct data ?
+        if (inputFieldHasCorrectUserName && inputFieldHasCorrectAge && inputFieldHasCorrectWeight && inputFieldHasCorrectHeight)
+            UIManager.Singleton.EnableContinueButton();
+        else
+            UIManager.Singleton.DisableContinueButton();
+    }
+
+    private void SaveData()
+    {
+        if (enableConsoleLog)
+            Debug.Log("DataManager :: Save");
+
+        data.Save(userName, age, height, weight, imc, score, complexion, training);
+    }
+
+    private void LoadData()
+    {
+        if (enableConsoleLog)
+            Debug.Log("DataManager :: Load");
+
+        userName = data.userName;
+        age = data.age;
+        height = data.height;
+        weight = data.weight;
+        imc = data.imc;
+        score = data.score;
+
+        complexion = data.complexion;
+        training = data.training;
     }
 
     private string CheckName(string value)
@@ -437,15 +477,6 @@ public class DataManager : MonoBehaviour {
 
         return name;
     } // Name validation
-
-    private void CheckData()
-    {
-        // Are all the input fields with the correct data ?
-        if (inputFieldHasCorrectUserName && inputFieldHasCorrectAge && inputFieldHasCorrectWeight && inputFieldHasCorrectHeight)
-            UIManager.Singleton.EnableContinueButton();
-        else
-            UIManager.Singleton.DisableContinueButton();
-    }
 
     private char ValidateLetterChar(char charToValidate)
     {

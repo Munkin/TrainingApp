@@ -6132,6 +6132,14 @@ MonoBehaviour:
   - Excelente has completado el entrenamiento completo
   - "Vuelve ma\xF1ana"
   - Nos vemos ...
+  alreadyOpenedTexts:
+  - Hola User
+  - Ya ha
+  - 
+  dailyTrainingTexts:
+  - 
+  - 
+  - 
 --- !u!4 &1874453971
 Transform:
   m_ObjectHideFlags: 0

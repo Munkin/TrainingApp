@@ -1,4 +1,4 @@
-﻿// <copyright file="DateManager.cs" company="Up Up Down Studios">
+﻿// <copyright file="Date.cs" company="Up Up Down Studios">
 // Copyright (c) 2018 All Rights Reserved
 // </copyright>
 // <summary>Date data container.</summary>
@@ -19,7 +19,7 @@ public class Date : ScriptableObject { // NOTE DateTime default values is : 1/1/
     public DateTime lastDate;
 
     // Hidden
-    private bool enableWarningConsoleLog;
+    private bool enableWarningConsoleLog = false;
 
     #endregion
 

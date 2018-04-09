@@ -17,6 +17,7 @@ public class Observer : MonoBehaviour {
 
     // General Actions ***
 
+    // First Time
     public Action onIntroductionScreen;
     public Action onDataScreen;
     public Action onExerciseDataScreen;
@@ -25,6 +26,9 @@ public class Observer : MonoBehaviour {
     public Action onTrainingStart;
     public Action onTrainingEnd;
     public Action onAppEnd;
+    // App Already Opened
+    public Action onDailyTraining;
+    public Action onAppWasAlreadyOpenedToday;
 
     // Training Actions ***
 
@@ -90,7 +94,17 @@ public class Observer : MonoBehaviour {
 
     private void Start()
     {
-        OnIntroductionScreen();
+        // Is the first time that the aplication is opening ?
+        if (DataManager.Singleton.IsTheFirstAppOpening())
+            OnIntroductionScreen(); // Implementend
+        else
+        {
+            // Did the user trained today ?
+            if (DateManager.Singleton.HasPassOneDaySinceLastTraining())
+                OnDailyTraining();
+            else
+                OnAppWasAlreadyOpenedToday();
+        }
     }
 
     #endregion
@@ -197,7 +211,29 @@ public class Observer : MonoBehaviour {
         if (onAppEnd != null)
             onAppEnd();
     }
-    
+
+    // ***
+
+    public void OnDailyTraining()
+    {
+        if (enableConsoleLog)
+            Debug.Log("Observer :: OnDailyTraining");
+
+        // Event call!
+        if (onDailyTraining != null)
+            onDailyTraining();
+    }
+
+    public void OnAppWasAlreadyOpenedToday()
+    {
+        if (enableConsoleLog)
+            Debug.Log("Observer :: OnAppWasAlreadyOpenedToday");
+
+        // Event call!
+        if (onAppWasAlreadyOpenedToday != null)
+            onAppWasAlreadyOpenedToday();
+    }
+
     // ***
 
     public void OnWarmingUpScreenStart()

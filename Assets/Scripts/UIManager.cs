@@ -81,10 +81,20 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     private string[] restTexts;
 
-    [Space(10f)] [Header("Others")]
+    [Space(10f)] [Header("Interlude: Training End")]
 
     [SerializeField]
     private string[] trainingEndTexts;
+
+    [Space(10f)] [Header("Interlude: Already Opened")]
+
+    [SerializeField]
+    private string[] alreadyOpenedTexts;
+
+    [Space(10f)] [Header("Interlude: Daily Training")]
+
+    [SerializeField]
+    private string[] dailyTrainingTexts;
 
     // Hidden
     private int textIndex = 0;
@@ -103,6 +113,8 @@ public class UIManager : MonoBehaviour {
     private bool fadeStretchingFirstTime = true;
     private bool fadeRestFirstTime = true;
     private bool fadeTrainingEnd = true;
+    private bool fadeAlreadyOpened = true;
+    private bool fadeDailyTraining = true;
 
     // Singleton!
     public static UIManager Singleton
@@ -148,6 +160,10 @@ public class UIManager : MonoBehaviour {
         Observer.Singleton.onTestEnd += EnableCompleteTestScreen;
         Observer.Singleton.onTestEnd += ShowResults;
         Observer.Singleton.onTestEnd += ResetResultFadeValues;
+        // Already Opened Events
+        Observer.Singleton.onAppWasAlreadyOpenedToday += SetAlreadyOpenedFirstText;
+        Observer.Singleton.onAppWasAlreadyOpenedToday += FadeInAlreadyOpened;
+        // Daily Training Events
 
         // *** TRAINING EVENTS ***
 
@@ -155,6 +171,7 @@ public class UIManager : MonoBehaviour {
         Observer.Singleton.onTrainingEnd += EnableIntroductionScreen;
         Observer.Singleton.onTrainingEnd += FadeInTrainingEnd;
         Observer.Singleton.onAppEnd += ResetTrainingEndFadeValues;
+        Observer.Singleton.onAppEnd += ResetAlreadyOpenedFadeValues;
 
         // OnTrainingStart Events
         Observer.Singleton.onWarmingUpScreenStart += EnableIntroductionScreen;
@@ -564,6 +581,75 @@ public class UIManager : MonoBehaviour {
         fadeTrainingEnd = true;
     } // Control function
 
+    // ***
+
+    private void FadeOutAlreadyOpened()
+    {
+        if (enableConsoleLog)
+            Debug.Log("UIManager :: FadeOutAlreadyOpened");
+
+        interludeText.DOFade(0.0f, timeToFadeIn).OnComplete(SetAlreadyOpenedText);
+    }
+
+    private void FadeInterludeAlreadyOpened()
+    {
+        interludeText.DOFade(interludeText.color.a, timeToFadeOut).OnComplete(FadeOutAlreadyOpened);
+    }
+
+    private void FadeInAlreadyOpened()
+    {
+        if (enableConsoleLog)
+            Debug.Log("UIManager :: FadeInAlreadyOpened");
+
+        // Is the first fade of the entire fade sequence ?
+        if (fadeAlreadyOpened)
+        {
+            interludeText.text = alreadyOpenedTexts[0];
+
+            fadeAlreadyOpened = false;
+        }
+
+        interludeText.DOFade(0.8745f, timeToFadeOut).OnComplete(FadeInterludeAlreadyOpened);
+    } // 1.
+
+    private void SetAlreadyOpenedText()
+    {
+        if (textIndex < alreadyOpenedTexts.Length - 2)
+            textIndex++;
+        else
+        {
+            textIndex++;
+
+            interludeText.text = alreadyOpenedTexts[textIndex];
+
+            interludeText.DOFade(0.8745f, timeToFadeOut);
+
+            Observer.Singleton.OnAppEnd();
+
+            return; // End of the application
+        }
+
+        // Is the interlude screen active in hierarchy ?
+        if (screens[0].activeInHierarchy)
+        {
+            interludeText.text = alreadyOpenedTexts[textIndex];
+
+            FadeInAlreadyOpened();
+        }
+    }
+
+    private void ResetAlreadyOpenedFadeValues()
+    {
+        fadeAlreadyOpened = true;
+    } // Control function
+
+    // ***
+
+    private void SetAlreadyOpenedFirstText()
+    {
+        alreadyOpenedTexts[0] = string.Format("Hola {0}", DataManager.Singleton.userName);
+    }
+
     // *** DATA SCREEN ***
 
     public void Continue()
@@ -777,7 +863,7 @@ public class UIManager : MonoBehaviour {
                 break;
         }
 
-        switch (DataManager.Singleton.trainingLevel)
+        switch (DataManager.Singleton.training)
         {
             case TrainingLevel.Begginer:
                 trainingText.text = "NOVATO";
