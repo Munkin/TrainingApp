@@ -765,11 +765,11 @@ public class UIManager : MonoBehaviour {
                 complexionText.text = "SOBREPESO";
                 break;
 
-            case Complexion.ObeseType1:
+            case Complexion.NormalObesity:
                 complexionText.text = "OBESIDAD";
                 break;
 
-            case Complexion.ObeseType2:
+            case Complexion.MorbidObesity:
                 complexionText.text = "OBESIDAD EXT.";
                 break;
 

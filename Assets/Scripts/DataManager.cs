@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public enum Complexion
 {
-    Thin, AcceptableThin, Normal, Overweight, ObeseType1, ObeseType2
+    Thin, AcceptableThin, Normal, Overweight, NormalObesity, MorbidObesity
 }
 
 public enum TrainingLevel
@@ -198,9 +198,9 @@ public class DataManager : MonoBehaviour {
         else if (imc >= 24.50f && imc <= 29.99f)
             complexion = Complexion.Overweight;
         else if (imc >= 30.00f && imc <= 34.99f)
-            complexion = Complexion.ObeseType1;
+            complexion = Complexion.NormalObesity;
         else
-            complexion = Complexion.ObeseType2;
+            complexion = Complexion.MorbidObesity;
 
         switch (complexion)
         {
@@ -216,11 +216,11 @@ public class DataManager : MonoBehaviour {
                 SubstractScore(2);
                 break;
 
-            case Complexion.ObeseType1:
+            case Complexion.NormalObesity:
                 SubstractScore(4);
                 break;
 
-            case Complexion.ObeseType2:
+            case Complexion.MorbidObesity:
                 SubstractScore(5);
                 break;
 

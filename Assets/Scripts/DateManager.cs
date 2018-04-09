@@ -1,16 +1,91 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// <copyright file="DateManager.cs" company="Up Up Down Studios">
+// Copyright (c) 2018 All Rights Reserved
+// </copyright>
+// <summary>DateManger for Unity date events.</summary>
+
+using System;
 using UnityEngine;
 
-public class DateManager : MonoBehaviour {
+public class DateManager : MonoBehaviour { // NOTE DateTime default values is : 1/1/0001 12:00:00 AM
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    #region Properties
+
+    [SerializeField]
+    private Date date;
+
+    // Date variables
+    public DateTime currentDate
+    {
+        get; private set;
+    }
+    public DateTime lastDate
+    {
+        get; private set;
+    }
+
+    // Singleton!
+    public static DateManager Singleton
+    {
+        get; private set;
+    }
+
+    #endregion
+
+    #region Unity functions
+
+    private void Awake()
+    {
+        if (Singleton != null)
+            DestroyImmediate(gameObject);
+        else
+            Singleton = this;
+    }
+
+    private void Start()
+    {
+        GetDates();
+    }
+
+    #endregion
+
+    #region Class functions
+
+    public bool HasPassOneDaySinceLastTraining()
+    {
+        CheckDate();
+
+        // Has pass one day since last training ?
+        if (currentDate.Year != lastDate.Year || currentDate.DayOfYear != lastDate.DayOfYear)
+            return true;
+        else
+            return false;
+    }
+
+    private void CheckDate()
+    {
+        SetLastDate(currentDate);
+        SetCurrentDate();
+    }
+
+    private void SetCurrentDate()
+    {
+        currentDate = DateTime.UtcNow;
+
+        date.SetCurrentDate(currentDate);
+    }
+
+    private void SetLastDate(DateTime lastDate)
+    {
+        this.lastDate = lastDate;
+
+        date.SetLastDate(this.lastDate);
+    }
+
+    private void GetDates()
+    {
+        currentDate = date.GetCurrentDate();
+        lastDate = date.GetLastDate();
+    }
+
+    #endregion
 }

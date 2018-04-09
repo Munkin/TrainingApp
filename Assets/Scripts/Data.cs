@@ -5,7 +5,7 @@
 
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Data", menuName = "Assets/Data", order = 1)]
+[CreateAssetMenu(fileName = "New Data", menuName = "Assets/Data", order = 1)]
 public class Data : ScriptableObject {
 
     #region Properties
@@ -32,7 +32,6 @@ public class Data : ScriptableObject {
 
     public void Save(string userName, int age, float height, float weight, float imc, int score, Complexion complexion, TrainingLevel training)
     {
-        /*
         if (isFirstTime)
             isFirstTime = false;
 
@@ -47,9 +46,6 @@ public class Data : ScriptableObject {
         this.training = training;
 
         Observer.Singleton.OnSave();
-        */
-
-        // TODO Save data.
     }
 
     public Data Load()

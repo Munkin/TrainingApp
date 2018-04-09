@@ -52,6 +52,11 @@ public class Observer : MonoBehaviour {
     public Action onSave;
     public Action onLoad;
 
+    // Date Actions ***
+
+    public Action onDateSet;
+    public Action onDateGet;
+
     // Rest Actions ***
 
     public Action onRestStart;
@@ -300,6 +305,28 @@ public class Observer : MonoBehaviour {
         // Event call!
         if (onLoad != null)
             onLoad();
+    }
+
+    // *** DATE EVENTS ***
+
+    public void OnDateSet()
+    {
+        if (enableConsoleLog)
+            Debug.Log("Observer :: OnDateSave");
+
+        // Event call!
+        if (onDateSet != null)
+            onDateSet();
+    }
+
+    public void OnDateGet()
+    {
+        if (enableConsoleLog)
+            Debug.Log("Observer :: OnDateLoad");
+
+        // Event call!
+        if (onDateGet != null)
+            onDateGet();
     }
 
     // *** REST EVENTS ***
