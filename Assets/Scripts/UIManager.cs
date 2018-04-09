@@ -643,11 +643,43 @@ public class UIManager : MonoBehaviour {
         fadeAlreadyOpened = true;
     } // Control function
 
-    // ***
-
+    // First Text
     private void SetAlreadyOpenedFirstText()
     {
         alreadyOpenedTexts[0] = string.Format("Hola {0}", DataManager.Singleton.userName);
+    }
+
+    // ***
+
+    private void FadeOutDailyTraining()
+    {
+
+    }
+
+    private void FadeInterludeDailyTraining()
+    {
+
+    }
+
+    private void FadeInDailyTraining()
+    {
+
+    }
+
+    private void SetDailyTrainingText()
+    {
+
+    }
+
+    private void ResetDailyTrainingFadeValues()
+    {
+        fadeDailyTraining = true;
+    }
+
+    // First Text
+    private void SetDailyTrainingFirstText()
+    {
+        dailyTrainingTexts[0] = string.Format("Hola {0}", DataManager.Singleton.userName);
     }
 
     // *** DATA SCREEN ***

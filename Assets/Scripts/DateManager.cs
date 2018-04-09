@@ -39,10 +39,7 @@ public class DateManager : MonoBehaviour { // NOTE DateTime default values is : 
             DestroyImmediate(gameObject);
         else
             Singleton = this;
-    }
 
-    private void Start()
-    {
         GetDates();
     }
 
@@ -53,7 +50,7 @@ public class DateManager : MonoBehaviour { // NOTE DateTime default values is : 
     public bool HasPassOneDaySinceLastTraining()
     {
         CheckDate();
-
+        
         // Has pass one day since last training ?
         if (currentDate.Year != lastDate.Year || currentDate.DayOfYear != lastDate.DayOfYear)
             return true;
@@ -61,10 +58,10 @@ public class DateManager : MonoBehaviour { // NOTE DateTime default values is : 
             return false;
     }
 
-    private void CheckDate()
+    private void GetDates()
     {
-        SetLastDate(currentDate);
-        SetCurrentDate();
+        currentDate = date.GetCurrentDate();
+        lastDate = date.GetLastDate();
     }
 
     private void SetCurrentDate()
@@ -81,10 +78,10 @@ public class DateManager : MonoBehaviour { // NOTE DateTime default values is : 
         date.SetLastDate(this.lastDate);
     }
 
-    private void GetDates()
+    private void CheckDate()
     {
-        currentDate = date.GetCurrentDate();
-        lastDate = date.GetLastDate();
+        SetLastDate(currentDate);
+        SetCurrentDate();
     }
 
     #endregion
