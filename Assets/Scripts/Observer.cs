@@ -94,6 +94,8 @@ public class Observer : MonoBehaviour {
 
     private void Start()
     {
+        DateManager.Singleton.CheckDate();
+        
         // Is the first time that the aplication is opening ?
         if (DataManager.Singleton.IsTheFirstAppOpening())
             OnIntroductionScreen(); // Implementend

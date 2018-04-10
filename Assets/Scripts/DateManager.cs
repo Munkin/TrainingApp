@@ -47,10 +47,14 @@ public class DateManager : MonoBehaviour { // NOTE DateTime default values is : 
 
     #region Class functions
 
-    public bool HasPassOneDaySinceLastTraining()
+    public void CheckDate()
     {
-        CheckDate();
-        
+        SetLastDate(currentDate);
+        SetCurrentDate();
+    }
+
+    public bool HasPassOneDaySinceLastTraining()
+    {   
         // Has pass one day since last training ?
         if (currentDate.Year != lastDate.Year || currentDate.DayOfYear != lastDate.DayOfYear)
             return true;
@@ -76,12 +80,6 @@ public class DateManager : MonoBehaviour { // NOTE DateTime default values is : 
         this.lastDate = lastDate;
 
         date.SetLastDate(this.lastDate);
-    }
-
-    private void CheckDate()
-    {
-        SetLastDate(currentDate);
-        SetCurrentDate();
     }
 
     #endregion
