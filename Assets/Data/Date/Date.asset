@@ -11,5 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00e04c581c2ab3d43b4e14f4544d4b70, type: 3}
   m_Name: Date
   m_EditorClassIdentifier: 
-  currentDateChunck: 1/1/0001 12:00:00 AM
-  lastDateChunck: 1/1/0001 12:00:00 AM
+  currentDateChunck: 4/11/2018 5:33:54 PM
+  lastDateChunck: 6/11/2018 5:33:41 PM

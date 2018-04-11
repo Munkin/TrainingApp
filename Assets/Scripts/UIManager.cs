@@ -895,7 +895,7 @@ public class UIManager : MonoBehaviour {
                 break;
         }
 
-        switch (DataManager.Singleton.training)
+        switch (DataManager.Singleton.trainingLevel)
         {
             case TrainingLevel.Begginer:
                 trainingText.text = "NOVATO";

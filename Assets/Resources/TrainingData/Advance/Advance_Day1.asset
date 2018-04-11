@@ -9,9 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e67059c5f82ddb42bd7312eaf950384, type: 3}
-  m_Name: Advance_Day2
+  m_Name: Advance_Day1
   m_EditorClassIdentifier: 
-  day: 1
+  day: 0
   level: 3
   trainingScreens:
   - exercises:
@@ -51,12 +51,41 @@ MonoBehaviour:
       restTime: 0
       videoClip: {fileID: 32900000, guid: 91045bf17a9d69b4a85e3ed9072a06d7, type: 3}
   - exercises:
-    - name: DESCANSO ACTIVO
-      description: "Ruta & Roca recomienda tener un descanso activo. Visita nuestra
-        p\xE1gina para mas informaci\xF3n."
+    - name: ABDOMEN PLANCHA
+      description: "Manten la posici\xF3n por 66 segundos. "
+      time: 66
+      restTime: 30
+      videoClip: {fileID: 32900000, guid: 4eb0b3fd5a677e64e8461a1f4e6812ab, type: 3}
+    - name: ABDOMEN EN BICICLETA
+      description: Realiza 44 repeticiones.
       time: 0
-      restTime: 10
-      videoClip: {fileID: 0}
+      restTime: 30
+      videoClip: {fileID: 32900000, guid: 0a84222fb3ee73d40bf98bb102458cb0, type: 3}
+    - name: RODILLAS AL PECHO
+      description: Realiza 88 repeticiones.
+      time: 0
+      restTime: 30
+      videoClip: {fileID: 32900000, guid: d12c1ab3882fdb148abfa6f9df787af7, type: 3}
+    - name: ABDOMEN PIERNAS CRUZADAS
+      description: Realiza 66 repeticiones.
+      time: 0
+      restTime: 30
+      videoClip: {fileID: 32900000, guid: 3312c66c983e5194bb523a11b5073d94, type: 3}
+    - name: GIROS RUSOS
+      description: Realiza 44 repeticiones.
+      time: 0
+      restTime: 30
+      videoClip: {fileID: 32900000, guid: 8e2918b0805af5845b5de694959c5f41, type: 3}
+    - name: "ELEVACI\xD3N DE PIES Y MANOS"
+      description: Realiza 27 repeticiones.
+      time: 0
+      restTime: 20
+      videoClip: {fileID: 32900000, guid: 4118e72c81183864786ae0117c17e971, type: 3}
+    - name: ESCALADA LIBRE
+      description: Realiza una escalada de baja intensidad de 66 minutos.
+      time: 3960
+      restTime: 130
+      videoClip: {fileID: 32900000, guid: 81620bda5d91984448e2b0f02c951479, type: 3}
   - exercises:
     - name: ESTIRAMIENTO
       description: "Esta es la descripci\xF3n del estiramiento."

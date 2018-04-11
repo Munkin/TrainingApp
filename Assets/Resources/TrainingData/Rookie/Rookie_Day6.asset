@@ -9,9 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e67059c5f82ddb42bd7312eaf950384, type: 3}
-  m_Name: Rookie_Day2
+  m_Name: Rookie_Day6
   m_EditorClassIdentifier: 
-  day: 1
+  day: 5
   level: 1
   trainingScreens:
   - exercises:
@@ -53,7 +53,7 @@ MonoBehaviour:
   - exercises:
     - name: DESCANSO ACTIVO
       description: "Ruta & Roca recomienda tener un descanso activo. Visita nuestra
-        p\xE1gina para mas informaci\xF3n."
+        p\xE1gina para m\xE1s informaci\xF3n."
       time: 0
       restTime: 10
       videoClip: {fileID: 0}

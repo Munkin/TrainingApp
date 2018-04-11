@@ -7,14 +7,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TrainingStage
+public enum TrainingLevel
 {
-    WarmingUp, Training, Stretching
+    Begginer, Rookie, Medium, Advance
 }
 
 public enum TrainingDay
 {
     One, Two, Three, Four, Five, Six, Seven
+}
+
+public enum TrainingStage
+{
+    WarmingUp, Training, Stretching
 }
 
 public class Training : MonoBehaviour {
@@ -36,7 +41,7 @@ public class Training : MonoBehaviour {
     [Space(10f)]
 
     [SerializeField]
-    private TrainingData[] data;
+    private UpdateTraining trainingUpdater;
 
     // Hidden
     [HideInInspector]
@@ -46,8 +51,11 @@ public class Training : MonoBehaviour {
     public const float fadeFixFactor = 0.125f;
 
     // Cached Components
+    public TrainingData cachedTrainingData
+    {
+        get; private set;
+    }
     private Screen targetScreen;
-    private TrainingData cachedData;
 
     // Coroutines
     private IEnumerator nonTimeExercise;
@@ -92,7 +100,7 @@ public class Training : MonoBehaviour {
         {
             screen.timer.gameObject.SetActive(false);
             
-            // Timer events
+            // Timer Events
             Observer.Singleton.onTimerDone += screen.ActiveContinue;
             Observer.Singleton.onTimerDone += screen.FadeInContinue;
             Observer.Singleton.onTimerDone += StopWatchSound;
@@ -101,7 +109,7 @@ public class Training : MonoBehaviour {
 
     public void Ready()
     {
-        if (ReadyIsAlreadyressed())
+        if (ReadyIsAlreadyPressed())
             return;
 
         // Ready execution
@@ -125,9 +133,14 @@ public class Training : MonoBehaviour {
 
     // *** SET TRAINING DATA ***
 
-    public void SetTrainingData()
+    public void SetTrainingData(TrainingData trainingData)
     {
-        TrainingLevel level = DataManager.Singleton.training;
+        cachedTrainingData = trainingData;
+    }
+
+    private void SetTrainingData()
+    {
+        TrainingLevel level = DataManager.Singleton.trainingLevel;
 
         switch (level)
         {
@@ -155,28 +168,28 @@ public class Training : MonoBehaviour {
     private void SetBegginerLevel()
     {
         // Setting training level data
-        cachedData = data[0];
+        cachedTrainingData = Resources.Load("TrainingData/Begginer/Begginer_Day1") as TrainingData;
 
         AllocateData();
     }
 
     private void SetRookieLevel()
     {
-        cachedData = data[1];
+        cachedTrainingData = Resources.Load("TrainingData/Rookie/Rookie_Day1") as TrainingData;
 
         AllocateData();
     }
 
     private void SetMediumLevel()
     {
-        cachedData = data[2];
+        cachedTrainingData = Resources.Load("TrainingData/Medium/Medium_Day1") as TrainingData;
 
         AllocateData();
     }
 
     private void SetAdavanceLevel()
     {
-        cachedData = data[3];
+        cachedTrainingData = Resources.Load("TrainingData/Advance/Advance_Day1") as TrainingData;
 
         AllocateData();
     }
@@ -185,7 +198,7 @@ public class Training : MonoBehaviour {
     {
         for (int i = 0; i < trainingScreens.Length; i++)
         {
-            trainingScreens[i].data = cachedData.trainingScreens[i];
+            trainingScreens[i].data = cachedTrainingData.trainingScreens[i];
         }
     }
 
@@ -230,7 +243,7 @@ public class Training : MonoBehaviour {
         CheckButtonsStatus();
     }
 
-    private bool ReadyIsAlreadyressed()
+    private bool ReadyIsAlreadyPressed()
     {
         // Constraints
         if (targetScreen.readyIsAlreadyPressed)

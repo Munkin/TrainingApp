@@ -890,11 +890,7 @@ MonoBehaviour:
     continueIsAlreadyPressed: 0
     data:
       exercises: []
-  data:
-  - {fileID: 11400000, guid: e001833971337a049bf3684d1ab54b08, type: 2}
-  - {fileID: 11400000, guid: e001833971337a049bf3684d1ab54b08, type: 2}
-  - {fileID: 11400000, guid: e001833971337a049bf3684d1ab54b08, type: 2}
-  - {fileID: 11400000, guid: e001833971337a049bf3684d1ab54b08, type: 2}
+  trainingUpdater: {fileID: 1897563273}
   trainingStage: 0
 --- !u!4 &426486923
 Transform:
@@ -1494,7 +1490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a9f6012a3ca18f44992b1f8cd207339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableConsoleLog: 1
+  enableConsoleLog: 0
   data: {fileID: 11400000, guid: 4a0989304b7d60745aad757563781a88, type: 2}
   nameInputField: {fileID: 1476507236}
   nameText: {fileID: 749623285}
@@ -6153,6 +6149,46 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1897563272
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1897563274}
+  - component: {fileID: 1897563273}
+  m_Layer: 0
+  m_Name: TrainingUpdater
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1897563273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1897563272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed90794416768b34aa2a1cd9ae633631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1897563274
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1897563272}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1911801462
 Prefab:

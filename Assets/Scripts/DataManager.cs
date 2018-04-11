@@ -11,11 +11,6 @@ public enum Complexion
     Thin, AcceptableThin, Normal, Overweight, NormalObesity, MorbidObesity
 }
 
-public enum TrainingLevel
-{
-    Begginer, Rookie, Medium, Advance
-}
-
 public class DataManager : MonoBehaviour {
 
     #region Properties
@@ -107,7 +102,11 @@ public class DataManager : MonoBehaviour {
     {
         get; private set;
     }
-    public TrainingLevel training
+    public TrainingLevel trainingLevel
+    {
+        get; private set;
+    }
+    public TrainingDay trainingDay
     {
         get; private set;
     }
@@ -150,7 +149,7 @@ public class DataManager : MonoBehaviour {
         Observer.Singleton.onTestResult += SaveData;
 
         // Data event
-        if (!data.isFirstTime)
+        if (!data.canDoTest)
             LoadData();
     }
 
@@ -159,24 +158,28 @@ public class DataManager : MonoBehaviour {
         if (nameInputField == null || ageInputField == null || weightInputField == null || heightInputField == null)
             return;
 
+        // For check name input field chars entered by the user
         nameInputField.characterLimit = 22;
         nameInputField.onValidateInput += delegate (string input, int charIndex, char addedChar)
         {
             return ValidateLetterChar(addedChar);
         };
 
+        // For check age input field chars entered by the user
         ageInputField.characterLimit = 2;
         ageInputField.onValidateInput += delegate (string input, int charIndex, char addedChar)
         {
             return ValidateNumberChar(addedChar);
         };
 
+        // For check weight input field chars entered by the user
         weightInputField.characterLimit = 3;
         weightInputField.onValidateInput += delegate (string input, int charIndex, char addedChar)
         {
             return ValidateNumberChar(addedChar);
         };
 
+        // For check height input field chars entered by the user
         heightInputField.characterLimit = 3;
         heightInputField.onValidateInput += delegate (string input, int charIndex, char addedChar)
         {
@@ -186,7 +189,7 @@ public class DataManager : MonoBehaviour {
 
     public bool IsTheFirstAppOpening()
     {
-        if (data.isFirstTime)
+        if (data.canDoTest)
             return true;
         else
             return false;
@@ -390,20 +393,25 @@ public class DataManager : MonoBehaviour {
         CheckData();
     } // TODO Mobile InputField fix.
 
+    public Data GetData()
+    {
+        return data;
+    }
+
     private void SetTraining()
     {
         // Training estimation.
         if (score <= 14)
-            training = TrainingLevel.Begginer;
+            trainingLevel = TrainingLevel.Begginer;
         else if (score >= 15 && score <= 24)
-            training = TrainingLevel.Rookie;
+            trainingLevel = TrainingLevel.Rookie;
         else if (score >= 25 && score <= 34)
-            training = TrainingLevel.Medium;
+            trainingLevel = TrainingLevel.Medium;
         else
-            training = TrainingLevel.Advance;
+            trainingLevel = TrainingLevel.Advance;
 
         if (enableConsoleLog)
-            Debug.Log(string.Format("DataManager :: SetTraining :: {0}", training.ToString()));
+            Debug.Log(string.Format("DataManager :: SetTraining :: {0}", trainingLevel.ToString()));
     }
 
     private void CheckData()
@@ -420,7 +428,7 @@ public class DataManager : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("DataManager :: Save");
 
-        data.Save(userName, age, height, weight, imc, score, complexion, training);
+        data.Save(userName, age, height, weight, imc, score, complexion, trainingLevel, trainingDay);
     }
 
     private void LoadData()
@@ -436,7 +444,7 @@ public class DataManager : MonoBehaviour {
         score = data.score;
 
         complexion = data.complexion;
-        training = data.training;
+        trainingLevel = data.trainingLevel;
     }
 
     private string CheckName(string value)

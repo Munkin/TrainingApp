@@ -10,7 +10,7 @@ public class Data : ScriptableObject {
 
     #region Properties
 
-    public bool isFirstTime = true;
+    public bool canDoTest = true;
 
     [Space(10f)]
 
@@ -24,16 +24,19 @@ public class Data : ScriptableObject {
     [Space(10f)]
 
     public Complexion complexion;
-    public TrainingLevel training;
+    // Training Data
+    public TrainingLevel trainingLevel;
+    public TrainingDay trainingDay;
 
     #endregion
 
     #region Class functions
 
-    public void Save(string userName, int age, float height, float weight, float imc, int score, Complexion complexion, TrainingLevel training)
+    public void Save(string userName, int age, float height, float weight, float imc, int score, Complexion complexion, TrainingLevel trainingLevel, TrainingDay trainingDay)
     {
-        if (isFirstTime)
-            isFirstTime = false;
+        // Can the user do the test ?
+        if (canDoTest)
+            canDoTest = false;
 
         this.userName = userName;
         this.age = age;
@@ -43,7 +46,8 @@ public class Data : ScriptableObject {
         this.score = score;
 
         this.complexion = complexion;
-        this.training = training;
+        this.trainingLevel = trainingLevel;
+        this.trainingDay = trainingDay;
 
         Observer.Singleton.OnSave();
     }
@@ -60,57 +64,46 @@ public class Data : ScriptableObject {
     public void SaveName(string userName)
     {
         this.userName = userName;
-
-        Observer.Singleton.OnSave();
     }
 
     public void SaveAge(int age)
     {
         this.age = age;
-
-        Observer.Singleton.OnSave();
     }
 
     public void SaveHeight(float height)
     {
         this.height = height;
-
-        Observer.Singleton.OnSave();
     }
 
     public void SaveWeight(float weight)
     {
         this.weight = weight;
-
-        Observer.Singleton.OnSave();
     }
 
     public void SaveIMC(float imc)
     {
         this.imc = imc;
-
-        Observer.Singleton.OnSave();
     }
 
     public void SaveScore(int score)
     {
         this.score = score;
-
-        Observer.Singleton.OnSave();
     }
 
     public void SaveComplexion(Complexion complexion)
     {
         this.complexion = complexion;
-
-        Observer.Singleton.OnSave();
     }
 
-    public void SaveTraining(TrainingLevel training)
+    public void SaveTrainingLevel(TrainingLevel trainingLevel)
     {
-        this.training = training;
+        this.trainingLevel = trainingLevel;
+    }
 
-        Observer.Singleton.OnSave();
+    public void SaveTrainingDay(TrainingDay trainingDay)
+    {
+        this.trainingDay = trainingDay;
     }
 
     #endregion

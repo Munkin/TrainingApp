@@ -55,6 +55,7 @@ public class Observer : MonoBehaviour {
 
     public Action onSave;
     public Action onLoad;
+    public Action onTrainingLoadCallback;
 
     // Date Actions ***
 
@@ -343,6 +344,16 @@ public class Observer : MonoBehaviour {
         // Event call!
         if (onLoad != null)
             onLoad();
+    }
+
+    public void OnTrainingLoadCallback()
+    {
+        if (enableConsoleLog)
+            Debug.Log("Observer :: OnTrainingCallback");
+
+        // Event call!
+        if (onTrainingLoadCallback != null)
+            onTrainingLoadCallback();
     }
 
     // *** DATE EVENTS ***
