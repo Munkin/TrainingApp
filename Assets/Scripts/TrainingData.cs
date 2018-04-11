@@ -11,13 +11,13 @@ public class TrainingData : ScriptableObject {
     #region Properties
 
     [Tooltip("Set the training day")]
-    public TrainingDay day;
+    public TrainingDay trainingDay;
     [Tooltip("Set the training level")]
-    public TrainingLevel level;
+    public TrainingLevel trainingLevel;
 
     [Space(10f)]
 
-    public ScreenData[] trainingScreens;
+    public ScreenData[] screensData;
 
     #endregion
 }

@@ -41,7 +41,7 @@ public class Training : MonoBehaviour {
     [Space(10f)]
 
     [SerializeField]
-    private UpdateTraining trainingUpdater;
+    private UpdateTraining updateTraining;
 
     // Hidden
     [HideInInspector]
@@ -140,24 +140,24 @@ public class Training : MonoBehaviour {
 
     private void SetTrainingData()
     {
-        TrainingLevel level = DataManager.Singleton.trainingLevel;
+        TrainingLevel trainingLevel = DataManager.Singleton.trainingLevel;
 
-        switch (level)
+        switch (trainingLevel)
         {
             case TrainingLevel.Begginer:
-                SetBegginerLevel();
+                SetBegginerFirstDay();
                 break;
 
             case TrainingLevel.Rookie:
-                SetRookieLevel();
+                SetRookieFirstDay();
                 break;
 
             case TrainingLevel.Medium:
-                SetMediumLevel();
+                SetMediumFirstDay();
                 break;
 
             case TrainingLevel.Advance:
-                SetAdavanceLevel();
+                SetAdvanceFirstDay();
                 break;
 
             default:
@@ -165,30 +165,33 @@ public class Training : MonoBehaviour {
         }
     }
 
-    private void SetBegginerLevel()
+    private void SetBegginerFirstDay()
     {
-        // Setting training level data
+        // Setting training level data.
         cachedTrainingData = Resources.Load("TrainingData/Begginer/Begginer_Day1") as TrainingData;
 
         AllocateData();
     }
 
-    private void SetRookieLevel()
+    private void SetRookieFirstDay()
     {
+        // Setting training level data.
         cachedTrainingData = Resources.Load("TrainingData/Rookie/Rookie_Day1") as TrainingData;
 
         AllocateData();
     }
 
-    private void SetMediumLevel()
+    private void SetMediumFirstDay()
     {
+        // Setting training level data.
         cachedTrainingData = Resources.Load("TrainingData/Medium/Medium_Day1") as TrainingData;
 
         AllocateData();
     }
 
-    private void SetAdavanceLevel()
+    private void SetAdvanceFirstDay()
     {
+        // Setting training level data.
         cachedTrainingData = Resources.Load("TrainingData/Advance/Advance_Day1") as TrainingData;
 
         AllocateData();
@@ -198,7 +201,7 @@ public class Training : MonoBehaviour {
     {
         for (int i = 0; i < trainingScreens.Length; i++)
         {
-            trainingScreens[i].data = cachedTrainingData.trainingScreens[i];
+            trainingScreens[i].data = cachedTrainingData.screensData[i];
         }
     }
 
@@ -278,6 +281,8 @@ public class Training : MonoBehaviour {
         targetScreen.SetActiveContinue(false);
     }
 
+    // ***
+
     private void ExecuteTimeExercise()
     {
         targetScreen.ExecuteTimer();
@@ -293,6 +298,8 @@ public class Training : MonoBehaviour {
 
         StartCoroutine(nonTimeExercise);
     }
+
+    // ***
 
     private void ExecuteRest()
     {
@@ -315,6 +322,8 @@ public class Training : MonoBehaviour {
 
         StartCoroutine(nonRest);
     }
+
+    // ***
 
     private void StopWatchSound()
     {
@@ -363,6 +372,8 @@ public class Training : MonoBehaviour {
         Observer.Singleton.OnRestStart();
 
         yield return new WaitForSeconds(targetScreen.data.exercises[targetScreen.actualExercise].restTime);
+
+        // ***
 
         bool isTheLastExercise;
 

@@ -54,12 +54,9 @@ public class DateManager : MonoBehaviour { // NOTE DateTime default values is : 
     }
 
     public bool HasPassOneDaySinceLastTraining()
-    {   
+    {
         // Has pass one day since last training ?
-        if (currentDate.Year != lastDate.Year || currentDate.DayOfYear != lastDate.DayOfYear)
-            return true;
-        else
-            return false;
+        return (currentDate.Year != lastDate.Year || currentDate.DayOfYear != lastDate.DayOfYear);
     }
 
     private void GetDates()

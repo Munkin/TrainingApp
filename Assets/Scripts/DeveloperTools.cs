@@ -21,14 +21,14 @@ public class DeveloperTools : MonoBehaviour {
 
     private void Awake()
     {
-        SetScale();
+        SetTimeScale();
     }
 
     private void Update()
     {
         if (timeScale != lastTimeScale)
         {
-            SetScale();
+            SetTimeScale();
 
             lastTimeScale = timeScale;
         }
@@ -38,7 +38,7 @@ public class DeveloperTools : MonoBehaviour {
 
     #region Class functions
 
-    private void SetScale()
+    private void SetTimeScale()
     {
         Time.timeScale = timeScale;
     }

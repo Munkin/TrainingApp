@@ -19,9 +19,9 @@ public class Fader : MonoBehaviour {
     [Space(10f)]
 
     public float screenFadeDuration;
-    [Tooltip("0, 1 Value")] [Range(0,1)]
+    [Tooltip("0, 1 Value")] [Range(0,1)] [SerializeField]
     public float screenFadeEndValue;
-    [Tooltip("0, 1 Value")] [Range(0, 1)] [SerializeField]
+    [Tooltip("0, 1 Value")] [Range(0,1)] [SerializeField]
     private float alphaInitialValue;
 
     [Space(10f)]
@@ -80,17 +80,19 @@ public class Fader : MonoBehaviour {
 
     private void Suscribe()
     {
-        // Fade events
+        // Fade events.
         Observer.Singleton.onDataScreenFade += FadeScreen;
         Observer.Singleton.onExerciseDataScreenFade += FadeScreen;
         Observer.Singleton.onTestEndScreenFade += FadeScreen;
-        // Training fade events
+        // Training fade events.
         Observer.Singleton.onWarmingUpScreenEndFade += FadeScreen;
         Observer.Singleton.onTrainingScreenEndFade += FadeScreen;
         Observer.Singleton.onStretchingScreenEndFade += FadeScreen;
-        // Button fade events
+        // Button fade events.
         Observer.Singleton.onButtonFadeCallback += ResetButtonAlpha;
     }
+
+    // ***
 
     public void FadeScreen(GameObject parent, float fadeDuration = 1.0f, float fadeEndValue = 1.0f)
     {
@@ -273,6 +275,8 @@ public class Fader : MonoBehaviour {
         }
     }
 
+    // ***
+
     private void OnScreenFadeCallback()
     {
         Observer.Singleton.OnScreenFadeCallback();
@@ -292,6 +296,8 @@ public class Fader : MonoBehaviour {
             cachedText.color.b,
             cachedTextAlphaInitialValue);
     }
+
+    // ***
 
     private void ExecuteVideoFade()
     {

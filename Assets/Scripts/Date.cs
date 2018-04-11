@@ -47,6 +47,8 @@ public class Date : ScriptableObject { // NOTE DateTime default values is : 1/1/
         this.lastDate = lastDate;
     }
 
+    // ***
+
     public Date GetDate()
     {
         if (currentDateChunck == "")
@@ -73,6 +75,8 @@ public class Date : ScriptableObject { // NOTE DateTime default values is : 1/1/
 
         return lastDate;
     }
+
+    // ***
 
     private void TryParseCurrentDate()
     {

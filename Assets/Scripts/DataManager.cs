@@ -188,6 +188,8 @@ public class DataManager : MonoBehaviour { // TODO Fix input field. https://docs
         };
     }
 
+    // ***
+
     public bool CanTheUserDoTheTest()
     {
         return data.canDoTest;
@@ -255,6 +257,24 @@ public class DataManager : MonoBehaviour { // TODO Fix input field. https://docs
             Debug.Log(string.Format("DataManager :: EstimateTotalScore :: {0}", score.ToString()));
     }
 
+    private void SetTraining()
+    {
+        // Training estimation.
+        if (score <= 14)
+            trainingLevel = TrainingLevel.Begginer;
+        else if (score >= 15 && score <= 24)
+            trainingLevel = TrainingLevel.Rookie;
+        else if (score >= 25 && score <= 34)
+            trainingLevel = TrainingLevel.Medium;
+        else
+            trainingLevel = TrainingLevel.Advance;
+
+        if (enableConsoleLog)
+            Debug.Log(string.Format("DataManager :: SetTraining :: {0}", trainingLevel.ToString()));
+    }
+
+    // ***
+
     public void AddScore(int amount)
     {
         if (amount <= 0)
@@ -270,6 +290,8 @@ public class DataManager : MonoBehaviour { // TODO Fix input field. https://docs
 
         score -= amount;
     }
+
+    // ***
 
     public void OnNameEndEdit(string value)
     {
@@ -392,34 +414,11 @@ public class DataManager : MonoBehaviour { // TODO Fix input field. https://docs
         CheckData();
     }
 
+    // ***
+
     public Data GetData()
     {
         return data;
-    }
-
-    private void SetTraining()
-    {
-        // Training estimation.
-        if (score <= 14)
-            trainingLevel = TrainingLevel.Begginer;
-        else if (score >= 15 && score <= 24)
-            trainingLevel = TrainingLevel.Rookie;
-        else if (score >= 25 && score <= 34)
-            trainingLevel = TrainingLevel.Medium;
-        else
-            trainingLevel = TrainingLevel.Advance;
-
-        if (enableConsoleLog)
-            Debug.Log(string.Format("DataManager :: SetTraining :: {0}", trainingLevel.ToString()));
-    }
-
-    private void CheckData()
-    {
-        // Are all the input fields with the correct data ?
-        if (inputFieldHasCorrectUserName && inputFieldHasCorrectAge && inputFieldHasCorrectWeight && inputFieldHasCorrectHeight)
-            UIManager.Singleton.EnableContinueButton();
-        else
-            UIManager.Singleton.DisableContinueButton();
     }
 
     private void SaveData()
@@ -443,9 +442,12 @@ public class DataManager : MonoBehaviour { // TODO Fix input field. https://docs
         score = data.score;
 
         complexion = data.complexion;
+        // ***
         trainingLevel = data.trainingLevel;
         trainingDay = data.trainingDay;
     }
+
+    // ***
 
     private string CheckName(string value)
     {
@@ -502,6 +504,15 @@ public class DataManager : MonoBehaviour { // TODO Fix input field. https://docs
             charToValidate = '0';
 
         return charToValidate;
+    }
+
+    private void CheckData()
+    {
+        // Are all the input fields with the correct data ?
+        if (inputFieldHasCorrectUserName && inputFieldHasCorrectAge && inputFieldHasCorrectWeight && inputFieldHasCorrectHeight)
+            UIManager.Singleton.EnableContinueButton();
+        else
+            UIManager.Singleton.DisableContinueButton();
     }
 
     #endregion

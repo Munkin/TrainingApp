@@ -22,6 +22,7 @@ public class Timer : MonoBehaviour {
     // Time control
     private float time;
     private float timeUpdate;
+
     private float timeLimit;
 
     // Coroutines
