@@ -31,7 +31,7 @@ public class Training : MonoBehaviour {
     [SerializeField]
     private float timeToNonRestExercise;
     [SerializeField]
-    private TrainingScreen[] trainingScreens;
+    private Screen[] trainingScreens;
 
     [Space(10f)]
 
@@ -46,7 +46,7 @@ public class Training : MonoBehaviour {
     public const float fadeFixFactor = 0.125f;
 
     // Cached Components
-    private TrainingScreen targetScreen;
+    private Screen targetScreen;
     private TrainingData cachedData;
 
     // Coroutines
@@ -88,7 +88,7 @@ public class Training : MonoBehaviour {
         Observer.Singleton.onStretchingScreenEnd += SetStretching;
 
         // OnTimerDone Events
-        foreach (TrainingScreen screen in trainingScreens)
+        foreach (Screen screen in trainingScreens)
         {
             screen.timer.gameObject.SetActive(false);
             

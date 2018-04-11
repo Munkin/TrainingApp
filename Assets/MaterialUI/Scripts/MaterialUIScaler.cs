@@ -22,7 +22,7 @@ namespace MaterialUI
 			if (scaler.uiScaleMode == CanvasScaler.ScaleMode.ScaleWithScreenSize)
 			{
 				referenceResolution = scaler.referenceResolution;
-				currentResolution = new Vector2(Screen.width, Screen.height);
+                currentResolution = new Vector2(UnityEngine.Screen.width, UnityEngine.Screen.height);
 
 				scaleFactor = (currentResolution.x*currentResolution.y)/(referenceResolution.x*referenceResolution.y);
 			}

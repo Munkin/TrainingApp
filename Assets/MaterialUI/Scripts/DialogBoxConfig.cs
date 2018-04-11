@@ -44,7 +44,7 @@ namespace MaterialUI
 
 		void Start()
 		{
-			backgroundTransform.sizeDelta = new Vector2(Screen.width, Screen.height * 3f);
+            backgroundTransform.sizeDelta = new Vector2(UnityEngine.Screen.width, UnityEngine.Screen.height * 3f);
 
 			thisRectTransform.pivot = new Vector2(thisRectTransform.pivot.x, 1.1f);
 			thisRectTransform.anchorMin = new Vector2(thisRectTransform.anchorMin.x, 0f);

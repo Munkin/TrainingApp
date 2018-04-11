@@ -17,7 +17,7 @@ public class TrainingData : ScriptableObject {
 
     [Space(10f)]
 
-    public TrainingScreenData[] trainingScreens;
+    public ScreenData[] trainingScreens;
 
     #endregion
 

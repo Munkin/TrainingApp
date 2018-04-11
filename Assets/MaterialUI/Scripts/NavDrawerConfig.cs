@@ -55,7 +55,7 @@ namespace MaterialUI
 			maxPosition = thisRectTransform.rect.width / 2;
 			minPosition = -maxPosition;
 
-			backgroundRectTransform.sizeDelta = new Vector2(Screen.width, backgroundRectTransform.sizeDelta.y);
+            backgroundRectTransform.sizeDelta = new Vector2(UnityEngine.Screen.width, backgroundRectTransform.sizeDelta.y);
 		}
 
 		public void BackgroundTap()

@@ -11,12 +11,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 966a1bd0ecbb9cb4789b88d7315b2c27, type: 3}
   m_Name: UserData
   m_EditorClassIdentifier: 
-  isFirstTime: 0
-  userName: Juan David
-  age: 21
-  height: 1.8299999
-  weight: 70
-  imc: 20.902388
-  score: 5
-  complexion: 2
+  isFirstTime: 1
+  userName: 
+  age: 0
+  height: 0
+  weight: 0
+  imc: 0
+  score: 0
+  complexion: 0
   training: 0

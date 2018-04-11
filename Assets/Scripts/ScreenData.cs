@@ -4,7 +4,7 @@
 // <summary>Represent a training screen data.</summary>
 
 [System.Serializable]
-public class TrainingScreenData
+public class ScreenData
 {
     public Exercise[] exercises;
 }

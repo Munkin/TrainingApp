@@ -109,7 +109,7 @@ namespace MaterialUI
 		{
 			theRectTransform = screenSpace.GetComponent<RectTransform>();
 			theCanvasGroup = screenSpace.GetComponent<CanvasGroup>();
-			screenDimensions = new Vector2(Screen.width, Screen.height);
+            screenDimensions = new Vector2(UnityEngine.Screen.width, UnityEngine.Screen.height);
 		}
 
 		public void ShowWithoutTransition()

@@ -1,1 +1,1 @@
-realizar vias que no bajen de 20 movimientos manteniendo una baja dificultad
+Realiza una via mínimo de 20(30%) movimientos, de baja intensidad, de 15(30%) minutos.

@@ -32,8 +32,8 @@ namespace MaterialUI
 
 		void Start ()
 		{
-			onPos = new Vector2 (Screen.width / 2, (Screen.height / 8));
-			offPos = new Vector2 (Screen.width / 2, Screen.height / 10);
+            onPos = new Vector2(UnityEngine.Screen.width / 2, (UnityEngine.Screen.height / 8));
+            offPos = new Vector2(UnityEngine.Screen.width / 2, UnityEngine.Screen.height / 10);
 			thisRect.position = offPos;
 
 			timeToWait = ToastControl.toastDuration;

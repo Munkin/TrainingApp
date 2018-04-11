@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using UnityEngine.Video;
 
 [System.Serializable]
-public class TrainingScreen
+public class Screen
 {
     #region Properties
 
@@ -33,7 +33,7 @@ public class TrainingScreen
     [HideInInspector]
     public bool continueIsAlreadyPressed;
     [HideInInspector]
-    public TrainingScreenData data;
+    public ScreenData data;
 
     public int actualExercise
     {

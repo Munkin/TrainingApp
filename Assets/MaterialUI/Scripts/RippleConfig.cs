@@ -225,7 +225,7 @@ namespace MaterialUI
 		public void OnPointerDown (PointerEventData data)
 		{
 			if (worldSpace)
-				StartCoroutine(DragCheck(theCamera.ScreenToWorldPoint(new Vector3 (data.position.x, data.position.y, Vector3.Distance(theCamera.transform.position, transform.position) - Mathf.Sqrt(Vector2.Distance(data.position, new Vector2(Screen.width / 2f, Screen.height / 2f)))))));
+                StartCoroutine(DragCheck(theCamera.ScreenToWorldPoint(new Vector3(data.position.x, data.position.y, Vector3.Distance(theCamera.transform.position, transform.position) - Mathf.Sqrt(Vector2.Distance(data.position, new Vector2(UnityEngine.Screen.width / 2f, UnityEngine.Screen.height / 2f)))))));
 			else
 				StartCoroutine(DragCheck (data.position));
 
