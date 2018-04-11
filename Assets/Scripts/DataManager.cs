@@ -515,5 +515,13 @@ public class DataManager : MonoBehaviour { // TODO Fix input field. https://docs
             UIManager.Singleton.DisableContinueButton();
     }
 
+    // ***
+
+    public void NotifySavedData(TrainingLevel trainingLevel, TrainingDay trainingDay)
+    {
+        data.trainingLevel = trainingLevel;
+        data.trainingDay = trainingDay;
+    }
+
     #endregion
 }

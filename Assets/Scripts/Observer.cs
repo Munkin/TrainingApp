@@ -97,7 +97,7 @@ public class Observer : MonoBehaviour {
     {
         DateManager.Singleton.CheckDate();
         
-        // Is the first time that the aplication is opening ?
+        // Can the user do the test ?
         if (DataManager.Singleton.CanTheUserDoTheTest())
             OnIntroductionScreen(); // Implementend
         else

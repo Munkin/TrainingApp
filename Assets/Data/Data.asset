@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 966a1bd0ecbb9cb4789b88d7315b2c27, type: 3}
-  m_Name: UserData
+  m_Name: Data
   m_EditorClassIdentifier: 
   canDoTest: 1
   userName: 

@@ -39,7 +39,7 @@ public class Training : MonoBehaviour {
     [Space(10f)]
 
     [SerializeField]
-    private Screen[] trainingScreens; // DO NOT REFACTOR! (Inspector Data lose in the process ): ).
+    private Screen[] trainingScreens; // TODO Refactor in the future. DO NOT REFACTOR NOW! (Inspector Data lose in the process ): ).
 
     [Space(10f)]
 
@@ -141,6 +141,9 @@ public class Training : MonoBehaviour {
     public void NotifyNewTrainingData(TrainingData trainingData)
     {
         cachedTrainingData = trainingData;
+
+        if (enableConsoleLog)
+            Debug.Log(string.Format("Training :: NotifyNewTrainingData :: {0}", trainingData.name));
     }
 
     private void SetTrainingData()

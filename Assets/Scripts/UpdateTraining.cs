@@ -4,9 +4,7 @@ public class UpdateTraining : MonoBehaviour {
 
     #region Properties
 
-    private int level;
     private TrainingLevel trainingLevel;
-    private int day;
     private TrainingDay trainingDay;
 
     #endregion
@@ -15,8 +13,12 @@ public class UpdateTraining : MonoBehaviour {
 
     private void Awake()
     {
-        Setup();
         Suscribe();
+    }
+
+    private void Start()
+    {
+        Setup();
     }
 
     #endregion
@@ -25,8 +27,7 @@ public class UpdateTraining : MonoBehaviour {
 
     private void Setup()
     {
-        level = PlayerPrefs.GetInt("Level", 0);
-        day = PlayerPrefs.GetInt("Day", 0);
+        LoadTrainingData();
     }
 
     private void Suscribe()
@@ -38,7 +39,7 @@ public class UpdateTraining : MonoBehaviour {
 
     public void SetNewDayTraining()
     {
-        ParseSavedTrainingData();
+        LoadTrainingData();
 
         switch (trainingDay)
         {
@@ -109,6 +110,8 @@ public class UpdateTraining : MonoBehaviour {
             default:
                 break;
         }
+
+        SaveTrainingData(trainingLevel, TrainingDay.Two);
     }
 
     private void DayThreeWeight()
@@ -135,6 +138,8 @@ public class UpdateTraining : MonoBehaviour {
             default:
                 break;
         }
+
+        SaveTrainingData(trainingLevel, TrainingDay.Three);
     }
 
     private void DayFourWeight()
@@ -161,6 +166,8 @@ public class UpdateTraining : MonoBehaviour {
             default:
                 break;
         }
+
+        SaveTrainingData(trainingLevel, TrainingDay.Four);
     }
 
     private void DayFiveWeight()
@@ -187,6 +194,8 @@ public class UpdateTraining : MonoBehaviour {
             default:
                 break;
         }
+
+        SaveTrainingData(trainingLevel, TrainingDay.Five);
     }
 
     private void DaySixWeight()
@@ -213,6 +222,8 @@ public class UpdateTraining : MonoBehaviour {
             default:
                 break;
         }
+
+        SaveTrainingData(trainingLevel, TrainingDay.Six);
     }
 
     private void DaySevenWeight()
@@ -239,65 +250,24 @@ public class UpdateTraining : MonoBehaviour {
             default:
                 break;
         }
+
+        SaveTrainingData(trainingLevel, TrainingDay.Seven);
     }
 
     // ***
 
-    private void ParseSavedTrainingData()
+    private void SaveTrainingData(TrainingLevel trainingLevel, TrainingDay trainingDay)
     {
-        CastTrainingLevel();
-        CastTrainingDay();
+        this.trainingLevel = trainingLevel;
+        this.trainingDay = trainingDay;
+
+        DataManager.Singleton.NotifySavedData(trainingLevel, trainingDay);
     }
 
-    private void CastTrainingLevel()
+    private void LoadTrainingData()
     {
-        switch (level)
-        {
-            case 1:
-                trainingLevel = TrainingLevel.Begginer;
-                break;
-            case 2:
-                trainingLevel = TrainingLevel.Rookie;
-                break;
-            case 3:
-                trainingLevel = TrainingLevel.Medium;
-                break;
-            case 4:
-                trainingLevel = TrainingLevel.Advance;
-                break;
-            default:
-                break;
-        }
-    }
-
-    private void CastTrainingDay()
-    {
-        switch (day)
-        {
-            case 1:
-                trainingDay = TrainingDay.One;
-                break;
-            case 2:
-                trainingDay = TrainingDay.Two;
-                break;
-            case 3:
-                trainingDay = TrainingDay.Three;
-                break;
-            case 4:
-                trainingDay = TrainingDay.Four;
-                break;
-            case 5:
-                trainingDay = TrainingDay.Five;
-                break;
-            case 6:
-                trainingDay = TrainingDay.Six;
-                break;
-            case 7:
-                trainingDay = TrainingDay.Seven;
-                break;
-            default:
-                break;
-        }
+        trainingLevel = DataManager.Singleton.GetData().trainingLevel;
+        trainingDay = DataManager.Singleton.GetData().trainingDay;
     }
 
     #endregion

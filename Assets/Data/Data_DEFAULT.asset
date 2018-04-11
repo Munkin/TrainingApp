@@ -9,9 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 966a1bd0ecbb9cb4789b88d7315b2c27, type: 3}
-  m_Name: UserData_DEFAULT
+  m_Name: Data_DEFAULT
   m_EditorClassIdentifier: 
-  isFirstTime: 1
+  canDoTest: 1
   userName: 
   age: 0
   height: 0
@@ -19,4 +19,5 @@ MonoBehaviour:
   imc: 0
   score: 0
   complexion: 0
-  training: 0
+  trainingLevel: 0
+  trainingDay: 0
