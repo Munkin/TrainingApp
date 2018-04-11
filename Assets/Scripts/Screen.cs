@@ -1,4 +1,4 @@
-﻿// <copyright file="TrainingScreen.cs" company="Up Up Down Studios">
+﻿// <copyright file="Screen.cs" company="Up Up Down Studios">
 // Copyright (c) 2018 All Rights Reserved
 // </copyright>
 // <summary>Represent a training screen object.</summary>
@@ -46,7 +46,7 @@ public class Screen
 
     public void SetupExercise()
     {
-        // Increase index
+        // Increase index.
         if (actualExercise >= 0 && actualExercise < data.exercises.Length - 1)
             actualExercise++;
         else
@@ -82,9 +82,20 @@ public class Screen
 
         videoPlayer.clip = data.exercises[actualExercise].videoClip;
 
+        // Is there a video asigned ?
         if (!videoPlayer.isPlaying)
             videoPlayer.Play();
     }
+
+    public void ExecuteTimer()
+    {
+        SetActiveReady(false);
+
+        timer.gameObject.SetActive(true);
+        timer.ExecuteWatch(data.exercises[actualExercise].time);
+    }
+
+    // ***
 
     public void ActiveContinue()
     {
@@ -103,13 +114,7 @@ public class Screen
         continueButton.transform.parent.gameObject.SetActive(state);
     }
 
-    public void ExecuteTimer()
-    {
-        SetActiveReady(false);
-
-        timer.gameObject.SetActive(true);
-        timer.ExecuteWatch(data.exercises[actualExercise].time);
-    }
+    // ***
 
     public void FadeOutReady()
     {
@@ -128,6 +133,8 @@ public class Screen
         // Fade event!
         Fader.Singleton.FadeOutButton(continueButton.gameObject);
     }
+
+    // ***
 
     public bool ActualExerciseHasRest()
     {

@@ -145,6 +145,11 @@ public class UIManager : MonoBehaviour {
 
     #region Class functions
 
+    private void Setup()
+    {
+        EnableScreen(0);
+    }
+
     private void Suscribe()
     {
         // *** GENERAL EVENTS ***
@@ -153,37 +158,37 @@ public class UIManager : MonoBehaviour {
         Observer.Singleton.onDataScreen += EnableDataScreen;
         Observer.Singleton.onDataScreen += ResetInterludeFadeValues;
         Observer.Singleton.onExerciseDataScreen += EnableExerciseDataScreen;
-        // OnTestResult Events
+        // OnTestResult events.
         Observer.Singleton.onTestResult += EnableIntroductionScreen;
         Observer.Singleton.onTestResult += FadeInResult;
-        // OnTestEnd Events
+        // OnTestEnd events.
         Observer.Singleton.onTestEnd += EnableCompleteTestScreen;
         Observer.Singleton.onTestEnd += ShowResults;
         Observer.Singleton.onTestEnd += ResetResultFadeValues;
-        // Already Opened Events
+        // OnAppWasAlreadyOpenedToday events.
         Observer.Singleton.onAppWasAlreadyOpenedToday += SetAlreadyOpenedFirstText;
         Observer.Singleton.onAppWasAlreadyOpenedToday += FadeInAlreadyOpened;
-        // Daily Training Events
+        // OnDailyTraining events.
 
         // *** TRAINING EVENTS ***
 
-        //OnTrainingEnd
+        //OnTrainingEnd events.
         Observer.Singleton.onTrainingEnd += EnableIntroductionScreen;
         Observer.Singleton.onTrainingEnd += FadeInTrainingEnd;
         Observer.Singleton.onAppEnd += ResetTrainingEndFadeValues;
         Observer.Singleton.onAppEnd += ResetAlreadyOpenedFadeValues;
 
-        // OnTrainingStart Events
+        // OnTrainingStart events.
         Observer.Singleton.onWarmingUpScreenStart += EnableIntroductionScreen;
         Observer.Singleton.onWarmingUpScreenStart += FadeInToWarmingUp;
         Observer.Singleton.onWarmingUpScreenEnd += EnableWarmingUp;
         Observer.Singleton.onWarmingUpScreenEnd += ResetWarmingUpFadeValues;
-        // OnWarmingUpScreen Events
+        // OnWarmingUpScreen events.
         Observer.Singleton.onTrainingScreenStart += EnableIntroductionScreen;
         Observer.Singleton.onTrainingScreenStart += FadeInToTraining;
         Observer.Singleton.onTrainingScreenEnd += EnableTraining;
         Observer.Singleton.onTrainingScreenEnd += ResetTrainingFadeValues;
-        // OnTrainingScreen Events
+        // OnTrainingScreen events.
         Observer.Singleton.onStretchingScreenStart += EnableIntroductionScreen;
         Observer.Singleton.onStretchingScreenStart += FadeInToStretching;
         Observer.Singleton.onStretchingScreenEnd += EnableStretching;
@@ -199,11 +204,6 @@ public class UIManager : MonoBehaviour {
 
         Observer.Singleton.onExerciseDataScreen += ContinueCanBePressedAgain;
         Observer.Singleton.onWarmingUpScreenStart += ContinueToTrainingCanBePressedAgain;
-    }
-
-    private void Setup()
-    {
-        EnableScreen(0);
     }
 
     // *** INTERLUDE FUNCTIONS ***

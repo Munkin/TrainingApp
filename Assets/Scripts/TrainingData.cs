@@ -10,10 +10,10 @@ public class TrainingData : ScriptableObject {
 
     #region Properties
 
-    [Tooltip("Set the training day")]
-    public TrainingDay trainingDay;
     [Tooltip("Set the training level")]
     public TrainingLevel trainingLevel;
+    [Tooltip("Set the training day")]
+    public TrainingDay trainingDay;
 
     [Space(10f)]
 

@@ -890,7 +890,7 @@ MonoBehaviour:
     continueIsAlreadyPressed: 0
     data:
       exercises: []
-  trainingUpdater: {fileID: 1897563273}
+  updateTraining: {fileID: 1897563273}
   trainingStage: 0
 --- !u!4 &426486923
 Transform:

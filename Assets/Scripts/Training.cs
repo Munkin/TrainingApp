@@ -35,8 +35,11 @@ public class Training : MonoBehaviour {
     private float timeToNonTimeExercise;
     [SerializeField]
     private float timeToNonRestExercise;
+
+    [Space(10f)]
+
     [SerializeField]
-    private Screen[] trainingScreens;
+    private Screen[] trainingScreens; // DO NOT REFACTOR! (Inspector Data lose in the process ): ).
 
     [Space(10f)]
 
@@ -48,7 +51,7 @@ public class Training : MonoBehaviour {
     public TrainingStage trainingStage;
 
     // Consts
-    public const float fadeFixFactor = 0.125f;
+    public const float fadeFixTime = 0.125f;
 
     // Cached Components
     public TrainingData cachedTrainingData
@@ -90,22 +93,24 @@ public class Training : MonoBehaviour {
     {
         Observer.Singleton.onTestEnd += SetTrainingData;
 
-        // Training screens Events
+        // Training screens events.
         Observer.Singleton.onWarmingUpScreenEnd += SetWarmingUp;
         Observer.Singleton.onTrainingScreenEnd += SetTraining;
         Observer.Singleton.onStretchingScreenEnd += SetStretching;
 
-        // OnTimerDone Events
+        // OnTimerDone events.
         foreach (Screen screen in trainingScreens)
         {
             screen.timer.gameObject.SetActive(false);
             
-            // Timer Events
+            // Timer events.
             Observer.Singleton.onTimerDone += screen.ActiveContinue;
             Observer.Singleton.onTimerDone += screen.FadeInContinue;
             Observer.Singleton.onTimerDone += StopWatchSound;
         }
     }
+
+    // ***
 
     public void Ready()
     {
@@ -133,7 +138,7 @@ public class Training : MonoBehaviour {
 
     // *** SET TRAINING DATA ***
 
-    public void SetTrainingData(TrainingData trainingData)
+    public void NotifyNewTrainingData(TrainingData trainingData)
     {
         cachedTrainingData = trainingData;
     }
@@ -205,7 +210,7 @@ public class Training : MonoBehaviour {
         }
     }
 
-    // *** GENERAL FUNCTIONS ***
+    // *** OTHER FUNCTIONS ***
 
     private void SetWarmingUp()
     {
@@ -395,7 +400,7 @@ public class Training : MonoBehaviour {
         if (!isTheLastExercise)
             Observer.Singleton.OnRestEnd();
         else
-            yield return new WaitForSeconds(fadeFixFactor); // Fix a fade error
+            yield return new WaitForSeconds(fadeFixTime); // Fix a fade error
 
         if (isTheLastExercise)
             Observer.Singleton.onRestEnd -= UIManager.Singleton.OnLastExerciseRest;

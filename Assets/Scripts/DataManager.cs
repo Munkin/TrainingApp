@@ -121,11 +121,6 @@ public class DataManager : MonoBehaviour { // TODO Fix input field. https://docs
 
     #region Unity fucntions
 
-    private void Start()
-    {
-        Setup();
-    }
-
     private void Awake()
     {
         if (Singleton != null)
@@ -136,22 +131,14 @@ public class DataManager : MonoBehaviour { // TODO Fix input field. https://docs
         Suscribe();
     }
 
+    private void Start()
+    {
+        Setup();
+    }
+
     #endregion
 
     #region Class functions
-
-    private void Suscribe()
-    {
-        Observer.Singleton.onExerciseDataScreen += EstimateIMC;
-        // On test result events.
-        Observer.Singleton.onTestResult += EstimateTotalScore;
-        Observer.Singleton.onTestResult += SetTraining;
-        Observer.Singleton.onTestResult += SaveData;
-
-        // Data event.
-        if (!CanTheUserDoTheTest())
-            LoadData();
-    }
 
     private void Setup()
     {
@@ -186,6 +173,19 @@ public class DataManager : MonoBehaviour { // TODO Fix input field. https://docs
         {
             return ValidateNumberChar(addedChar);
         };
+    }
+
+    private void Suscribe()
+    {
+        Observer.Singleton.onExerciseDataScreen += EstimateIMC;
+        // OnTestResult events.
+        Observer.Singleton.onTestResult += EstimateTotalScore;
+        Observer.Singleton.onTestResult += SetTraining;
+        Observer.Singleton.onTestResult += SaveData;
+
+        // Data event.
+        if (!CanTheUserDoTheTest())
+            LoadData();
     }
 
     // ***
