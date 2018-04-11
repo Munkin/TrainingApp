@@ -11,7 +11,7 @@ public enum Complexion
     Thin, AcceptableThin, Normal, Overweight, NormalObesity, MorbidObesity
 }
 
-public class DataManager : MonoBehaviour {
+public class DataManager : MonoBehaviour { // TODO Fix input field. https://docs.unity3d.com/Manual/MobileKeyboard.html
 
     #region Properties
 
@@ -143,43 +143,44 @@ public class DataManager : MonoBehaviour {
     private void Suscribe()
     {
         Observer.Singleton.onExerciseDataScreen += EstimateIMC;
-        // On test result events
+        // On test result events.
         Observer.Singleton.onTestResult += EstimateTotalScore;
         Observer.Singleton.onTestResult += SetTraining;
         Observer.Singleton.onTestResult += SaveData;
 
-        // Data event
-        if (!data.canDoTest)
+        // Data event.
+        if (!CanTheUserDoTheTest())
             LoadData();
     }
 
     private void Setup()
     {
+        // Is there not a InputField asigned in the inspector ?
         if (nameInputField == null || ageInputField == null || weightInputField == null || heightInputField == null)
             return;
 
-        // For check name input field chars entered by the user
+        // For check name input field chars entered by the user.
         nameInputField.characterLimit = 22;
         nameInputField.onValidateInput += delegate (string input, int charIndex, char addedChar)
         {
             return ValidateLetterChar(addedChar);
         };
 
-        // For check age input field chars entered by the user
+        // For check age input field chars entered by the user.
         ageInputField.characterLimit = 2;
         ageInputField.onValidateInput += delegate (string input, int charIndex, char addedChar)
         {
             return ValidateNumberChar(addedChar);
         };
 
-        // For check weight input field chars entered by the user
+        // For check weight input field chars entered by the user.
         weightInputField.characterLimit = 3;
         weightInputField.onValidateInput += delegate (string input, int charIndex, char addedChar)
         {
             return ValidateNumberChar(addedChar);
         };
 
-        // For check height input field chars entered by the user
+        // For check height input field chars entered by the user.
         heightInputField.characterLimit = 3;
         heightInputField.onValidateInput += delegate (string input, int charIndex, char addedChar)
         {
@@ -187,18 +188,16 @@ public class DataManager : MonoBehaviour {
         };
     }
 
-    public bool IsTheFirstAppOpening()
+    public bool CanTheUserDoTheTest()
     {
-        if (data.canDoTest)
-            return true;
-        else
-            return false;
+        return data.canDoTest;
     }
 
     public void EstimateIMC()
     {
         imc = weight / (height * height);
 
+        // IMC Score estimation.
         if (imc <= 16.99f)
             complexion = Complexion.Thin;
         else if (imc >= 17.00f && imc <= 18.49f)
@@ -291,7 +290,7 @@ public class DataManager : MonoBehaviour {
         CheckData();
 
         nameText.text = userName;
-    } // TODO Mobile InputField fix.
+    }
 
     public void OnAgeEndEdit(string value)
     {
@@ -314,14 +313,14 @@ public class DataManager : MonoBehaviour {
             }
         }
 
-        // Is the age in thecorrect range ?
+        // Is the age in the correct range ?
         if (age >= minAge && age <= maxAge)
             inputFieldHasCorrectAge = true;
         else
             inputFieldHasCorrectAge = false;
 
         CheckData();
-    } // TODO Mobile InputField fix.
+    }
 
     public void OnHeightEndEdit(string value)
     {
@@ -356,7 +355,7 @@ public class DataManager : MonoBehaviour {
         }
 
         CheckData();
-    } // TODO Mobile InputField fix.
+    }
 
     public void OnWeightEndEdit(string value)
     {
@@ -391,7 +390,7 @@ public class DataManager : MonoBehaviour {
         }
 
         CheckData();
-    } // TODO Mobile InputField fix.
+    }
 
     public Data GetData()
     {
@@ -426,7 +425,7 @@ public class DataManager : MonoBehaviour {
     private void SaveData()
     {
         if (enableConsoleLog)
-            Debug.Log("DataManager :: Save");
+            Debug.Log("DataManager :: SaveData");
 
         data.Save(userName, age, height, weight, imc, score, complexion, trainingLevel, trainingDay);
     }
@@ -434,7 +433,7 @@ public class DataManager : MonoBehaviour {
     private void LoadData()
     {
         if (enableConsoleLog)
-            Debug.Log("DataManager :: Load");
+            Debug.Log("DataManager :: LoadData");
 
         userName = data.userName;
         age = data.age;
@@ -445,6 +444,7 @@ public class DataManager : MonoBehaviour {
 
         complexion = data.complexion;
         trainingLevel = data.trainingLevel;
+        trainingDay = data.trainingDay;
     }
 
     private string CheckName(string value)
@@ -488,6 +488,7 @@ public class DataManager : MonoBehaviour {
 
     private char ValidateLetterChar(char charToValidate)
     {
+        // Is the char a correct letter ?
         if (!char.IsLetter(charToValidate) && !char.IsWhiteSpace(charToValidate))
             charToValidate = ' ';
 
@@ -496,6 +497,7 @@ public class DataManager : MonoBehaviour {
 
     private char ValidateNumberChar(char charToValidate)
     {
+        // Is the char a number ?
         if (!char.IsNumber(charToValidate))
             charToValidate = '0';
 
