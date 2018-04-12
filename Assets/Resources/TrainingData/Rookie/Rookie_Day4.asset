@@ -12,38 +12,144 @@ MonoBehaviour:
   m_Name: Rookie_Day4
   m_EditorClassIdentifier: 
   trainingLevel: 1
-  trainingDay: 0
+  trainingDay: 3
   screensData:
   - exercises:
-    - name: "B\xC1SICO 1"
-      description: "Esta es la descripci\xF3n del ejercicio."
+    - name: MANGUITOS
+      description: Realiza 10 repeticiones con cada mano.
       time: 0
       restTime: 0
       videoClip: {fileID: 32900000, guid: 14c95c1df7abc304d8b5bf1281508a94, type: 3}
-    - name: "B\xC1SICO 2"
-      description: "Esta es la descripci\xF3n del ejercicio."
+    - name: ALICATES
+      description: Realiza 50 repeticiones con cada mano. En 3 series.
       time: 0
       restTime: 0
       videoClip: {fileID: 32900000, guid: 6849d0392c9b69746bca7e3341889315, type: 3}
-  - exercises:
-    - name: "B\xC1SICO 1"
-      description: "Esta es la descripci\xF3n del ejercicio."
+    - name: MANCUERNAS LATERAL
+      description: Realiza 10 repeticiones.
+      time: 0
+      restTime: 15
+      videoClip: {fileID: 32900000, guid: 67963616f65eaa7468124374e36f91c7, type: 3}
+    - name: MANCUERNAS FRONTAL
+      description: Realiza 10 repeticiones.
+      time: 0
+      restTime: 15
+      videoClip: {fileID: 32900000, guid: ef4a6f7fab0eab64ca9b996aeca29cd8, type: 3}
+    - name: ABDOMEN PLANCHA
+      description: "Manten la posici\xF3n por 30 segundos."
+      time: 30
+      restTime: 30
+      videoClip: {fileID: 32900000, guid: 18349ba3b2b9e254a840389c16e249f4, type: 3}
+    - name: LUMBARES
+      description: "Manten la posici\xF3n por 30 segundos."
+      time: 30
+      restTime: 30
+      videoClip: {fileID: 32900000, guid: 162077124dcb6a64289420f520e4c913, type: 3}
+    - name: SENTADILLAS
+      description: Realiza 20 repeticiones.
       time: 0
       restTime: 0
+      videoClip: {fileID: 32900000, guid: 91045bf17a9d69b4a85e3ed9072a06d7, type: 3}
+  - exercises:
+    - name: DESCANSO TOTAL
+      description: "Ruta & Roca recomienda tener un descanso total del cuerpo para
+        obtener mejores resultados. Visita nuestra p\xE1gina para m\xE1s informaci\xF3n."
+      time: 0
+      restTime: 10
       videoClip: {fileID: 32900000, guid: 14c95c1df7abc304d8b5bf1281508a94, type: 3}
-    - name: "B\xC1SICO 2"
-      description: "Esta es la descripci\xF3n del ejercicio."
-      time: 0
-      restTime: 0
-      videoClip: {fileID: 32900000, guid: 0a84222fb3ee73d40bf98bb102458cb0, type: 3}
   - exercises:
-    - name: "B\xC1SICO 1"
-      description: "Esta es la descripci\xF3n del ejercicio."
-      time: 0
+    - name: CUELLO IZQUIERDA DERECHA
+      description: "Manten la posici\xF3n por 10 segundos. Realizar a cada lado."
+      time: 20
       restTime: 0
-      videoClip: {fileID: 0}
-    - name: "B\xC1SICO 2"
-      description: "Esta es la descripci\xF3n del ejercicio."
-      time: 0
+      videoClip: {fileID: 32900000, guid: e14cd58e9a8f74c498dcd216990f353c, type: 3}
+    - name: CUELLO ABAJO
+      description: "Manten la posici\xF3n por 20 segundos."
+      time: 20
       restTime: 0
-      videoClip: {fileID: 0}
+      videoClip: {fileID: 32900000, guid: d8cc77534e075754eb151a8d695d0b98, type: 3}
+    - name: CUELLO ARRIBA
+      description: "Manten la posici\xF3n por 5 segundos."
+      time: 5
+      restTime: 0
+      videoClip: {fileID: 32900000, guid: 3987b4ab641a8934e8ccf43401e7a2e8, type: 3}
+    - name: BRAZO IZQUIERDO Y DERECHO
+      description: "Manten la posici\xF3n por 15 segundos. Realizar con cada brazo. "
+      time: 30
+      restTime: 0
+      videoClip: {fileID: 32900000, guid: 950aea7561ec5fa42b95f60a89080876, type: 3}
+    - name: "EXTENCI\xD3N ATR\xC1S"
+      description: "Manten la posici\xF3n por 20 segundos."
+      time: 20
+      restTime: 0
+      videoClip: {fileID: 32900000, guid: f232719c076af0b4bb529b25bb27b061, type: 3}
+    - name: "EXTENCI\xD3N ARRIBA"
+      description: "Manten la posici\xF3n por 20 segundos."
+      time: 20
+      restTime: 0
+      videoClip: {fileID: 32900000, guid: 90f8d4c86a057724e941307d7166f186, type: 3}
+    - name: TRONCO DERECHA
+      description: "Manten la posici\xF3n por 10 segundos."
+      time: 10
+      restTime: 0
+      videoClip: {fileID: 32900000, guid: e2b4586b77182594faa69834fcd430e0, type: 3}
+    - name: TRONCO IZQUIERDA
+      description: "Manten la posici\xF3n por 10 segundos."
+      time: 10
+      restTime: 0
+      videoClip: {fileID: 32900000, guid: b020d142d7b5d494483064063a8f0a7b, type: 3}
+    - name: TRONCO AL FRENTE
+      description: "Manten la posici\xF3n por 10 segundos."
+      time: 10
+      restTime: 0
+      videoClip: {fileID: 32900000, guid: 609f9063cb0e8154c85b862378ac2d50, type: 3}
+    - name: MEDIO IZQUIERDA
+      description: "Manten la posici\xF3n por 15 segundos."
+      time: 15
+      restTime: 0
+      videoClip: {fileID: 32900000, guid: 0400c268b557fa04bafc4af4ee9e5cb2, type: 3}
+    - name: MEDIO DERECHA
+      description: "Manten la posici\xF3n por 15 segundos."
+      time: 15
+      restTime: 0
+      videoClip: {fileID: 32900000, guid: c4227b04327ee1043abc308e3a967096, type: 3}
+    - name: TOTAL HACIA EL FRENTE
+      description: "Manten la posici\xF3n por 10 segundos."
+      time: 10
+      restTime: 0
+      videoClip: {fileID: 32900000, guid: 1f67d3192b873a641b9149f5c78703b8, type: 3}
+    - name: "HACIA ATR\xC1S PIE DERECHO"
+      description: "Manten la posici\xF3n por 15 segundos."
+      time: 15
+      restTime: 0
+      videoClip: {fileID: 32900000, guid: 499f0e1fe4ba4a949b1bdc1a90ccea94, type: 3}
+    - name: "HACIA ATR\xC1S PIE IZQUIERDO"
+      description: "Manten la posici\xF3n por 15 segundos."
+      time: 15
+      restTime: 0
+      videoClip: {fileID: 32900000, guid: 1a23fd173985a364d89afd4ecf64e6da, type: 3}
+    - name: RODILLA IZQUIERDA LA PECHO
+      description: "Manten la posici\xF3n por 10 segundos."
+      time: 10
+      restTime: 0
+      videoClip: {fileID: 32900000, guid: 6e6672d52e73d6a459ee4b548ea4e794, type: 3}
+    - name: RODILLA DERECHA AL PECHO
+      description: "Manten la posici\xF3n por 10 segundos."
+      time: 10
+      restTime: 0
+      videoClip: {fileID: 32900000, guid: f53c0b945727c084ba883c4b4f8379db, type: 3}
+    - name: RODILLA IZQUIERDA DERECHA
+      description: "Manten la posici\xF3n por 15 segundos. Realizar con cada pierna."
+      time: 30
+      restTime: 0
+      videoClip: {fileID: 32900000, guid: 1a917079fb3e6874ba5bc126a125c633, type: 3}
+    - name: SAGITARIO IZQUIERDA
+      description: "Manten la posici\xF3n por 15 segundos."
+      time: 15
+      restTime: 0
+      videoClip: {fileID: 32900000, guid: 1181a3c8fc4745b4b8df0fb3175cec1c, type: 3}
+    - name: SAGITARIO DERECHA
+      description: "Manten la posici\xF3n por 15 segundos."
+      time: 15
+      restTime: 0
+      videoClip: {fileID: 32900000, guid: 043b0a4dd1226f84db315db8ff4dead3, type: 3}

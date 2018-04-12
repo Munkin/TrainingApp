@@ -853,7 +853,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66735dfa4c09a3941b3ea79125be4cc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableConsoleLog: 0
+  enableConsoleLog: 1
   timeToNonTimeExercise: 0.95
   timeToNonRestExercise: 0.95
   trainingScreens:
@@ -6160,7 +6160,7 @@ GameObject:
   - component: {fileID: 1897563274}
   - component: {fileID: 1897563273}
   m_Layer: 0
-  m_Name: TrainingUpdater
+  m_Name: TrainingUpdate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
