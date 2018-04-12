@@ -28,7 +28,9 @@ public class Observer : MonoBehaviour {
     public Action onAppEnd;
     // App Already Opened
     public Action onDailyTraining;
+    public Action onDailyTrainingEnd;
     public Action onAppWasAlreadyOpenedToday;
+    public Action onAppWasAlreadyOpenedTodayEnd;
 
     // Training Actions ***
 
@@ -227,6 +229,16 @@ public class Observer : MonoBehaviour {
             onDailyTraining();
     }
 
+    public void OnDailyTrainingEnd()
+    {
+        if (enableConsoleLog)
+            Debug.Log("Observer :: OnDailyTrainingEnd");
+
+        // Event call!
+        if (onDailyTrainingEnd != null)
+            onDailyTrainingEnd();
+    }
+
     public void OnAppWasAlreadyOpenedToday()
     {
         if (enableConsoleLog)
@@ -235,6 +247,16 @@ public class Observer : MonoBehaviour {
         // Event call!
         if (onAppWasAlreadyOpenedToday != null)
             onAppWasAlreadyOpenedToday();
+    }
+
+    public void OnAppWasAlreadyOpenedTodayEnd()
+    {
+        if (enableConsoleLog)
+            Debug.Log("Observer :: OnAppWasAlreadyOpenedTodayEnd");
+
+        // Event call!
+        if (onAppWasAlreadyOpenedTodayEnd != null)
+            onAppWasAlreadyOpenedTodayEnd();
     }
 
     // ***
@@ -264,6 +286,8 @@ public class Observer : MonoBehaviour {
         // Event call!
         if (onWarmingUpScreenEnd != null)
             onWarmingUpScreenEnd();
+
+        Debug.Log("3");
     }
     
     // ***

@@ -144,6 +144,8 @@ public class Training : MonoBehaviour {
 
         if (enableConsoleLog)
             Debug.Log(string.Format("Training :: NotifyNewTrainingData :: {0}", trainingData.name));
+
+        AllocateData(); // *.*
     }
 
     private void SetTrainingData()

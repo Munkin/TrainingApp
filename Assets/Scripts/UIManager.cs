@@ -3,6 +3,7 @@
 // </copyright>
 // <summary>Manager for Unity user interface events.</summary>
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -168,7 +169,13 @@ public class UIManager : MonoBehaviour {
         // OnAppWasAlreadyOpenedToday events.
         Observer.Singleton.onAppWasAlreadyOpenedToday += SetAlreadyOpenedFirstText;
         Observer.Singleton.onAppWasAlreadyOpenedToday += FadeInAlreadyOpened;
+        Observer.Singleton.onAppWasAlreadyOpenedTodayEnd += ResetAlreadyOpenedFadeValues;
         // OnDailyTraining events.
+        Observer.Singleton.onDailyTraining += SetDailyTrainingFirstText;
+        Observer.Singleton.onDailyTraining += FadeInDailyTraining;
+        Observer.Singleton.onDailyTrainingEnd += ResetDailyTrainingFadeValues;
+        // OnDailyTraining special events.
+        Observer.Singleton.onDailyTrainingEnd += () => StartCoroutine(WaitForTraining());
 
         // *** TRAINING EVENTS ***
 
@@ -176,7 +183,6 @@ public class UIManager : MonoBehaviour {
         Observer.Singleton.onTrainingEnd += EnableIntroductionScreen;
         Observer.Singleton.onTrainingEnd += FadeInTrainingEnd;
         Observer.Singleton.onAppEnd += ResetTrainingEndFadeValues;
-        Observer.Singleton.onAppEnd += ResetAlreadyOpenedFadeValues;
 
         // OnTrainingStart events.
         Observer.Singleton.onWarmingUpScreenStart += EnableIntroductionScreen;
@@ -503,7 +509,6 @@ public class UIManager : MonoBehaviour {
             textIndex++;
         else
             textIndex = restTexts.Length - 1;
-            
 
         // Is the interlude screen active in hierarchy ?
         if (screens[0].activeInHierarchy)
@@ -624,9 +629,9 @@ public class UIManager : MonoBehaviour {
 
             interludeText.DOFade(0.8745f, timeToFadeOut);
 
-            Observer.Singleton.OnAppEnd();
+            Observer.Singleton.OnAppWasAlreadyOpenedTodayEnd();
 
-            return; // End of the application
+            return; // End of the application.
         }
 
         // Is the interlude screen active in hierarchy ?
@@ -653,28 +658,57 @@ public class UIManager : MonoBehaviour {
 
     private void FadeOutDailyTraining()
     {
+        if (enableConsoleLog)
+            Debug.Log("UIManager :: FadeOutDailyTraining");
 
+        interludeText.DOFade(0.0f, timeToFadeIn).OnComplete(SetDailyTrainingText);
     }
 
     private void FadeInterludeDailyTraining()
     {
-
+        interludeText.DOFade(interludeText.color.a, timeToFadeOut).OnComplete(FadeOutDailyTraining);
     }
 
     private void FadeInDailyTraining()
     {
+        if (enableConsoleLog)
+            Debug.Log("UIManager :: FadeInDailyTraining");
 
-    }
+        // Is the first fade of the entire fade sequence ?
+        if (fadeDailyTraining)
+        {
+            interludeText.text = dailyTrainingTexts[0];
+
+            fadeDailyTraining = false;
+        }
+
+        interludeText.DOFade(0.8745f, timeToFadeOut).OnComplete(FadeInterludeDailyTraining);
+    } // 1.
 
     private void SetDailyTrainingText()
     {
+        if (textIndex < dailyTrainingTexts.Length - 1)
+            textIndex++;
+        else
+        {
+            Observer.Singleton.OnDailyTrainingEnd();
+            Observer.Singleton.OnWarmingUpScreenStart();
+            return;
+        }
 
+        // Is the interlude screen active in hierarchy ?
+        if (screens[0].activeInHierarchy)
+        {
+            interludeText.text = dailyTrainingTexts[textIndex];
+
+            FadeInDailyTraining();
+        }
     }
 
     private void ResetDailyTrainingFadeValues()
     {
         fadeDailyTraining = true;
-    }
+    } // Control function
 
     // First Text
     private void SetDailyTrainingFirstText()
@@ -1075,6 +1109,19 @@ public class UIManager : MonoBehaviour {
     private void ContinueToTrainingCanBePressedAgain()
     {
         continueToTrainingIsAlreadyPressed = false;
+    }
+
+    #endregion
+
+    #region Coroutines
+
+    private IEnumerator WaitForTraining()
+    {
+        DisableAllScreens();
+
+        yield return null; yield return null; yield return null;
+
+        EnableIntroductionScreen();
     }
 
     #endregion
