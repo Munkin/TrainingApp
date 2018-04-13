@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Name: Data
   m_EditorClassIdentifier: 
   canDoTest: 0
-  userName: Juan David
+  userName: Juan
   age: 21
-  height: 1.8299999
+  height: 183
   weight: 70
-  imc: 20.902388
-  score: 5
-  complexion: 2
+  imc: 21
+  score: 1
+  complexion: 0
   trainingLevel: 0
-  trainingDay: 2
+  trainingDay: 1

@@ -18,6 +18,8 @@ public class Screen
     [SerializeField]
     private Text exerciseDescription;
     [SerializeField]
+    private Text exerciseDescriptionBig;
+    [SerializeField]
     private VideoPlayer videoPlayer;
     
     public Button readyButton;
@@ -75,16 +77,14 @@ public class Screen
         SetupScreen();
     }
 
-    public void SetupScreen()
+    public void SetupScreen() // TODO Fix video exercise.
     {
         exerciseName.text = data.exercises[actualExercise].name;
-        exerciseDescription.text = data.exercises[actualExercise].description;
 
-        videoPlayer.clip = data.exercises[actualExercise].videoClip;
-
-        // Is there a video asigned ?
-        if (!videoPlayer.isPlaying)
-            videoPlayer.Play();
+        if (data.exercises[actualExercise].videoClip != null)
+            SetupVideoExercise();
+        else
+            SetupNoVideoExercise();
     }
 
     public void ExecuteTimer()
@@ -93,6 +93,58 @@ public class Screen
 
         timer.gameObject.SetActive(true);
         timer.ExecuteWatch(data.exercises[actualExercise].time);
+    }
+
+    private void SetupVideoExercise()
+    {
+        Debug.Log("Video exercise.");
+
+        // Turn-On the big text.
+        if (exerciseDescriptionBig.gameObject.activeInHierarchy)
+            exerciseDescriptionBig.gameObject.SetActive(false);
+
+        // Turn-Off the normal text.
+        if (!exerciseDescription.gameObject.activeInHierarchy)
+            exerciseDescription.gameObject.SetActive(true);
+
+        // Turn-Off the video.
+        videoPlayer.gameObject.SetActive(true);
+
+        // Screen setup
+        exerciseDescription.text = data.exercises[actualExercise].description;
+        exerciseDescriptionBig.text = "";
+
+        videoPlayer.clip = data.exercises[actualExercise].videoClip;
+
+        // Is there a video asigned ?
+        if (!videoPlayer.isPlaying)
+            videoPlayer.Play();
+
+        SetActiveReady(true);
+        SetActiveContinue(false);
+    }
+
+    private void SetupNoVideoExercise()
+    {
+        Debug.Log("No video exercise.");
+
+        // Turn-On the big text.
+        if (!exerciseDescriptionBig.gameObject.activeInHierarchy)
+            exerciseDescriptionBig.gameObject.SetActive(true);        
+
+        // Turn-Off the normal text.
+        if (exerciseDescription.gameObject.activeInHierarchy)
+            exerciseDescription.gameObject.SetActive(false);
+
+        // Turn-Off the video.
+        videoPlayer.gameObject.SetActive(false);
+
+        // Screen setup
+        exerciseDescription.text = "";
+        exerciseDescriptionBig.text = data.exercises[actualExercise].description;
+
+        SetActiveReady(false);
+        SetActiveContinue(true);
     }
 
     // ***

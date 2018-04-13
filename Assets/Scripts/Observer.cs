@@ -286,8 +286,6 @@ public class Observer : MonoBehaviour {
         // Event call!
         if (onWarmingUpScreenEnd != null)
             onWarmingUpScreenEnd();
-
-        Debug.Log("3");
     }
     
     // ***
