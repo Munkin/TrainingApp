@@ -19,12 +19,12 @@ MonoBehaviour:
       description: Realiza 5 repeticiones con cada mano.
       time: 0
       restTime: 0
-      videoClip: {fileID: 32900000, guid: 14c95c1df7abc304d8b5bf1281508a94, type: 3}
+      videoClip: {fileID: 0}
     - name: ALICATES
       description: Realiza 50 repeticiones con cada mano. En 2 series.
       time: 0
       restTime: 0
-      videoClip: {fileID: 32900000, guid: 6849d0392c9b69746bca7e3341889315, type: 3}
+      videoClip: {fileID: 0}
     - name: MANCUERNAS LATERAL
       description: Realiza 5 repeticiones.
       time: 0

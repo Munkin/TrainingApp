@@ -114,7 +114,7 @@ public class Training : MonoBehaviour {
 
     public void Ready()
     {
-        if (ReadyIsAlreadyPressed())
+        if (targetScreen.ReadyWasAlreadyPressed())
             return;
 
         // Ready execution
@@ -126,7 +126,7 @@ public class Training : MonoBehaviour {
 
     public void Continue()
     {
-        if (ContinueIsAlreadyPressed())
+        if (targetScreen.ContinueWasAlreadyPressed())
             return;
 
         // Continue execution
@@ -226,8 +226,6 @@ public class Training : MonoBehaviour {
 
         targetScreen = trainingScreens[0];
         targetScreen.SetupScreen();
-
-        CheckButtonsStatus();
     }
 
     private void SetTraining()
@@ -239,8 +237,6 @@ public class Training : MonoBehaviour {
 
         targetScreen = trainingScreens[1];
         targetScreen.SetupScreen();
-
-        CheckButtonsStatus();
     }
 
     private void SetStretching()
@@ -252,43 +248,6 @@ public class Training : MonoBehaviour {
 
         targetScreen = trainingScreens[2];
         targetScreen.SetupScreen();
-
-        CheckButtonsStatus();
-    }
-
-    private bool ReadyIsAlreadyPressed()
-    {
-        // Constraints
-        if (targetScreen.readyIsAlreadyPressed)
-            return true;
-
-        if (targetScreen.continueIsAlreadyPressed)
-            targetScreen.continueIsAlreadyPressed = false;
-
-        targetScreen.readyIsAlreadyPressed = true;
-
-        return false;
-    }
-
-    private bool ContinueIsAlreadyPressed()
-    {
-        // Constraints
-        if (targetScreen.continueIsAlreadyPressed)
-            return true;
-
-        if (targetScreen.readyIsAlreadyPressed)
-            targetScreen.readyIsAlreadyPressed = false;
-
-        targetScreen.continueIsAlreadyPressed = true;
-
-        return false;
-    }
-
-    private void CheckButtonsStatus()
-    {
-        //Setting buttons
-        targetScreen.SetActiveReady(true);
-        targetScreen.SetActiveContinue(false);
     }
 
     // ***

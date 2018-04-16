@@ -12,6 +12,11 @@ public class Screen
 {
     #region Properties
 
+    [SerializeField]
+    private bool enableConsoleLog;
+
+    [Space(10f)]
+
     public GameObject rootParent;
     [SerializeField]
     private Text exerciseName;
@@ -21,7 +26,7 @@ public class Screen
     private Text exerciseDescriptionBig;
     [SerializeField]
     private VideoPlayer videoPlayer;
-    
+
     public Button readyButton;
     public Button continueButton;
 
@@ -77,9 +82,12 @@ public class Screen
         SetupScreen();
     }
 
-    public void SetupScreen() // TODO Fix video exercise.
+    public void SetupScreen()
     {
         exerciseName.text = data.exercises[actualExercise].name;
+
+        ResetContinue();
+        ResetReady();
 
         if (data.exercises[actualExercise].videoClip != null)
             SetupVideoExercise();
@@ -97,7 +105,8 @@ public class Screen
 
     private void SetupVideoExercise()
     {
-        Debug.Log("Video exercise.");
+        if (enableConsoleLog)
+            Debug.Log("Screen :: SetupVideoExercise");
 
         // Turn-On the big text.
         if (exerciseDescriptionBig.gameObject.activeInHierarchy)
@@ -126,11 +135,12 @@ public class Screen
 
     private void SetupNoVideoExercise()
     {
-        Debug.Log("No video exercise.");
+        if (enableConsoleLog)
+            Debug.Log("Screen :: SetupNoVideoExercise");
 
         // Turn-On the big text.
         if (!exerciseDescriptionBig.gameObject.activeInHierarchy)
-            exerciseDescriptionBig.gameObject.SetActive(true);        
+            exerciseDescriptionBig.gameObject.SetActive(true);
 
         // Turn-Off the normal text.
         if (exerciseDescription.gameObject.activeInHierarchy)
@@ -210,6 +220,40 @@ public class Screen
             return true;
         else
             return false;
+    }
+
+    // ***
+
+    public bool ReadyWasAlreadyPressed()
+    {
+        bool returnedValue = readyIsAlreadyPressed;
+
+        if (!readyIsAlreadyPressed)
+            readyIsAlreadyPressed = true;
+
+        return returnedValue;
+    }
+
+    public bool ContinueWasAlreadyPressed()
+    {
+        bool returnedValue = continueIsAlreadyPressed;
+
+        if (!continueIsAlreadyPressed)
+            continueIsAlreadyPressed = true;
+
+        return returnedValue;
+    }
+
+    public void ResetReady()
+    {
+        if (readyIsAlreadyPressed)
+            readyIsAlreadyPressed = false;
+    }
+
+    public void ResetContinue()
+    {
+        if (continueIsAlreadyPressed)
+            continueIsAlreadyPressed = false;
     }
 
     #endregion
