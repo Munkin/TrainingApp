@@ -113,6 +113,9 @@ public class Training : MonoBehaviour {
             Observer.Singleton.onTimerDone += screen.FadeInContinue;
             Observer.Singleton.onTimerDone += StopWatchSound;
         }
+
+        // TouchManager events.
+        TouchManager.OnDoubleTap += SkipTimer;
     }
 
     // ***
@@ -282,8 +285,6 @@ public class Training : MonoBehaviour {
         StartCoroutine(nonTimeExercise);
     }
 
-    // ***
-
     private void ExecuteRest()
     {
         // Coroutine execution
@@ -322,6 +323,24 @@ public class Training : MonoBehaviour {
         // Fade event!
         if (targetScreen.rootParent.activeInHierarchy)
             Fader.Singleton.FadeScreen(targetScreen.rootParent);
+    }
+
+    // ***
+
+    private void SkipTimer()
+    {
+        // Is the training screen active in the hierarchy ?
+        if (UIManager.Singleton.screens[4].activeInHierarchy && targetScreen != null)
+        {
+            // Is the continue button active ?
+            if (targetScreen.timer.gameObject.activeInHierarchy)
+            {
+                // Do you wanna quit the stop wathc sound ?
+                // -- Observer.Singleton.onTimerDone -= StopWatchSound;
+                Observer.Singleton.OnTimerDone();
+                // -- Observer.Singleton.onTimerDone += StopWatchSound;
+            }
+        }
     }
 
     #endregion
