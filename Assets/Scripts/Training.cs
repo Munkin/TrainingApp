@@ -39,7 +39,12 @@ public class Training : MonoBehaviour {
     [Space(10f)]
 
     [SerializeField]
-    private Screen[] trainingScreens; // TODO Refactor in the future. DO NOT REFACTOR NOW! (Inspector Data lose in the process ): ).
+    private Screen[] trainingScreens; // TODO Refactor in the future. DO NOT REFACTOR NOW! (Inspector Data lose in the process).
+
+    [Space(10f)]
+
+    [SerializeField]
+    private ColorChange colorChange;
 
     [Space(10f)]
 
@@ -226,6 +231,9 @@ public class Training : MonoBehaviour {
 
         targetScreen = trainingScreens[0];
         targetScreen.SetupScreen();
+
+        // Color change!
+        colorChange.ChangeColor(targetScreen.exerciseName, trainingStage);
     }
 
     private void SetTraining()
@@ -237,6 +245,9 @@ public class Training : MonoBehaviour {
 
         targetScreen = trainingScreens[1];
         targetScreen.SetupScreen();
+
+        // Color change!
+        colorChange.ChangeColor(targetScreen.exerciseName, trainingStage);
     }
 
     private void SetStretching()
@@ -248,6 +259,9 @@ public class Training : MonoBehaviour {
 
         targetScreen = trainingScreens[2];
         targetScreen.SetupScreen();
+
+        // Color change!
+        colorChange.ChangeColor(targetScreen.exerciseName, trainingStage);
     }
 
     // ***

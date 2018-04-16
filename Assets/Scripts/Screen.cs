@@ -18,14 +18,12 @@ public class Screen
     [Space(10f)]
 
     public GameObject rootParent;
-    [SerializeField]
-    private Text exerciseName;
-    [SerializeField]
-    private Text exerciseDescription;
-    [SerializeField]
-    private Text exerciseDescriptionBig;
-    [SerializeField]
-    private VideoPlayer videoPlayer;
+    // ***
+    public Text exerciseName;
+    public Text exerciseDescription;
+    public Text exerciseDescriptionBig;
+    // ***
+    public VideoPlayer videoPlayer;
 
     public Button readyButton;
     public Button continueButton;

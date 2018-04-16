@@ -868,7 +868,8 @@ MonoBehaviour:
   timeToNonTimeExercise: 0.95
   timeToNonRestExercise: 0.95
   trainingScreens:
-  - rootParent: {fileID: 1014663773}
+  - enableConsoleLog: 0
+    rootParent: {fileID: 1014663773}
     exerciseName: {fileID: 1195741708}
     exerciseDescription: {fileID: 1191212502}
     exerciseDescriptionBig: {fileID: 474681420}
@@ -880,7 +881,8 @@ MonoBehaviour:
     continueIsAlreadyPressed: 0
     data:
       exercises: []
-  - rootParent: {fileID: 548500941}
+  - enableConsoleLog: 0
+    rootParent: {fileID: 548500941}
     exerciseName: {fileID: 548500940}
     exerciseDescription: {fileID: 548500943}
     exerciseDescriptionBig: {fileID: 548500939}
@@ -892,7 +894,8 @@ MonoBehaviour:
     continueIsAlreadyPressed: 0
     data:
       exercises: []
-  - rootParent: {fileID: 262317482}
+  - enableConsoleLog: 0
+    rootParent: {fileID: 262317482}
     exerciseName: {fileID: 262317481}
     exerciseDescription: {fileID: 262317484}
     exerciseDescriptionBig: {fileID: 262317480}
@@ -904,6 +907,11 @@ MonoBehaviour:
     continueIsAlreadyPressed: 0
     data:
       exercises: []
+  colorChange:
+    warmingUpColor: {r: 0, g: 0.7910862, b: 1, a: 0.8745098}
+    trainingColor: {r: 0, g: 1, b: 0.33793116, a: 0.8745098}
+    stretchingColor: {r: 1, g: 0, b: 0, a: 0.8745098}
+    normalColor: {r: 1, g: 1, b: 1, a: 0.8745098}
   updateTraining: {fileID: 1897563273}
   trainingStage: 0
 --- !u!4 &426486923
@@ -1106,12 +1114,12 @@ Prefab:
     - target: {fileID: 224855344735324348, guid: 21fb3ffcd9ad127459f930a14ed61567,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 61.675976
+      value: 61.379307
       objectReference: {fileID: 0}
     - target: {fileID: 224855344735324348, guid: 21fb3ffcd9ad127459f930a14ed61567,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 14.748603
+      value: 16.551723
       objectReference: {fileID: 0}
     - target: {fileID: 114051181466131732, guid: 21fb3ffcd9ad127459f930a14ed61567,
         type: 2}
@@ -1131,6 +1139,21 @@ Prefab:
     - target: {fileID: 1013159027684438, guid: 21fb3ffcd9ad127459f930a14ed61567, type: 2}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114022500558855874, guid: 21fb3ffcd9ad127459f930a14ed61567,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114022500558855874, guid: 21fb3ffcd9ad127459f930a14ed61567,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114022500558855874, guid: 21fb3ffcd9ad127459f930a14ed61567,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.5586207
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 21fb3ffcd9ad127459f930a14ed61567, type: 2}
