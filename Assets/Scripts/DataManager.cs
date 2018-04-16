@@ -11,7 +11,7 @@ public enum Complexion
     Thin, AcceptableThin, Normal, Overweight, NormalObesity, MorbidObesity
 }
 
-public class DataManager : MonoBehaviour { // TODO Fix input field. https://docs.unity3d.com/Manual/MobileKeyboard.html
+public class DataManager : MonoBehaviour {
 
     #region Properties
 
@@ -146,33 +146,9 @@ public class DataManager : MonoBehaviour { // TODO Fix input field. https://docs
         if (nameInputField == null || ageInputField == null || weightInputField == null || heightInputField == null)
             return;
 
-        // For check name input field chars entered by the user.
-        nameInputField.characterLimit = 22;
-        nameInputField.onValidateInput += delegate (string input, int charIndex, char addedChar)
-        {
-            return ValidateLetterChar(addedChar);
-        };
+        LimitInputFieldCharacters();
 
-        // For check age input field chars entered by the user.
-        ageInputField.characterLimit = 2;
-        ageInputField.onValidateInput += delegate (string input, int charIndex, char addedChar)
-        {
-            return ValidateNumberChar(addedChar);
-        };
-
-        // For check weight input field chars entered by the user.
-        weightInputField.characterLimit = 3;
-        weightInputField.onValidateInput += delegate (string input, int charIndex, char addedChar)
-        {
-            return ValidateNumberChar(addedChar);
-        };
-
-        // For check height input field chars entered by the user.
-        heightInputField.characterLimit = 3;
-        heightInputField.onValidateInput += delegate (string input, int charIndex, char addedChar)
-        {
-            return ValidateNumberChar(addedChar);
-        };
+        ValidateInpuFieldEvents();
     }
 
     private void Suscribe()
@@ -488,6 +464,15 @@ public class DataManager : MonoBehaviour { // TODO Fix input field. https://docs
         return name;
     } // Name validation
 
+    private void LimitInputFieldCharacters()
+    {
+        // InputField character limit
+        nameInputField.characterLimit = 22;
+        ageInputField.characterLimit = 2;
+        weightInputField.characterLimit = 3;
+        heightInputField.characterLimit = 3;
+    }
+
     private char ValidateLetterChar(char charToValidate)
     {
         // Is the char a correct letter ?
@@ -506,6 +491,41 @@ public class DataManager : MonoBehaviour { // TODO Fix input field. https://docs
         return charToValidate;
     }
 
+    private void ValidateInpuFieldEvents()
+    {
+        // For check name input field chars entered by the user.
+        nameInputField.characterValidation = InputField.CharacterValidation.Name;
+        nameInputField.onValidateInput += delegate (string input, int charIndex, char addedChar) // Works only on editor!
+        {
+            return ValidateLetterChar(addedChar);
+        };
+        nameInputField.onEndEdit.AddListener(delegate { OnNameEndEdit(nameInputField.text); });
+
+        // For check age input field chars entered by the user.
+        ageInputField.characterValidation = InputField.CharacterValidation.Integer;
+        ageInputField.onValidateInput += delegate (string input, int charIndex, char addedChar) // Works only on editor!
+        {
+            return ValidateNumberChar(addedChar);
+        };
+        ageInputField.onEndEdit.AddListener(delegate { OnAgeEndEdit(ageInputField.text); });
+
+        // For check weight input field chars entered by the user.
+        weightInputField.characterValidation = InputField.CharacterValidation.Integer;
+        weightInputField.onValidateInput += delegate (string input, int charIndex, char addedChar) // Works only on editor!
+        {
+            return ValidateNumberChar(addedChar);
+        };
+        weightInputField.onEndEdit.AddListener(delegate { OnWeightEndEdit(weightInputField.text); });
+
+        // For check height input field chars entered by the user.
+        heightInputField.characterValidation = InputField.CharacterValidation.Integer;
+        heightInputField.onValidateInput += delegate (string input, int charIndex, char addedChar) // Works only on editor!
+        {
+            return ValidateNumberChar(addedChar);
+        };
+        heightInputField.onEndEdit.AddListener(delegate { OnHeightEndEdit(heightInputField.text); });
+    }
+
     private void CheckData()
     {
         // Are all the input fields with the correct data ?
@@ -513,6 +533,13 @@ public class DataManager : MonoBehaviour { // TODO Fix input field. https://docs
             UIManager.Singleton.EnableContinueButton();
         else
             UIManager.Singleton.DisableContinueButton();
+    }
+
+    // ***
+
+    private void LogTest(int number)
+    {
+        Debug.Log(number.ToString());
     }
 
     // ***

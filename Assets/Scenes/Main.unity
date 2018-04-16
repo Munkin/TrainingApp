@@ -857,7 +857,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableConsoleLog: 1
-  _doubleTapTime: 0.25
+  _doubleTapTime: 0.5
 --- !u!4 &392849575
 Transform:
   m_ObjectHideFlags: 0
@@ -1161,7 +1161,7 @@ Prefab:
     - target: {fileID: 224855344735324348, guid: 21fb3ffcd9ad127459f930a14ed61567,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 14.748603
       objectReference: {fileID: 0}
     - target: {fileID: 114051181466131732, guid: 21fb3ffcd9ad127459f930a14ed61567,
         type: 2}
@@ -1679,7 +1679,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &618546947
 RectTransform:
   m_ObjectHideFlags: 0
