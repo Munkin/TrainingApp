@@ -119,7 +119,7 @@ public class DataManager : MonoBehaviour {
 
     #endregion
 
-    #region Unity fucntions
+    #region Unity functions
 
     private void Awake()
     {
@@ -153,11 +153,11 @@ public class DataManager : MonoBehaviour {
 
     private void Suscribe()
     {
-        Observer.Singleton.onExerciseDataScreen += EstimateIMC;
+        Observer.Singleton.onTestScreen += EstimateIMC;
         // OnTestResult events.
-        Observer.Singleton.onTestResult += EstimateTotalScore;
-        Observer.Singleton.onTestResult += SetTraining;
-        Observer.Singleton.onTestResult += SaveData;
+        Observer.Singleton.onTestResultScreen += EstimateTotalScore;
+        Observer.Singleton.onTestResultScreen += SetTraining;
+        Observer.Singleton.onTestResultScreen += SaveData;
 
         // Data event.
         if (!CanTheUserDoTheTest())
@@ -533,13 +533,6 @@ public class DataManager : MonoBehaviour {
             UIManager.Singleton.EnableContinueButton();
         else
             UIManager.Singleton.DisableContinueButton();
-    }
-
-    // ***
-
-    private void LogTest(int number)
-    {
-        Debug.Log(number.ToString());
     }
 
     // ***

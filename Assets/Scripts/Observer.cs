@@ -13,68 +13,60 @@ public class Observer : MonoBehaviour {
     [SerializeField]
     private bool enableConsoleLog;
     [SerializeField]
-    private bool enableFadeCallbacksConsoleLog;
+    private bool enableConsoleLogForFadeCallbacks;
 
-    // General Actions ***
+    // ***
 
-    // First Time
-    public Action onIntroductionScreen;
-    public Action onDataScreen;
-    public Action onExerciseDataScreen;
-    public Action onTestResult;
-    public Action onTestEnd;
-    public Action onTrainingStart;
-    public Action onTrainingEnd;
+    public Action onAppStart;
     public Action onAppEnd;
-    // App Already Opened
-    public Action onDailyTraining;
-    public Action onDailyTrainingEnd;
-    public Action onAppWasAlreadyOpenedToday;
-    public Action onAppWasAlreadyOpenedTodayEnd;
 
-    // Training Actions ***
+    // ***
 
-    // WarmingUp
-    public Action onWarmingUpScreenStart;
-    public Action onWarmingUpScreenEnd;
-    // Training
-    public Action onTrainingScreenStart;
-    public Action onTrainingScreenEnd;
-    // Stretching
-    public Action onStretchingScreenStart;
-    public Action onStretchingScreenEnd;
-
-    // Fade Actions ***
+    public Action onIntroduction;
+    public Action onDataScreen;
+    public Action onTestScreen;
+    public Action onTestResultScreen;
+    public Action onTestResultScreenCallback;
 
     public Action<GameObject, float, float> onDataScreenFade;
-    public Action<GameObject, float, float> onExerciseDataScreenFade;
-    public Action<GameObject, float, float> onTestEndScreenFade;
-    public Action<GameObject, float, float> onWarmingUpScreenEndFade;
-    public Action<GameObject, float, float> onTrainingScreenEndFade;
-    public Action<GameObject, float, float> onStretchingScreenEndFade;
+    public Action<GameObject, float, float> onTestScreenFade;
+    public Action<GameObject, float, float> onTestResultScreenFade;
 
-    // Data Actions ***
+    // ***
 
-    public Action onSave;
-    public Action onLoad;
-    public Action onTrainingLoadCallback;
+    public Action onTrainingStart;
+    public Action onTrainingEnd;
 
-    // Date Actions ***
+    // ***
 
-    public Action onDateSet;
-    public Action onDateGet;
+    public Action onWarmingUpScreen;
+    public Action onWarmingUpScreenCallback;
+    public Action onTrainingScreen;
+    public Action onTrainingScreenCallback;
+    public Action onStretchingScreen;
+    public Action onStretchingScreenCallback;
 
-    // Rest Actions ***
+    public Action<GameObject, float, float> onWarmingUpScreenFade;
+    public Action<GameObject, float, float> onTrainingScreenFade;
+    public Action<GameObject, float, float> onStretchingScreenFade;
+
+    // ***
 
     public Action onRestStart;
     public Action onRestEnd;
 
-    // Other actions ***
+    // ***
 
-    // Fade Actions
+    public Action onDailyTraining;
+    public Action onDailyTrainingCallback;
+    public Action onAppWasAlreadyOpenedToday;
+    public Action onAppWasAlreadyOpenedTodayCallback;
+
+    // ***
+
     public Action onScreenFadeCallback;
     public Action onButtonFadeCallback;
-    // Time Actions
+
     public Action onTimerDone;
 
     // Singleton!
@@ -93,37 +85,56 @@ public class Observer : MonoBehaviour {
             DestroyImmediate(gameObject);
         else
             Singleton = this;
+
+        Suscribe();
     }
 
     private void Start()
     {
-        DateManager.Singleton.CheckDate();
-        
-        // Can the user do the test ?
-        if (DataManager.Singleton.CanTheUserDoTheTest())
-            OnIntroductionScreen(); // Implementend
-        else
-        {
-            // Did the user trained today ?
-            if (DateManager.Singleton.HasPassOneDaySinceLastTraining())
-                OnDailyTraining();
-            else
-                OnAppWasAlreadyOpenedToday();
-        }
+        OnAppStart();
     }
 
     #endregion
 
     #region Class functions
 
-    public void OnIntroductionScreen()
+    private void Suscribe()
+    {
+        onAppStart += InitializeApp;
+    }
+
+    // ***
+
+    public void OnAppStart()
     {
         if (enableConsoleLog)
-            Debug.Log("Observer :: OnIntroductionScreen");
+            Debug.Log("UIManager :: OnAppStart");
 
         // Event call!
-        if (onIntroductionScreen != null)
-            onIntroductionScreen();
+        if (onAppStart != null)
+            onAppStart();
+    }
+
+    public void OnAppEnd()
+    {
+        if (enableConsoleLog)
+            Debug.Log("UIManager :: OnAppEnd");
+
+        // Event call!
+        if (onAppEnd != null)
+            onAppEnd();
+    }
+
+    // ***
+
+    public void OnIntroduction()
+    {
+        if (enableConsoleLog)
+            Debug.Log("Observer :: OnIntroduction");
+
+        // Event call!
+        if (onIntroduction != null)
+            onIntroduction();
     }
 
     public void OnDataScreen()
@@ -134,7 +145,7 @@ public class Observer : MonoBehaviour {
         // Fade event!
         if (onDataScreenFade != null)
             onDataScreenFade(
-                UIManager.Singleton.screens[1],
+                UIManager.Singleton.Screens[1],
                 Fader.Singleton.screenFadeDuration,
                 Fader.Singleton.screenFadeEndValue);
 
@@ -143,49 +154,51 @@ public class Observer : MonoBehaviour {
             onDataScreen();
     }
 
-    public void OnExerciseDataScreen()
+    public void OnTestScreen()
     {
         if (enableConsoleLog)
-            Debug.Log("Observer :: OnExerciseDataScreen");
+            Debug.Log("Observer :: OnTestScreen");
 
         // Fade event!
-        if (onExerciseDataScreenFade != null)
-            onExerciseDataScreenFade(
-                UIManager.Singleton.screens[2],
+        if (onTestScreenFade != null)
+            onTestScreenFade(
+                UIManager.Singleton.Screens[2],
                 Fader.Singleton.screenFadeDuration,
                 Fader.Singleton.screenFadeEndValue);
 
         // Event call!
-        if (onExerciseDataScreen != null)
-            onExerciseDataScreen();
+        if (onTestScreen != null)
+            onTestScreen();
     }
 
-    public void OnTestResult()
+    public void OnTestResultScreen()
     {
         if (enableConsoleLog)
-            Debug.Log("Observer :: OnTestResult");
+            Debug.Log("Observer :: OnTestResultScreen");
 
         // Event call!
-        if (onTestResult != null)
-            onTestResult();
+        if (onTestResultScreen != null)
+            onTestResultScreen();
     }
 
-    public void OnTestEnd()
+    public void OnTestResultScreenCallback()
     {
         if (enableConsoleLog)
-            Debug.Log("Observer :: OnTestEnd");
+            Debug.Log("Observer :: OnTestResultScreenCallback");
 
         // Fade event!
-        if (onTestEndScreenFade != null)
-            onTestEndScreenFade(
-                UIManager.Singleton.screens[3],
+        if (onTestResultScreenFade != null)
+            onTestResultScreenFade(
+                UIManager.Singleton.Screens[3],
                 Fader.Singleton.screenFadeDuration,
                 Fader.Singleton.screenFadeEndValue);
 
         // Event call!
-        if (onTestEnd != null)
-            onTestEnd();
+        if (onTestResultScreenCallback != null)
+            onTestResultScreenCallback();
     }
+
+    // ***
 
     public void OnTrainingStart()
     {
@@ -207,200 +220,90 @@ public class Observer : MonoBehaviour {
             onTrainingEnd();
     }
 
-    public void OnAppEnd()
-    {
-        if (enableConsoleLog)
-            Debug.Log("UIManager :: OnAppEnd");
-
-        // Event call!
-        if (onAppEnd != null)
-            onAppEnd();
-    }
-
     // ***
 
-    public void OnDailyTraining()
+    public void OnWarmingUpScreen()
     {
         if (enableConsoleLog)
-            Debug.Log("Observer :: OnDailyTraining");
+            Debug.Log("Observer :: OnWarmingUpScreen");
 
         // Event call!
-        if (onDailyTraining != null)
-            onDailyTraining();
+        if (onWarmingUpScreen != null)
+            onWarmingUpScreen();
     }
 
-    public void OnDailyTrainingEnd()
+    public void OnWarmingUpScreenCallback()
     {
         if (enableConsoleLog)
-            Debug.Log("Observer :: OnDailyTrainingEnd");
-
-        // Event call!
-        if (onDailyTrainingEnd != null)
-            onDailyTrainingEnd();
-    }
-
-    public void OnAppWasAlreadyOpenedToday()
-    {
-        if (enableConsoleLog)
-            Debug.Log("Observer :: OnAppWasAlreadyOpenedToday");
-
-        // Event call!
-        if (onAppWasAlreadyOpenedToday != null)
-            onAppWasAlreadyOpenedToday();
-    }
-
-    public void OnAppWasAlreadyOpenedTodayEnd()
-    {
-        if (enableConsoleLog)
-            Debug.Log("Observer :: OnAppWasAlreadyOpenedTodayEnd");
-
-        // Event call!
-        if (onAppWasAlreadyOpenedTodayEnd != null)
-            onAppWasAlreadyOpenedTodayEnd();
-    }
-
-    // ***
-
-    public void OnWarmingUpScreenStart()
-    {
-        if (enableConsoleLog)
-            Debug.Log("Observer :: OnWarmingUpScreenStart");
-
-        // Event call!
-        if (onWarmingUpScreenStart != null)
-            onWarmingUpScreenStart();
-    }
-
-    public void OnWarmingUpScreenEnd()
-    {
-        if (enableConsoleLog)
-            Debug.Log("Observer :: OnWarmingUpScreenEnd");
+            Debug.Log("Observer :: OnWarmingUpScreenCallback");
 
         // Fade event!
-        if (onWarmingUpScreenEndFade != null)
-            onWarmingUpScreenEndFade(
+        if (onWarmingUpScreenFade != null)
+            onWarmingUpScreenFade(
                 UIManager.Singleton.trainingScreens[0],
                 Fader.Singleton.screenFadeDuration,
                 Fader.Singleton.screenFadeEndValue);
 
         // Event call!
-        if (onWarmingUpScreenEnd != null)
-            onWarmingUpScreenEnd();
+        if (onWarmingUpScreenCallback != null)
+            onWarmingUpScreenCallback();
     }
-    
-    // ***
 
-    public void OnTrainingScreenStart()
+    public void OnTrainingScreen()
     {
         if (enableConsoleLog)
-            Debug.Log("Observer :: OnTrainingScreenStart");
+            Debug.Log("Observer :: OnTrainingScreen");
 
         // Event call!
-        if (onTrainingScreenStart != null)
-            onTrainingScreenStart();
+        if (onTrainingScreen != null)
+            onTrainingScreen();
     }
 
-    public void OnTrainingScreenEnd()
+    public void OnTrainingScreenCallback()
     {
         if (enableConsoleLog)
-            Debug.Log("Observer :: OnTrainingScreenEnd");
+            Debug.Log("Observer :: OnTrainingScreenCallback");
 
         // Fade event!
-        if (onTrainingScreenEndFade != null)
-            onTrainingScreenEndFade(
+        if (onTrainingScreenFade != null)
+            onTrainingScreenFade(
                 UIManager.Singleton.trainingScreens[1],
                 Fader.Singleton.screenFadeDuration,
                 Fader.Singleton.screenFadeEndValue);
 
         // Event call!
-        if (onTrainingScreenEnd != null)
-            onTrainingScreenEnd();
+        if (onTrainingScreenCallback != null)
+            onTrainingScreenCallback();
     }
     
-    // ***
-
-    public void OnStretchingScreenStart()
+    public void OnStretchingScreen()
     {
         if (enableConsoleLog)
-            Debug.Log("Observer :: OnStretchingScreenStart");
+            Debug.Log("Observer :: OnStretchingScreen");
 
         // Event call!
-        if (onStretchingScreenStart != null)
-            onStretchingScreenStart();
+        if (onStretchingScreen != null)
+            onStretchingScreen();
     }
 
-    public void OnStretchingScreenEnd()
+    public void OnStretchingScreenCallback()
     {
         if (enableConsoleLog)
-            Debug.Log("Observer :: OnStretchingScreenEnd");
+            Debug.Log("Observer :: OnStretchingScreenCallback");
 
         // Fade event!
-        if (onStretchingScreenEndFade != null)
-            onStretchingScreenEndFade(
+        if (onStretchingScreenFade != null)
+            onStretchingScreenFade(
                 UIManager.Singleton.trainingScreens[2],
                 Fader.Singleton.screenFadeDuration,
                 Fader.Singleton.screenFadeEndValue);
 
         // Event call!
-        if (onStretchingScreenEnd != null)
-            onStretchingScreenEnd();
-    }
-    
-    // *** DATA EVENTS ***
-
-    public void OnSave()
-    {
-        if (enableConsoleLog)
-            Debug.Log("Observer :: OnSave");
-
-        // Event call!
-        if (onSave != null)
-            onSave();
+        if (onStretchingScreenCallback != null)
+            onStretchingScreenCallback();
     }
 
-    public void OnLoad()
-    {
-        if (enableConsoleLog)
-            Debug.Log("Observer :: OnLoad");
-
-        // Event call!
-        if (onLoad != null)
-            onLoad();
-    }
-
-    public void OnTrainingLoadCallback()
-    {
-        if (enableConsoleLog)
-            Debug.Log("Observer :: OnTrainingCallback");
-
-        // Event call!
-        if (onTrainingLoadCallback != null)
-            onTrainingLoadCallback();
-    }
-
-    // *** DATE EVENTS ***
-
-    public void OnDateSet()
-    {
-        if (enableConsoleLog)
-            Debug.Log("Observer :: OnDateSave");
-
-        // Event call!
-        if (onDateSet != null)
-            onDateSet();
-    }
-
-    public void OnDateGet()
-    {
-        if (enableConsoleLog)
-            Debug.Log("Observer :: OnDateLoad");
-
-        // Event call!
-        if (onDateGet != null)
-            onDateGet();
-    }
-
-    // *** REST EVENTS ***
+    // ***
 
     public void OnRestStart()
     {
@@ -422,12 +325,54 @@ public class Observer : MonoBehaviour {
             onRestEnd();
     }
 
-    // *** OTHER EVENTS ***
+    // ***
+
+    public void OnDailyTraining()
+    {
+        if (enableConsoleLog)
+            Debug.Log("Observer :: OnDailyTraining");
+
+        // Event call!
+        if (onDailyTraining != null)
+            onDailyTraining();
+    }
+
+    public void OnDailyTrainingCallback()
+    {
+        if (enableConsoleLog)
+            Debug.Log("Observer :: OnDailyTrainingCallback");
+
+        // Event call!
+        if (onDailyTrainingCallback != null)
+            onDailyTrainingCallback();
+    }
+
+    public void OnAppWasAlreadyOpenedToday()
+    {
+        if (enableConsoleLog)
+            Debug.Log("Observer :: OnAppWasAlreadyOpenedToday");
+
+        // Event call!
+        if (onAppWasAlreadyOpenedToday != null)
+            onAppWasAlreadyOpenedToday();
+    }
+
+    public void OnAppWasAlreadyOpenedTodayCallback()
+    {
+        if (enableConsoleLog)
+            Debug.Log("Observer :: OnAppWasAlreadyOpenedTodayCallback");
+
+        // Event call!
+        if (onAppWasAlreadyOpenedTodayCallback != null)
+            onAppWasAlreadyOpenedTodayCallback();
+    }
+
+    // ***
 
     public void OnScreenFadeCallback()
     {
-        if (enableFadeCallbacksConsoleLog)
-            Debug.Log("Observer :: OnFadeCallback");
+        if (enableConsoleLogForFadeCallbacks)
+            Debug.Log("Observer :: OnScreenFadeCallback");
 
         // Event call!
         if (onScreenFadeCallback != null)
@@ -436,13 +381,15 @@ public class Observer : MonoBehaviour {
 
     public void OnButtonFadeCallback()
     {
-        if (enableFadeCallbacksConsoleLog)
+        if (enableConsoleLogForFadeCallbacks)
             Debug.Log("Observer :: OnButtonFadeCallback");
 
         // Event call!
         if (onButtonFadeCallback != null)
             onButtonFadeCallback();
     }
+
+    // ***
 
     public void OnTimerDone()
     {
@@ -452,6 +399,25 @@ public class Observer : MonoBehaviour {
         // Event call!
         if (onTimerDone != null)
             onTimerDone();
+    }
+
+    // ***
+
+    private void InitializeApp()
+    {
+        DateManager.Singleton.CheckDate();
+
+        // Can the user do the test ?
+        if (DataManager.Singleton.CanTheUserDoTheTest())
+            OnIntroduction();
+        else
+        {
+            // Did the user trained today ?
+            if (DateManager.Singleton.HasPassOneDaySinceLastTraining())
+                OnDailyTraining();
+            else
+                OnAppWasAlreadyOpenedToday();
+        }
     }
 
     #endregion

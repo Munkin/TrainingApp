@@ -82,12 +82,12 @@ public class Fader : MonoBehaviour {
     {
         // Fade events.
         Observer.Singleton.onDataScreenFade += FadeScreen;
-        Observer.Singleton.onExerciseDataScreenFade += FadeScreen;
-        Observer.Singleton.onTestEndScreenFade += FadeScreen;
+        Observer.Singleton.onTestScreenFade += FadeScreen;
+        Observer.Singleton.onTestResultScreenFade += FadeScreen;
         // Training fade events.
-        Observer.Singleton.onWarmingUpScreenEndFade += FadeScreen;
-        Observer.Singleton.onTrainingScreenEndFade += FadeScreen;
-        Observer.Singleton.onStretchingScreenEndFade += FadeScreen;
+        Observer.Singleton.onWarmingUpScreenFade += FadeScreen;
+        Observer.Singleton.onTrainingScreenFade += FadeScreen;
+        Observer.Singleton.onStretchingScreenFade += FadeScreen;
         // Button fade events.
         Observer.Singleton.onButtonFadeCallback += ResetButtonAlpha;
     }

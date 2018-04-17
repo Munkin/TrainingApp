@@ -56,14 +56,14 @@ public class Screen
             actualExercise++;
         else
         {
-            switch (Training.Singleton.trainingStage)
+            switch (TrainingManager.Singleton.trainingStage)
             {
                 case TrainingStage.WarmingUp:
-                    Observer.Singleton.OnTrainingScreenStart();
+                    Observer.Singleton.OnTrainingScreen();
                     break;
 
                 case TrainingStage.Training:
-                    Observer.Singleton.OnStretchingScreenStart();
+                    Observer.Singleton.OnStretchingScreen();
                     break;
 
                 case TrainingStage.Stretching:

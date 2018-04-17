@@ -1,4 +1,4 @@
-﻿// <copyright file="Training.cs" company="Up Up Down Studios">
+﻿// <copyright file="TrainingManager.cs" company="Up Up Down Studios">
 // Copyright (c) 2018 All Rights Reserved
 // </copyright>
 // <summary>Manager for training events.</summary>
@@ -22,7 +22,7 @@ public enum TrainingStage
     WarmingUp, Training, Stretching
 }
 
-public class Training : MonoBehaviour {
+public class TrainingManager : MonoBehaviour {
 
     #region Properties
 
@@ -44,11 +44,6 @@ public class Training : MonoBehaviour {
     [Space(10f)]
 
     [SerializeField]
-    private ColorChange colorChange;
-
-    [Space(10f)]
-
-    [SerializeField]
     private UpdateTraining updateTraining;
 
     // Hidden
@@ -59,7 +54,7 @@ public class Training : MonoBehaviour {
     public const float fadeFixTime = 0.125f;
 
     // Cached Components
-    public TrainingData cachedTrainingData
+    public Training cachedTrainingData
     {
         get; private set;
     }
@@ -71,7 +66,7 @@ public class Training : MonoBehaviour {
     private IEnumerator nonRest;
 
     // Singleton!
-    public static Training Singleton
+    public static TrainingManager Singleton
     {
         get; private set;
     }
@@ -96,12 +91,12 @@ public class Training : MonoBehaviour {
 
     private void Suscribe()
     {
-        Observer.Singleton.onTestEnd += SetTrainingData;
+        Observer.Singleton.onTestResultScreenCallback += SetTrainingData;
 
         // Training screens events.
-        Observer.Singleton.onWarmingUpScreenEnd += SetWarmingUp;
-        Observer.Singleton.onTrainingScreenEnd += SetTraining;
-        Observer.Singleton.onStretchingScreenEnd += SetStretching;
+        Observer.Singleton.onWarmingUpScreenCallback += SetWarmingUp;
+        Observer.Singleton.onTrainingScreenCallback += SetTraining;
+        Observer.Singleton.onStretchingScreenCallback += SetStretching;
 
         // OnTimerDone events.
         foreach (Screen screen in trainingScreens)
@@ -146,7 +141,7 @@ public class Training : MonoBehaviour {
 
     // *** SET TRAINING DATA ***
 
-    public void NotifyNewTrainingData(TrainingData trainingData)
+    public void NotifyNewTrainingData(Training trainingData)
     {
         cachedTrainingData = trainingData;
 
@@ -186,7 +181,7 @@ public class Training : MonoBehaviour {
     private void SetBegginerFirstDay()
     {
         // Setting training level data.
-        cachedTrainingData = Resources.Load("TrainingData/Begginer/Begginer_Day1") as TrainingData;
+        cachedTrainingData = Resources.Load("TrainingData/Begginer/Begginer_Day1") as Training;
 
         AllocateData();
     }
@@ -194,7 +189,7 @@ public class Training : MonoBehaviour {
     private void SetRookieFirstDay()
     {
         // Setting training level data.
-        cachedTrainingData = Resources.Load("TrainingData/Rookie/Rookie_Day1") as TrainingData;
+        cachedTrainingData = Resources.Load("TrainingData/Rookie/Rookie_Day1") as Training;
 
         AllocateData();
     }
@@ -202,7 +197,7 @@ public class Training : MonoBehaviour {
     private void SetMediumFirstDay()
     {
         // Setting training level data.
-        cachedTrainingData = Resources.Load("TrainingData/Medium/Medium_Day1") as TrainingData;
+        cachedTrainingData = Resources.Load("TrainingData/Medium/Medium_Day1") as Training;
 
         AllocateData();
     }
@@ -210,7 +205,7 @@ public class Training : MonoBehaviour {
     private void SetAdvanceFirstDay()
     {
         // Setting training level data.
-        cachedTrainingData = Resources.Load("TrainingData/Advance/Advance_Day1") as TrainingData;
+        cachedTrainingData = Resources.Load("TrainingData/Advance/Advance_Day1") as Training;
 
         AllocateData();
     }
@@ -234,9 +229,6 @@ public class Training : MonoBehaviour {
 
         targetScreen = trainingScreens[0];
         targetScreen.SetupScreen();
-
-        // Color change!
-        colorChange.ChangeColor(targetScreen.exerciseName, trainingStage);
     }
 
     private void SetTraining()
@@ -248,9 +240,6 @@ public class Training : MonoBehaviour {
 
         targetScreen = trainingScreens[1];
         targetScreen.SetupScreen();
-
-        // Color change!
-        colorChange.ChangeColor(targetScreen.exerciseName, trainingStage);
     }
 
     private void SetStretching()
@@ -262,9 +251,6 @@ public class Training : MonoBehaviour {
 
         targetScreen = trainingScreens[2];
         targetScreen.SetupScreen();
-
-        // Color change!
-        colorChange.ChangeColor(targetScreen.exerciseName, trainingStage);
     }
 
     // ***
@@ -330,7 +316,7 @@ public class Training : MonoBehaviour {
     private void SkipTimer()
     {
         // Is the training screen active in the hierarchy ?
-        if (UIManager.Singleton.screens[4].activeInHierarchy && targetScreen != null)
+        if (UIManager.Singleton.Screens[4].activeInHierarchy && targetScreen != null)
         {
             // Is the continue button active ?
             if (targetScreen.timer.gameObject.activeInHierarchy)

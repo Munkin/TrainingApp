@@ -6,7 +6,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
 public class UIManager : MonoBehaviour {
 
@@ -17,39 +16,23 @@ public class UIManager : MonoBehaviour {
 
     [Space(10f)] [Header("Screens")]
 
-    public GameObject[] screens;
+    [SerializeField]
+    private GameObject[] screens;
     /*
      * 0. Interlude
      * 1. Data
-     * 2. Exercise Data
-     * 3. Complete Test
+     * 2. Test
+     * 3. Test Result
      * 4. Training
      * 5. Rest
-     * 6. Menu
     */
 
-    [Space(10f)]
-
-    [SerializeField]
-    private float timeToFadeIn;
-    [SerializeField]
-    private float timeToFadeOut;
-    [SerializeField]
-    private float timeToWaitForFade;
-
-    [Space(10f)] [Header("Screen: Interlude")]
-
-    [SerializeField]
-    private Text interludeText;
-    [SerializeField]
-    private string[] interludeTexts;
-
-    [Space(10f)] [Header("Screen: Data Screen")]
+    [Space(10f)] [Header("Screen: Data")]
 
     [SerializeField]
     private Button continueButton;
 
-    [Space(10f)] [Header("Screen: Exercise Data")]
+    [Space(10f)] [Header("Screen: Test")]
 
     [SerializeField]
     private Text questionText;
@@ -58,48 +41,32 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     private Toggle[] optionToggles;
 
-    [Space(10f)] [Header("Screen: Complete Test")]
+    [Space(10f)] [Header("Screen: Test Result")]
 
     [SerializeField]
     private Text complexionText;
     [SerializeField]
     private Text trainingText;
-    [SerializeField]
-    private string[] completeTestTexts;
 
     [Space(10f)] [Header("Screen: Training")]
 
     public GameObject[] trainingScreens;
-    [SerializeField]
-    private string[] warmUpTexts;
-    [SerializeField]
-    private string[] trainingTexts;
-    [SerializeField]
-    private string[] stretchingTexts;
-
-    [Space(10f)] [Header("Screen: Rest")]
-
-    [SerializeField]
-    private string[] restTexts;
-
-    [Space(10f)] [Header("Interlude: Training End")]
-
-    [SerializeField]
-    private string[] trainingEndTexts;
-
-    [Space(10f)] [Header("Interlude: Already Opened")]
-
-    [SerializeField]
-    private string[] alreadyOpenedTexts;
-
-    [Space(10f)] [Header("Interlude: Daily Training")]
-
-    [SerializeField]
-    private string[] dailyTrainingTexts;
 
     // Hidden
-    private int textIndex = 0;
     private int question = 0;
+
+    // Getters & Setters
+    public GameObject[] Screens
+    {
+        get
+        {
+            return screens;
+        }
+        private set
+        {
+            screens = value;
+        }
+    }
 
     // Button State Control
     private bool continueIsAlreadyPressed;
@@ -143,62 +110,44 @@ public class UIManager : MonoBehaviour {
     private void Suscribe()
     {
         // *** GENERAL EVENTS ***
-
-        Observer.Singleton.onIntroductionScreen += FadeInInterlude;
+        
         Observer.Singleton.onDataScreen += EnableDataScreen;
-        Observer.Singleton.onDataScreen += ResetInterludeFadeValues;
-        Observer.Singleton.onExerciseDataScreen += EnableExerciseDataScreen;
+        
+        Observer.Singleton.onTestScreen += EnableExerciseDataScreen;
         // OnTestResult events.
-        Observer.Singleton.onTestResult += EnableIntroductionScreen;
-        Observer.Singleton.onTestResult += FadeInResult;
+        Observer.Singleton.onTestResultScreen += EnableIntroductionScreen;
+        
         // OnTestEnd events.
-        Observer.Singleton.onTestEnd += EnableCompleteTestScreen;
-        Observer.Singleton.onTestEnd += ShowResults;
-        Observer.Singleton.onTestEnd += ResetResultFadeValues;
-        // OnAppWasAlreadyOpenedToday events.
-        Observer.Singleton.onAppWasAlreadyOpenedToday += SetAlreadyOpenedFirstText;
-        Observer.Singleton.onAppWasAlreadyOpenedToday += FadeInAlreadyOpened;
-        Observer.Singleton.onAppWasAlreadyOpenedTodayEnd += ResetAlreadyOpenedFadeValues;
-        // OnDailyTraining events.
-        Observer.Singleton.onDailyTraining += SetDailyTrainingFirstText;
-        Observer.Singleton.onDailyTraining += FadeInDailyTraining;
-        Observer.Singleton.onDailyTrainingEnd += ResetDailyTrainingFadeValues;
+        Observer.Singleton.onTestResultScreenCallback += EnableCompleteTestScreen;
+        Observer.Singleton.onTestResultScreenCallback += ShowResults;
+        
+        
         // OnDailyTraining special events.
-        Observer.Singleton.onDailyTrainingEnd += () => StartCoroutine(WaitForTraining());
+        Observer.Singleton.onDailyTrainingCallback += () => StartCoroutine(WaitForTraining());
 
         // *** TRAINING EVENTS ***
 
         //OnTrainingEnd events.
         Observer.Singleton.onTrainingEnd += EnableIntroductionScreen;
-        Observer.Singleton.onTrainingEnd += FadeInTrainingEnd;
-        Observer.Singleton.onAppEnd += ResetTrainingEndFadeValues;
 
         // OnTrainingStart events.
-        Observer.Singleton.onWarmingUpScreenStart += EnableIntroductionScreen;
-        Observer.Singleton.onWarmingUpScreenStart += FadeInToWarmingUp;
-        Observer.Singleton.onWarmingUpScreenEnd += EnableWarmingUp;
-        Observer.Singleton.onWarmingUpScreenEnd += ResetWarmingUpFadeValues;
+        Observer.Singleton.onWarmingUpScreen += EnableIntroductionScreen;
+        Observer.Singleton.onWarmingUpScreenCallback += EnableWarmingUp;
         // OnWarmingUpScreen events.
-        Observer.Singleton.onTrainingScreenStart += EnableIntroductionScreen;
-        Observer.Singleton.onTrainingScreenStart += FadeInToTraining;
-        Observer.Singleton.onTrainingScreenEnd += EnableTraining;
-        Observer.Singleton.onTrainingScreenEnd += ResetTrainingFadeValues;
+        Observer.Singleton.onTrainingScreen += EnableIntroductionScreen;
+        Observer.Singleton.onTrainingScreenCallback += EnableTraining;
         // OnTrainingScreen events.
-        Observer.Singleton.onStretchingScreenStart += EnableIntroductionScreen;
-        Observer.Singleton.onStretchingScreenStart += FadeInToStretching;
-        Observer.Singleton.onStretchingScreenEnd += EnableStretching;
-        Observer.Singleton.onStretchingScreenEnd += ResetStretchingFadeValues;
+        Observer.Singleton.onStretchingScreen += EnableIntroductionScreen;
+        Observer.Singleton.onStretchingScreenCallback += EnableStretching;
 
         // *** REST EVENTS ***
 
         Observer.Singleton.onRestStart += EnableIntroductionScreen;
-        Observer.Singleton.onRestStart += FadeInRest;
-        Observer.Singleton.onRestEnd += ResetRestFadeValues;
-
+        
         // *** BUTTON CONTROL EVENTS ***
 
-        Observer.Singleton.onExerciseDataScreen += ContinueCanBePressedAgain;
-        Observer.Singleton.onWarmingUpScreenStart += ContinueToTrainingCanBePressedAgain;
+        Observer.Singleton.onTestScreen += ContinueCanBePressedAgain;
+        Observer.Singleton.onWarmingUpScreen += ContinueToTrainingCanBePressedAgain;
     }
     
     // *** DATA SCREEN ***
@@ -211,7 +160,7 @@ public class UIManager : MonoBehaviour {
 
         continueIsAlreadyPressed = true;
 
-        Observer.Singleton.OnExerciseDataScreen();
+        Observer.Singleton.OnTestScreen();
     }
 
     public void EnableContinueButton()
@@ -252,7 +201,7 @@ public class UIManager : MonoBehaviour {
         // Setting new question
         if (question >= 4)
         {
-            Observer.Singleton.OnTestResult();
+            Observer.Singleton.OnTestResultScreen();
 
             // Unsuscribing from fade event
             Observer.Singleton.onScreenFadeCallback -= NextQuestionCanBePressedAgain;
@@ -379,7 +328,7 @@ public class UIManager : MonoBehaviour {
 
         continueToTrainingIsAlreadyPressed = true;
 
-        Observer.Singleton.OnWarmingUpScreenStart();
+        Observer.Singleton.OnWarmingUpScreen();
     }
 
     private void ShowResults()
@@ -441,12 +390,12 @@ public class UIManager : MonoBehaviour {
 
     public void TrainingReady()
     {
-        Training.Singleton.Ready();
+        TrainingManager.Singleton.Ready();
     }
 
     public void TrainingContinue()
     {
-        Training.Singleton.Continue();
+        TrainingManager.Singleton.Continue();
     }
 
     // *** REST FUNCTIONS ***
@@ -462,6 +411,12 @@ public class UIManager : MonoBehaviour {
     }
 
     // *** ENABLE SCREEN FUNCTIONS ***
+
+    public bool IsScreenActiveInHierarchy(int screenIndex)
+    {
+        // Is the asked screen active in hierarchy ?
+        return (screenIndex >= 0 && screenIndex < screens.Length) ? screens[screenIndex].activeInHierarchy : false;
+    }
 
     private void EnableScreen(int index)
     {
@@ -481,9 +436,7 @@ public class UIManager : MonoBehaviour {
 
     private void EnableIntroductionScreen()
     {
-        // Reset the text index
-        textIndex = 0;
-
+        XOXO; // TextManager.ResetTextIndex()
         EnableScreen(0);
     }
 

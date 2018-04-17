@@ -5,8 +5,8 @@
 
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New TrainingData", menuName = "Assets/TrainingData", order = 2)]
-public class TrainingData : ScriptableObject {
+[CreateAssetMenu(fileName = "New Training", menuName = "Assets/Training", order = 2)]
+public class Training : ScriptableObject {
 
     #region Properties
 

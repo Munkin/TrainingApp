@@ -74,8 +74,6 @@ public class UpdateTraining : MonoBehaviour {
             default:
                 break;
         }
-
-        Observer.Singleton.OnTrainingLoadCallback();
     }
 
     private void DoTestAgain()
@@ -83,7 +81,7 @@ public class UpdateTraining : MonoBehaviour {
         DataManager.Singleton.GetData().canDoTest = true;
 
         // Reset the training.
-        Observer.Singleton.OnIntroductionScreen();
+        Observer.Singleton.OnIntroduction();
     }
 
     private void DayTwoWeight()
@@ -92,19 +90,19 @@ public class UpdateTraining : MonoBehaviour {
         switch (trainingLevel)
         {
             case TrainingLevel.Begginer:
-                Training.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Begginer/Begginer_Day2") as TrainingData);
+                TrainingManager.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Begginer/Begginer_Day2") as Training);
                 break;
 
             case TrainingLevel.Rookie:
-                Training.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Rookie/Rookie_Day2") as TrainingData);
+                TrainingManager.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Rookie/Rookie_Day2") as Training);
                 break;
 
             case TrainingLevel.Medium:
-                Training.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Medium/Medium_Day2") as TrainingData);
+                TrainingManager.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Medium/Medium_Day2") as Training);
                 break;
 
             case TrainingLevel.Advance:
-                Training.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Advance/Advance_Day2") as TrainingData);
+                TrainingManager.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Advance/Advance_Day2") as Training);
                 break;
 
             default:
@@ -120,19 +118,19 @@ public class UpdateTraining : MonoBehaviour {
         switch (trainingLevel)
         {
             case TrainingLevel.Begginer:
-                Training.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Begginer/Begginer_Day3") as TrainingData);
+                TrainingManager.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Begginer/Begginer_Day3") as Training);
                 break;
 
             case TrainingLevel.Rookie:
-                Training.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Rookie/Rookie_Day3") as TrainingData);
+                TrainingManager.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Rookie/Rookie_Day3") as Training);
                 break;
 
             case TrainingLevel.Medium:
-                Training.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Medium/Medium_Day3") as TrainingData);
+                TrainingManager.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Medium/Medium_Day3") as Training);
                 break;
 
             case TrainingLevel.Advance:
-                Training.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Advance/Advance_Day3") as TrainingData);
+                TrainingManager.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Advance/Advance_Day3") as Training);
                 break;
 
             default:
@@ -148,19 +146,19 @@ public class UpdateTraining : MonoBehaviour {
         switch (trainingLevel)
         {
             case TrainingLevel.Begginer:
-                Training.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Begginer/Begginer_Day4") as TrainingData);
+                TrainingManager.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Begginer/Begginer_Day4") as Training);
                 break;
 
             case TrainingLevel.Rookie:
-                Training.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Rookie/Rookie_Day4") as TrainingData);
+                TrainingManager.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Rookie/Rookie_Day4") as Training);
                 break;
 
             case TrainingLevel.Medium:
-                Training.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Medium/Medium_Day4") as TrainingData);
+                TrainingManager.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Medium/Medium_Day4") as Training);
                 break;
 
             case TrainingLevel.Advance:
-                Training.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Advance/Advance_Day4") as TrainingData);
+                TrainingManager.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Advance/Advance_Day4") as Training);
                 break;
 
             default:
@@ -176,19 +174,19 @@ public class UpdateTraining : MonoBehaviour {
         switch (trainingLevel)
         {
             case TrainingLevel.Begginer:
-                Training.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Begginer/Begginer_Day5") as TrainingData);
+                TrainingManager.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Begginer/Begginer_Day5") as Training);
                 break;
 
             case TrainingLevel.Rookie:
-                Training.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Rookie/Rookie_Day5") as TrainingData);
+                TrainingManager.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Rookie/Rookie_Day5") as Training);
                 break;
 
             case TrainingLevel.Medium:
-                Training.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Medium/Medium_Day5") as TrainingData);
+                TrainingManager.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Medium/Medium_Day5") as Training);
                 break;
 
             case TrainingLevel.Advance:
-                Training.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Advance/Advance_Day5") as TrainingData);
+                TrainingManager.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Advance/Advance_Day5") as Training);
                 break;
 
             default:
@@ -204,19 +202,19 @@ public class UpdateTraining : MonoBehaviour {
         switch (trainingLevel)
         {
             case TrainingLevel.Begginer:
-                Training.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Begginer/Begginer_Day6") as TrainingData);
+                TrainingManager.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Begginer/Begginer_Day6") as Training);
                 break;
 
             case TrainingLevel.Rookie:
-                Training.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Rookie/Rookie_Day6") as TrainingData);
+                TrainingManager.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Rookie/Rookie_Day6") as Training);
                 break;
 
             case TrainingLevel.Medium:
-                Training.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Medium/Medium_Day6") as TrainingData);
+                TrainingManager.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Medium/Medium_Day6") as Training);
                 break;
 
             case TrainingLevel.Advance:
-                Training.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Advance/Advance_Day6") as TrainingData);
+                TrainingManager.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Advance/Advance_Day6") as Training);
                 break;
 
             default:
@@ -232,19 +230,19 @@ public class UpdateTraining : MonoBehaviour {
         switch (trainingLevel)
         {
             case TrainingLevel.Begginer:
-                Training.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Begginer/Begginer_Day7") as TrainingData);
+                TrainingManager.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Begginer/Begginer_Day7") as Training);
                 break;
 
             case TrainingLevel.Rookie:
-                Training.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Rookie/Rookie_Day7") as TrainingData);
+                TrainingManager.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Rookie/Rookie_Day7") as Training);
                 break;
 
             case TrainingLevel.Medium:
-                Training.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Medium/Medium_Day7") as TrainingData);
+                TrainingManager.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Medium/Medium_Day7") as Training);
                 break;
 
             case TrainingLevel.Advance:
-                Training.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Advance/Advance_Day7") as TrainingData);
+                TrainingManager.Singleton.NotifyNewTrainingData(Resources.Load("TrainingData/Advance/Advance_Day7") as Training);
                 break;
 
             default:

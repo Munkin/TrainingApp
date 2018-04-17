@@ -1,4 +1,12 @@
-﻿using UnityEngine;
+﻿// <copyright file="TextManager.cs" company="Up Up Down Studios">
+// Copyright (c) 2018 All Rights Reserved
+// </copyright>
+// <summary>Manager for interlude text events.</summary>
+
+using System;
+using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public enum FadeState
 {
@@ -9,10 +17,50 @@ public class TextManager : MonoBehaviour {
 
     #region Properties
 
-    // Fade Control
-    private bool isFirstTimeFading = true;
+    [SerializeField]
+    private bool enableConsoleLog;
+
+    [Space(10f)]
+
+    [SerializeField]
+    private Text mainText;
+
+    [Space(10f)] [Header("Fade Options")]
+
+    [SerializeField]
+    private float timeToFadeIn;
+    [SerializeField]
+    private float timeToFadeOut;
+    [SerializeField]
+    private float timeToWaitForFade;
+
+    [Space(10f)] [Header("Texts")]
+
+    [SerializeField]
+    private string[] introductionTexts;
+    [SerializeField]
+    private string[] testResultTexts;
+    [SerializeField]
+    private string[] warmingUpTexts;
+    [SerializeField]
+    private string[] trainingTexts;
+    [SerializeField]
+    private string[] stretchingTexts;
+    [SerializeField]
+    private string[] restTexts;
+    [SerializeField]
+    private string[] trainingEndTexts;
+    [SerializeField]
+    private string[] dailyTrainingTexts;
+    [SerializeField]
+    private string[] alreadyOpenedTexts;
+
+    // Hidden
+    private int textIndex = 0;
 
     // Cached Components
+    private bool isFirstFadeOfTheSequence = true;
+
     public FadeState fadeState
     {
         get; private set;
@@ -22,573 +70,376 @@ public class TextManager : MonoBehaviour {
 
     #region Unity functions
 
-    private void Start()
+    private void Awake()
     {
-        
+        Suscribe();
     }
 
     #endregion
 
     #region Class functions
 
-    private void Setup()
-    {
-
-    }
-
     private void Suscribe()
     {
+        Observer.Singleton.onAppStart += FadeInIntroduction;
+        Observer.Singleton.onDataScreen += ResetFadeValues;
 
+        Observer.Singleton.onTestResultScreen += FadeInResult;
+        Observer.Singleton.onTestResultScreenCallback += ResetFadeValues;
+
+        // ***
+
+        // OnWarmingUp events.
+        Observer.Singleton.onWarmingUpScreen += FadeInToWarmingUp;
+        Observer.Singleton.onWarmingUpScreenCallback += ResetFadeValues;
+        // OnTraining events.
+        Observer.Singleton.onTrainingScreen += FadeInToTraining;
+        Observer.Singleton.onTrainingScreenCallback += ResetFadeValues;
+        // OnStretching events.
+        Observer.Singleton.onStretchingScreen += FadeInToStretching;
+        Observer.Singleton.onStretchingScreenCallback += ResetFadeValues;
+
+        // ***
+
+        // OnAppWasAlreadyOpenedToday events.
+        Observer.Singleton.onAppWasAlreadyOpenedToday += SetFirstTextAlreadyOpened;
+        Observer.Singleton.onAppWasAlreadyOpenedToday += FadeInAlreadyOpened;
+        Observer.Singleton.onAppWasAlreadyOpenedTodayCallback += ResetFadeValues;
+        // OnDailyTraining events.
+        Observer.Singleton.onDailyTraining += SetFirstTextDailyTraining;
+        Observer.Singleton.onDailyTraining += FadeInDailyTraining;
+        Observer.Singleton.onDailyTrainingCallback += ResetFadeValues;
+
+        //OnTrainingEnd events.
+        Observer.Singleton.onTrainingEnd += FadeInTrainingEnd;
+
+        // ***
+
+        Observer.Singleton.onAppEnd += ResetFadeValues;
+
+        Observer.Singleton.onRestStart += FadeInRest;
+        Observer.Singleton.onRestEnd += ResetFadeValues;
+    }
+
+    public void ResetTextIndex()
+    {
+        textIndex = 0;
+    }
+
+    #endregion
+
+    #region Fade functions
+
+    private void FadeIn(string screenFirstText, TweenCallback action)
+    {
+        if (enableConsoleLog)
+            Debug.Log("UIManager :: FadeIn");
+
+        fadeState = FadeState.FadeIn;
+
+        // Is the first fade of the entire fade sequence ?
+        if (isFirstFadeOfTheSequence)
+        {
+            mainText.text = screenFirstText;
+
+            isFirstFadeOfTheSequence = false;
+        }
+
+        mainText.DOFade(0.8745f, timeToFadeOut).OnComplete(action);
+    } // 1.
+
+    private void FadeInterlude(TweenCallback action)
+    {
+        if (enableConsoleLog)
+            Debug.Log("UIManager :: FadeInterlude");
+
+        fadeState = FadeState.Interlude;
+
+        mainText.DOFade(mainText.color.a, timeToWaitForFade).OnComplete(action);
+    }
+
+    private void FadeOut(TweenCallback action)
+    {
+        if (enableConsoleLog)
+            Debug.Log("UIManager :: FadeOut");
+
+        fadeState = FadeState.FadeOut;
+
+        mainText.DOFade(0.0f, timeToFadeIn).OnComplete(action);
+    }
+
+    private void SetText(string[] screenTexts, TweenCallback action)
+    {
+        if (textIndex < screenTexts.Length - 1)
+            textIndex++;
+
+        // Is the interlude screen active in hierarchy ?
+        if (UIManager.Singleton.IsScreenActiveInHierarchy(0))
+        {
+            mainText.text = screenTexts[textIndex];
+
+            FadeIn(screenTexts[0], action);
+        }
+    }
+
+    private void SetText(string[] screenTexts, TweenCallback action, Action fadeEndCallback)
+    {
+        if (textIndex < screenTexts.Length - 1)
+            textIndex++;
+        else
+        {
+            if (fadeEndCallback != null)
+                fadeEndCallback();
+        }
+
+        // Is the interlude screen active in hierarchy ?
+        if (UIManager.Singleton.IsScreenActiveInHierarchy(0))
+        {
+            mainText.text = screenTexts[textIndex];
+
+            FadeIn(screenTexts[0], action);
+        }
     }
 
     private void ResetFadeValues()
     {
         fadeState = FadeState.None;
 
-        isFirstTimeFading = true;
+        isFirstFadeOfTheSequence = true;
     } // Control function
 
-    #endregion
+    // ***
 
-    #region Fade functions
-
-    #region Fade: Test Introduction
-
-    private void FadeOutIntroduction()
-    {
-        if (enableConsoleLog)
-            Debug.Log("UIManager :: FadeOutInterlude");
-
-        fadeState = FadeState.FadeOut;
-
-        interludeText.DOFade(0.0f, timeToFadeIn).OnComplete(SetIntroductionText);
-    }
-
-    private void FadeInterludeIntroduction()
-    {
-        fadeState = FadeState.Interlude;
-
-        interludeText.DOFade(interludeText.color.a, timeToFadeOut).OnComplete(FadeOutInterlude);
-    }
+    #region Fade: Introduction
 
     private void FadeInIntroduction()
     {
-        if (enableConsoleLog)
-            Debug.Log("UIManager :: FadeInInterlude");
-
-        fadeState = FadeState.FadeIn;
-
-        // Is the first fade of the entire fade sequence ?
-        if (isFirstTimeFading)
-        {
-            interludeText.text = interludeTexts[0];
-
-            isFirstTimeFading = false;
-        }
-
-        interludeText.DOFade(0.8745f, timeToFadeOut).OnComplete(FadeInterlude);
+        FadeIn(introductionTexts[0], FadeInterludeIntroduction);
     } // 1.
 
-    private void SetIntroductionText()
+    private void FadeInterludeIntroduction()
     {
-        if (textIndex < interludeTexts.Length - 1)
-            textIndex++;
-        else
-            Observer.Singleton.OnDataScreen();
-
-        // Is the interlude screen active in hierarchy ?
-        if (screens[0].activeInHierarchy)
-        {
-            interludeText.text = interludeTexts[textIndex];
-
-            FadeInIntroduction();
-        }
+        FadeInterlude(FadeOutIntroduction);
     }
 
-    private void ResetIntroductionFadeValues()
+    private void FadeOutIntroduction()
     {
-        fadeState = FadeState.None;
+        FadeOut(SetTextIntroduction);
+    }
 
-        isFirstTimeFading = true;
-    } // Control function
+    private void SetTextIntroduction()
+    {
+        SetText(introductionTexts, FadeInterludeIntroduction, Observer.Singleton.OnDataScreen);
+    }
 
     #endregion
 
     #region Fade: Test Result
 
-    private void FadeOutResult()
+    private void FadeInResult()
     {
-        if (enableConsoleLog)
-            Debug.Log("UIManager :: FadeOutResult");
-
-        fadeState = FadeState.FadeOut;
-
-        interludeText.DOFade(0.0f, timeToFadeIn).OnComplete(SetResultText);
-    }
+        FadeIn(testResultTexts[0], FadeInterludeResult);
+    } // 1.
 
     private void FadeInterludeResult()
     {
-        fadeState = FadeState.Interlude;
-
-        interludeText.DOFade(interludeText.color.a, timeToFadeOut).OnComplete(FadeOutResult);
+        FadeInterlude(FadeOutResult);
     }
 
-    private void FadeInResult()
+    private void FadeOutResult()
     {
-        if (enableConsoleLog)
-            Debug.Log("UIManager :: FadeInResult");
+        FadeOut(SetTextResult);
+    }
 
-        fadeState = FadeState.FadeIn;
-
-        // Is the first fade of the entire fade sequence ?
-        if (isFirstTimeFading)
-        {
-            interludeText.text = completeTestTexts[0];
-
-            fadeResultFirstTime = false;
-        }
-
-        interludeText.DOFade(0.8745f, timeToFadeOut).OnComplete(FadeInterludeResult);
-    } // 1.
-
-    private void SetResultText()
+    private void SetTextResult()
     {
-        if (textIndex < completeTestTexts.Length - 1)
-            textIndex++;
-        else
-            Observer.Singleton.OnTestEnd();
-
-        // Is the interlude screen active in hierarchy ?
-        if (screens[0].activeInHierarchy)
-        {
-            interludeText.text = completeTestTexts[textIndex];
-
-            FadeInResult();
-        }
+        SetText(introductionTexts, FadeInterludeResult, Observer.Singleton.OnTestResultScreenCallback);
     }
 
     #endregion
 
-    #region Fade: Training Screen, WarmingUp
-
-    private void FadeOutToWarmingUp()
-    {
-        if (enableConsoleLog)
-            Debug.Log("UIManager :: FadeOutToWarmingUp");
-
-        fadeState = FadeState.FadeOut;
-
-        interludeText.DOFade(0.0f, timeToFadeIn).OnComplete(SetToWarmingUp);
-    }
-
-    private void FadeInterludeToWarmingUp()
-    {
-        fadeState = FadeState.Interlude;
-
-        interludeText.DOFade(interludeText.color.a, timeToFadeOut).OnComplete(FadeOutToWarmingUp);
-    }
+    #region Fade: Training Screen, Warming Up
 
     private void FadeInToWarmingUp()
     {
-        if (enableConsoleLog)
-            Debug.Log("UIManager :: FadeInToWarmingUp");
-
-        fadeState = FadeState.FadeIn;
-
-        // Is the first fade of the entire fade sequence ?
-        if (fadeWarmingUpFirstTime)
-        {
-            interludeText.text = warmUpTexts[0];
-
-            fadeWarmingUpFirstTime = false;
-        }
-
-        interludeText.DOFade(0.8745f, timeToFadeOut).OnComplete(FadeInterludeToWarmingUp);
+        FadeIn(warmingUpTexts[0], FadeInterludeToWarmingUp);
     } // 1.
 
-    private void SetToWarmingUp()
+    private void FadeInterludeToWarmingUp()
     {
-        if (textIndex < warmUpTexts.Length - 1)
-            textIndex++;
-        else
-            Observer.Singleton.OnWarmingUpScreenEnd();
+        FadeInterlude(FadeOutToWarmingUp);
+    }
 
-        // Is the interlude screen active in hierarchy ?
-        if (screens[0].activeInHierarchy)
-        {
-            interludeText.text = warmUpTexts[textIndex];
+    private void FadeOutToWarmingUp()
+    {
+        FadeOut(SetTextToWarmingUp);
+    }
 
-            FadeInToWarmingUp();
-        }
+    private void SetTextToWarmingUp()
+    {
+        SetText(introductionTexts, FadeInterludeToWarmingUp, Observer.Singleton.OnWarmingUpScreenCallback);
     }
 
     #endregion
 
     #region Fade: Training Screen, Training
 
-    private void FadeOutToTraining()
+    private void FadeInToTraining()
     {
-        if (enableConsoleLog)
-            Debug.Log("UIManager :: FadeOutToTraining");
-
-        fadeState = FadeState.FadeOut;
-
-        interludeText.DOFade(0.0f, timeToFadeIn).OnComplete(SetToTraining);
-    }
+        FadeIn(trainingTexts[0], FadeInterludeToTraining);
+    } // 1.
 
     private void FadeInterludeToTraining()
     {
-        fadeState = FadeState.Interlude;
-
-        interludeText.DOFade(interludeText.color.a, timeToFadeOut).OnComplete(FadeOutToTraining);
+        FadeInterlude(FadeOutToTraining);
     }
 
-    private void FadeInToTraining()
+    private void FadeOutToTraining()
     {
-        if (enableConsoleLog)
-            Debug.Log("UIManager :: FadeInToTraining");
+        FadeOut(SetTextToTraining);
+    }
 
-        fadeState = FadeState.FadeIn;
-
-        // Is the first fade of the entire fade sequence ?
-        if (fadeTrainingFirstTime)
-        {
-            interludeText.text = trainingTexts[0];
-
-            fadeTrainingFirstTime = false;
-        }
-
-        interludeText.DOFade(0.8745f, timeToFadeOut).OnComplete(FadeInterludeToTraining);
-    } // 1.
-
-    private void SetToTraining()
+    private void SetTextToTraining()
     {
-        if (textIndex < trainingTexts.Length - 1)
-            textIndex++;
-        else
-            Observer.Singleton.OnTrainingScreenEnd();
-
-        // Is the interlude screen active in hierarchy ?
-        if (screens[0].activeInHierarchy)
-        {
-            interludeText.text = trainingTexts[textIndex];
-
-            FadeInToTraining();
-        }
+        SetText(introductionTexts, FadeInterludeToTraining, Observer.Singleton.OnTrainingScreenCallback);
     }
 
     #endregion
 
     #region Fade: Training Screen, Stretching
 
-    private void FadeOutToStretching()
+    private void FadeInToStretching()
     {
-        if (enableConsoleLog)
-            Debug.Log("UIManager :: FadeOutToStretching");
-
-        fadeState = FadeState.FadeOut;
-
-        interludeText.DOFade(0.0f, timeToFadeIn).OnComplete(SetToStretching);
-    }
+        FadeIn(stretchingTexts[0], FadeInterludeToStretching);
+    } // 1.
 
     private void FadeInterludeToStretching()
     {
-        fadeState = FadeState.Interlude;
-
-        interludeText.DOFade(interludeText.color.a, timeToFadeOut).OnComplete(FadeOutToStretching);
+        FadeInterlude(FadeOutToStretching);
     }
 
-    private void FadeInToStretching()
+    private void FadeOutToStretching()
     {
-        if (enableConsoleLog)
-            Debug.Log("UIManager :: FadeInToStretching");
+        FadeOut(SetTextToStretching);
+    }
 
-        fadeState = FadeState.FadeIn;
-
-        // Is the first fade of the entire fade sequence ?
-        if (fadeStretchingFirstTime)
-        {
-            interludeText.text = stretchingTexts[0];
-
-            fadeStretchingFirstTime = false;
-        }
-
-        interludeText.DOFade(0.8745f, timeToFadeOut).OnComplete(FadeInterludeToStretching);
-    } // 1.
-
-    private void SetToStretching()
+    private void SetTextToStretching()
     {
-        if (textIndex < stretchingTexts.Length - 1)
-            textIndex++;
-        else
-            Observer.Singleton.OnStretchingScreenEnd();
-
-        // Is the interlude screen active in hierarchy ?
-        if (screens[0].activeInHierarchy)
-        {
-            interludeText.text = stretchingTexts[textIndex];
-
-            FadeInToStretching();
-        }
+        SetText(introductionTexts, FadeInterludeToStretching, Observer.Singleton.OnStretchingScreenCallback);
     }
 
     #endregion
 
     #region Fade: Rest
 
-    private void FadeOutRest()
+    private void FadeInRest()
     {
-        if (enableConsoleLog)
-            Debug.Log("UIManager :: FadeOutRest");
-
-        fadeState = FadeState.FadeOut;
-
-        interludeText.DOFade(0.0f, timeToFadeIn).OnComplete(SetRestText);
-    }
+        FadeIn(restTexts[0], FadeInterludeRest);
+    } // 1.
 
     private void FadeInterludeRest()
     {
-        fadeState = FadeState.Interlude;
-
-        interludeText.DOFade(interludeText.color.a, timeToFadeOut).OnComplete(FadeOutRest);
+        FadeInterlude(FadeOutRest);
     }
 
-    private void FadeInRest()
+    private void FadeOutRest()
     {
-        if (enableConsoleLog)
-            Debug.Log("UIManager :: FadeInRest");
+        FadeOut(SetTextRest);
+    }
 
-        fadeState = FadeState.FadeIn;
-
-        // Is the first fade of the entire fade sequence ?
-        if (fadeRestFirstTime)
-        {
-            interludeText.text = restTexts[0];
-
-            fadeRestFirstTime = false;
-        }
-
-        interludeText.DOFade(0.8745f, timeToFadeOut).OnComplete(FadeInterludeRest);
-    } // 1.
-
-    private void SetRestText()
+    private void SetTextRest()
     {
-        if (textIndex < restTexts.Length - 1)
-            textIndex++;
-        else
-            textIndex = restTexts.Length - 1;
-
-        // Is the interlude screen active in hierarchy ?
-        if (screens[0].activeInHierarchy)
-        {
-            interludeText.text = restTexts[textIndex];
-
-            FadeInRest();
-        }
+        SetText(introductionTexts, FadeInterludeRest);
     }
 
     #endregion
 
     #region Fade: Training End
 
-    private void FadeOutTrainingEnd()
+    private void FadeInTrainingEnd()
     {
-        if (enableConsoleLog)
-            Debug.Log("UIManager :: FadeOutTrainingEnd");
-
-        fadeState = FadeState.FadeOut;
-
-        interludeText.DOFade(0.0f, timeToFadeIn).OnComplete(SetTrainingEndText);
-    }
+        FadeIn(trainingEndTexts[0], FadeInterludeTrainingEnd);
+    } // 1.
 
     private void FadeInterludeTrainingEnd()
     {
-        fadeState = FadeState.Interlude;
-
-        interludeText.DOFade(interludeText.color.a, timeToFadeOut).OnComplete(FadeOutTrainingEnd);
+        FadeInterlude(FadeOutTrainingEnd);
     }
 
-    private void FadeInTrainingEnd()
+    private void FadeOutTrainingEnd()
     {
-        if (enableConsoleLog)
-            Debug.Log("UIManager :: FadeInTrainingEnd");
+        FadeOut(SetTextTrainingEnd);
+    }
 
-        fadeState = FadeState.FadeIn;
-
-        // Is the first fade of the entire fade sequence ?
-        if (fadeTrainingEnd)
-        {
-            interludeText.text = trainingEndTexts[0];
-
-            fadeTrainingEnd = false;
-        }
-
-        interludeText.DOFade(0.8745f, timeToFadeOut).OnComplete(FadeInterludeTrainingEnd);
-    } // 1.
-
-    private void SetTrainingEndText()
+    private void SetTextTrainingEnd()
     {
-        if (textIndex < trainingEndTexts.Length - 2)
-            textIndex++;
-        else
-        {
-            textIndex++;
-
-            interludeText.text = trainingEndTexts[textIndex];
-
-            interludeText.DOFade(0.8745f, timeToFadeOut);
-
-            Observer.Singleton.OnAppEnd();
-
-            return; // End of the application
-        }
-
-        // Is the interlude screen active in hierarchy ?
-        if (screens[0].activeInHierarchy)
-        {
-            interludeText.text = trainingEndTexts[textIndex];
-
-            FadeInTrainingEnd();
-        }
+        SetText(introductionTexts, FadeInterludeTrainingEnd, Observer.Singleton.OnAppEnd);
     }
 
     #endregion
 
-    #region Fade: OnAlreadyOpened
-
-    private void FadeOutAlreadyOpened()
-    {
-        if (enableConsoleLog)
-            Debug.Log("UIManager :: FadeOutAlreadyOpened");
-
-        fadeState = FadeState.FadeOut;
-
-        interludeText.DOFade(0.0f, timeToFadeIn).OnComplete(SetAlreadyOpenedText);
-    }
-
-    private void FadeInterludeAlreadyOpened()
-    {
-        fadeState = FadeState.Interlude;
-
-        interludeText.DOFade(interludeText.color.a, timeToFadeOut).OnComplete(FadeOutAlreadyOpened);
-    }
+    #region Fade: Already Opened
 
     private void FadeInAlreadyOpened()
     {
-        if (enableConsoleLog)
-            Debug.Log("UIManager :: FadeInAlreadyOpened");
-
-        fadeState = FadeState.FadeIn;
-
-        // Is the first fade of the entire fade sequence ?
-        if (fadeAlreadyOpened)
-        {
-            interludeText.text = alreadyOpenedTexts[0];
-
-            fadeAlreadyOpened = false;
-        }
-
-        interludeText.DOFade(0.8745f, timeToFadeOut).OnComplete(FadeInterludeAlreadyOpened);
+        FadeIn(alreadyOpenedTexts[0], FadeInterludeAlreadyOpened);
     } // 1.
 
-    private void SetAlreadyOpenedText()
+    private void FadeInterludeAlreadyOpened()
     {
-        if (textIndex < alreadyOpenedTexts.Length - 2)
-            textIndex++;
-        else
-        {
-            textIndex++;
+        FadeInterlude(FadeOutAlreadyOpened);
+    }
 
-            interludeText.text = alreadyOpenedTexts[textIndex];
+    private void FadeOutAlreadyOpened()
+    {
+        FadeOut(SetTextAlreadyOpened);
+    }
 
-            interludeText.DOFade(0.8745f, timeToFadeOut);
-
-            Observer.Singleton.OnAppWasAlreadyOpenedTodayEnd();
-
-            return; // End of the application.
-        }
-
-        // Is the interlude screen active in hierarchy ?
-        if (screens[0].activeInHierarchy)
-        {
-            interludeText.text = alreadyOpenedTexts[textIndex];
-
-            FadeInAlreadyOpened();
-        }
+    private void SetTextAlreadyOpened()
+    {
+        SetText(introductionTexts, FadeInterludeAlreadyOpened, Observer.Singleton.OnAppWasAlreadyOpenedTodayCallback);
     }
 
     // First Text
-    private void SetAlreadyOpenedFirstText()
+    private void SetFirstTextAlreadyOpened()
     {
         alreadyOpenedTexts[0] = string.Format("Hola {0}", DataManager.Singleton.userName);
     }
 
     #endregion
 
-    #region Fade: OnDailyTraining
-
-    private void FadeOutDailyTraining()
-    {
-        if (enableConsoleLog)
-            Debug.Log("UIManager :: FadeOutDailyTraining");
-
-        fadeState = FadeState.FadeOut;
-
-        interludeText.DOFade(0.0f, timeToFadeIn).OnComplete(SetDailyTrainingText);
-    }
-
-    private void FadeInterludeDailyTraining()
-    {
-        fadeState = FadeState.Interlude;
-
-        interludeText.DOFade(interludeText.color.a, timeToFadeOut).OnComplete(FadeOutDailyTraining);
-    }
+    #region Fade: Daily Training
 
     private void FadeInDailyTraining()
     {
-        if (enableConsoleLog)
-            Debug.Log("UIManager :: FadeInDailyTraining");
-
-        fadeState = FadeState.FadeIn;
-
-        // Is the first fade of the entire fade sequence ?
-        if (fadeDailyTraining)
-        {
-            interludeText.text = dailyTrainingTexts[0];
-
-            fadeDailyTraining = false;
-        }
-
-        interludeText.DOFade(0.8745f, timeToFadeOut).OnComplete(FadeInterludeDailyTraining);
+        FadeIn(dailyTrainingTexts[0], FadeInterludeDailyTraining);
     } // 1.
 
-    private void SetDailyTrainingText()
+    private void FadeInterludeDailyTraining()
     {
-        if (textIndex < dailyTrainingTexts.Length - 1)
-            textIndex++;
-        else
-        {
-            Observer.Singleton.OnDailyTrainingEnd();
-            Observer.Singleton.OnWarmingUpScreenStart();
-            return;
-        }
+        FadeInterlude(FadeOutDailyTraining);
+    }
 
-        // Is the interlude screen active in hierarchy ?
-        if (screens[0].activeInHierarchy)
-        {
-            interludeText.text = dailyTrainingTexts[textIndex];
+    private void FadeOutDailyTraining()
+    {
+        FadeOut(SetTextDailyTraining);
+    }
 
-            FadeInDailyTraining();
-        }
+    private void SetTextDailyTraining()
+    {
+        SetText(introductionTexts, FadeInterludeDailyTraining, Observer.Singleton.OnDailyTrainingCallback);
+        //Observer.Singleton.OnWarmingUpScreenStart();
     }
 
     // First Text
-    private void SetDailyTrainingFirstText()
+    private void SetFirstTextDailyTraining()
     {
         dailyTrainingTexts[0] = string.Format("Hola {0}", DataManager.Singleton.userName);
     }
 
     #endregion
+
+    // ***
 
     #endregion
 }

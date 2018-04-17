@@ -29,8 +29,6 @@ public class Date : ScriptableObject { // NOTE DateTime default values is : 1/1/
     {
         SetCurrentDate(currentDate);
         SetLastDate(lastDate);
-
-        Observer.Singleton.OnDateSet();
     }
 
     public void SetCurrentDate(DateTime currentDate)
@@ -56,8 +54,6 @@ public class Date : ScriptableObject { // NOTE DateTime default values is : 1/1/
 
         if (lastDateChunck == "")
             TryParseLastDate();
-
-        Observer.Singleton.OnDateGet();
 
         return this;
     }

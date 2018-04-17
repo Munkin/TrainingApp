@@ -48,18 +48,14 @@ public class Data : ScriptableObject {
         this.complexion = complexion;
         this.trainingLevel = trainingLevel;
         this.trainingDay = trainingDay;
-
-        Observer.Singleton.OnSave();
     }
 
     public Data Load()
     {
-        Observer.Singleton.OnLoad();
-
         return this;
     }
 
-    // *** SAVE FUNCTIONS ***
+    // ***
 
     public void SaveName(string userName)
     {
