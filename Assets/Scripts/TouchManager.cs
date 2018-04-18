@@ -1,4 +1,9 @@
-﻿using System;
+﻿// <copyright file="TouchManager.cs" company="Up Up Down Studios">
+// Copyright (c) 2018 All Rights Reserved
+// </copyright>
+// <summary>Touch Manager for Unity touch events.</summary>
+
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -12,7 +17,7 @@ public class TouchManager : MonoBehaviour {
     #region Properties
 
     [SerializeField]
-    private bool enableConsoleLog = true;
+    private bool enableConsoleLog;
 
     [Space(10f)] [Header("Tap Settings")]
 

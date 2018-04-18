@@ -542,9 +542,9 @@ public class DataManager : MonoBehaviour {
     {
         // Are all the input fields with the correct data ?
         if (inputFieldHasCorrectUserName && inputFieldHasCorrectAge && inputFieldHasCorrectWeight && inputFieldHasCorrectHeight)
-            UIManager.Singleton.EnableContinueButton();
+            UIManager.Singleton.EnableDataContinueButton();
         else
-            UIManager.Singleton.DisableContinueButton();
+            UIManager.Singleton.DisableDataContinueButton();
     }
 
     #endregion

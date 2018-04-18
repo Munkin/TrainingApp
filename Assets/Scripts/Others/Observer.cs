@@ -401,7 +401,7 @@ public class Observer : MonoBehaviour {
             onTimerDone();
     }
 
-    // ***
+    // *** OTHERS ***
 
     private void InitializeApp()
     {

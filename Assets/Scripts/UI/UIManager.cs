@@ -73,9 +73,9 @@ public class UIManager : MonoBehaviour {
     }
 
     // Button State Control
-    private bool continueIsAlreadyPressed;
+    private bool dataContinueIsAlreadyPressed;
     private bool nextQuestionIsAlreadyPressed;
-    private bool continueToTrainingIsAlreadyPressed;
+    private bool testResultContinueIsAlreadyPressed;
 
     // Singleton!
     public static UIManager Singleton
@@ -114,25 +114,20 @@ public class UIManager : MonoBehaviour {
     private void Suscribe()
     {
         // *** GENERAL EVENTS ***
-        
+
+        // OnScreen events.
         Observer.Singleton.onDataScreen += EnableDataScreen;
-        
         Observer.Singleton.onTestScreen += EnableExerciseDataScreen;
-        // OnTestResult events.
         Observer.Singleton.onTestResultScreen += EnableIntroductionScreen;
-        
-        // OnTestEnd events.
+
+        // OnTestResultScreenCallback events.
         Observer.Singleton.onTestResultScreenCallback += EnableCompleteTestScreen;
         Observer.Singleton.onTestResultScreenCallback += ShowResults;
-        
         
         // OnDailyTraining special events.
         Observer.Singleton.onDailyTrainingCallback += () => StartCoroutine(WaitForTraining());
 
         // *** TRAINING EVENTS ***
-
-        //OnTrainingEnd events.
-        Observer.Singleton.onTrainingEnd += EnableIntroductionScreen;
 
         // OnTrainingStart events.
         Observer.Singleton.onWarmingUpScreen += EnableIntroductionScreen;
@@ -144,30 +139,33 @@ public class UIManager : MonoBehaviour {
         Observer.Singleton.onStretchingScreen += EnableIntroductionScreen;
         Observer.Singleton.onStretchingScreenCallback += EnableStretching;
 
+        // OnTrainingEnd events.
+        Observer.Singleton.onTrainingEnd += EnableIntroductionScreen;
+
         // *** REST EVENTS ***
 
         Observer.Singleton.onRestStart += EnableIntroductionScreen;
         
         // *** BUTTON CONTROL EVENTS ***
 
-        Observer.Singleton.onTestScreen += ContinueCanBePressedAgain;
-        Observer.Singleton.onWarmingUpScreen += ContinueToTrainingCanBePressedAgain;
+        Observer.Singleton.onTestScreen += ResetDataContinuButton;
+        Observer.Singleton.onWarmingUpScreen += ResetTestResultContinueButton;
     }
     
-    // *** DATA SCREEN ***
+    // *** DATA ***
 
-    public void Continue()
+    public void DataContinue()
     {
         // Is the button already pressed ?
-        if (continueIsAlreadyPressed)
+        if (dataContinueIsAlreadyPressed)
             return;
 
-        continueIsAlreadyPressed = true;
+        dataContinueIsAlreadyPressed = true;
 
         Observer.Singleton.OnTestScreen();
     }
 
-    public void EnableContinueButton()
+    public void EnableDataContinueButton()
     {
         if (!screens[1].activeInHierarchy)
             return;
@@ -176,7 +174,7 @@ public class UIManager : MonoBehaviour {
             continueButton.interactable = true;
     }
 
-    public void DisableContinueButton()
+    public void DisableDataContinueButton()
     {
         if (!screens[1].activeInHierarchy)
             return;
@@ -185,7 +183,7 @@ public class UIManager : MonoBehaviour {
             continueButton.interactable = false;
     }
 
-    // *** EXERCISE DATA SCREEN ***
+    // *** TEST ***
 
     public void NextQuestion()
     {
@@ -196,8 +194,9 @@ public class UIManager : MonoBehaviour {
         nextQuestionIsAlreadyPressed = true;
 
         // Suscribing in to fade event
-        Observer.Singleton.onScreenFadeCallback += NextQuestionCanBePressedAgain;
+        Observer.Singleton.onScreenFadeCallback += ResetNextQuestionButton;
 
+        // Fade event
         Fader.Singleton.FadeScreen(screens[2]);
 
         CheckSelectedOption();
@@ -206,9 +205,7 @@ public class UIManager : MonoBehaviour {
         if (question >= 4)
         {
             Observer.Singleton.OnTestResultScreen();
-
-            // Unsuscribing from fade event
-            Observer.Singleton.onScreenFadeCallback -= NextQuestionCanBePressedAgain;
+            Observer.Singleton.onScreenFadeCallback -= ResetNextQuestionButton;
         }
         else
         {
@@ -216,6 +213,14 @@ public class UIManager : MonoBehaviour {
 
             SetQuestion();
         }
+    }
+
+    private string Question(string exercise, int time, bool isGrammaticalFemale = true)
+    {
+        if (isGrammaticalFemale)
+            return string.Format("¿Cuantas {0} haces en {1} segundos?", exercise, time.ToString());
+        else
+            return string.Format("¿Cuantos {0} haces en {1} segundos?", exercise, time.ToString());
     }
 
     private void SetQuestion()
@@ -314,23 +319,15 @@ public class UIManager : MonoBehaviour {
         }
     }
 
-    private string Question(string exercise, int time, bool isGrammaticalFemale = true)
-    {
-        if (isGrammaticalFemale)
-            return string.Format("¿Cuantas {0} haces en {1} segundos?", exercise, time.ToString());
-        else
-            return string.Format("¿Cuantos {0} haces en {1} segundos?", exercise, time.ToString());
-    }
+    // *** TEST RESULT ***
 
-    // *** COMPLETE TEST SCREEN ***
-
-    public void ContinueToTraining()
+    public void TestResultContinue()
     {
         // Is the button already pressed ?
-        if (continueToTrainingIsAlreadyPressed)
+        if (testResultContinueIsAlreadyPressed)
             return;
 
-        continueToTrainingIsAlreadyPressed = true;
+        testResultContinueIsAlreadyPressed = true;
 
         Observer.Singleton.OnWarmingUpScreen();
     }
@@ -402,7 +399,7 @@ public class UIManager : MonoBehaviour {
         TrainingManager.Singleton.Continue();
     }
 
-    // *** REST FUNCTIONS ***
+    // ***
 
     public void OnCommonExerciseRest()
     {
@@ -414,7 +411,7 @@ public class UIManager : MonoBehaviour {
         DisableAllScreens();
     }
 
-    // *** ENABLE SCREEN FUNCTIONS ***
+    // ***
 
     public bool IsScreenActiveInHierarchy(int screenIndex)
     {
@@ -453,8 +450,6 @@ public class UIManager : MonoBehaviour {
 
     private void EnableExerciseDataScreen()
     {
-        question = 0;
-
         EnableScreen(2);
     }
 
@@ -480,7 +475,7 @@ public class UIManager : MonoBehaviour {
             screens[i].SetActive(false);
     }
 
-    // *** ENABLE TRAINING SCREEN FUNCTIONS ***
+    // ***
 
     private void EnablePractice(int index)
     {
@@ -538,21 +533,21 @@ public class UIManager : MonoBehaviour {
             trainingScreens[i].SetActive(false);
     }
 
-    // *** BUTTONS CAN BE PRESSED AGAIN FUNCTIONS ***
+    // *** BUTTON CONTROL EVENTS ***
 
-    private void ContinueCanBePressedAgain()
+    private void ResetDataContinuButton()
     {
-        continueIsAlreadyPressed = false;
+        dataContinueIsAlreadyPressed = false;
     }
 
-    private void NextQuestionCanBePressedAgain()
+    private void ResetNextQuestionButton()
     {
         nextQuestionIsAlreadyPressed = false;
     }
 
-    private void ContinueToTrainingCanBePressedAgain()
+    private void ResetTestResultContinueButton()
     {
-        continueToTrainingIsAlreadyPressed = false;
+        testResultContinueIsAlreadyPressed = false;
     }
 
     #endregion

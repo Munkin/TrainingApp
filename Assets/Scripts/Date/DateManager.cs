@@ -4,11 +4,17 @@
 // <summary>Date data handler class.</summary>
 
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class DateManager : MonoBehaviour { // NOTE DateTime default values is : 1/1/0001 12:00:00 AM
 
     #region Properties
+
+    [SerializeField]
+    private bool enableConsoleLog;
+
+    [Space(10f)]
 
     [SerializeField]
     private Date date;
@@ -49,6 +55,9 @@ public class DateManager : MonoBehaviour { // NOTE DateTime default values is : 
 
     public void CheckDate()
     {
+        if (enableConsoleLog)
+            Debug.Log("DateManager :: CheckDate");
+
         SetLastDate(currentDate);
         SetCurrentDate();
     }

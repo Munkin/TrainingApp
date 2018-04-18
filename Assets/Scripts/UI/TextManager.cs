@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public enum FadeState
+public enum TextFadeState
 {
     None, FadeIn, Interlude, FadeOut
 }
@@ -38,18 +38,33 @@ public class TextManager : MonoBehaviour {
 
     [SerializeField]
     private string[] introductionTexts;
+
+    [Space(10f)]
+
     [SerializeField]
     private string[] testResultTexts;
+
+    [Space(10f)]
+
     [SerializeField]
     private string[] warmingUpTexts;
     [SerializeField]
     private string[] trainingTexts;
     [SerializeField]
     private string[] stretchingTexts;
+
+    [Space(10f)]
+
     [SerializeField]
     private string[] restTexts;
+
+    [Space(10f)]
+
     [SerializeField]
     private string[] trainingEndTexts;
+
+    [Space(10f)]
+
     [SerializeField]
     private string[] dailyTrainingTexts;
     [SerializeField]
@@ -61,7 +76,7 @@ public class TextManager : MonoBehaviour {
     // Cached Components
     private bool isFirstFadeOfTheSequence = true;
 
-    public FadeState fadeState
+    public TextFadeState textFadeState
     {
         get; private set;
     }
@@ -82,8 +97,8 @@ public class TextManager : MonoBehaviour {
     private void Suscribe()
     {
         Observer.Singleton.onAppStart += FadeInIntroduction;
+        Observer.Singleton.onAppEnd += ResetFadeValues;
         Observer.Singleton.onDataScreen += ResetFadeValues;
-
         Observer.Singleton.onTestResultScreen += FadeInResult;
         Observer.Singleton.onTestResultScreenCallback += ResetFadeValues;
 
@@ -101,24 +116,24 @@ public class TextManager : MonoBehaviour {
 
         // ***
 
-        // OnAppWasAlreadyOpenedToday events.
-        Observer.Singleton.onAppWasAlreadyOpenedToday += SetFirstTextAlreadyOpened;
-        Observer.Singleton.onAppWasAlreadyOpenedToday += FadeInAlreadyOpened;
-        Observer.Singleton.onAppWasAlreadyOpenedTodayCallback += ResetFadeValues;
-        // OnDailyTraining events.
-        Observer.Singleton.onDailyTraining += SetFirstTextDailyTraining;
-        Observer.Singleton.onDailyTraining += FadeInDailyTraining;
-        Observer.Singleton.onDailyTrainingCallback += ResetFadeValues;
-
         //OnTrainingEnd events.
         Observer.Singleton.onTrainingEnd += FadeInTrainingEnd;
 
         // ***
 
-        Observer.Singleton.onAppEnd += ResetFadeValues;
-
         Observer.Singleton.onRestStart += FadeInRest;
         Observer.Singleton.onRestEnd += ResetFadeValues;
+
+        // ***
+
+        // OnDailyTraining events.
+        Observer.Singleton.onDailyTraining += SetFirstTextDailyTraining;
+        Observer.Singleton.onDailyTraining += FadeInDailyTraining;
+        Observer.Singleton.onDailyTrainingCallback += ResetFadeValues;
+        // OnAppWasAlreadyOpenedToday events.
+        Observer.Singleton.onAppWasAlreadyOpenedToday += SetFirstTextAlreadyOpened;
+        Observer.Singleton.onAppWasAlreadyOpenedToday += FadeInAlreadyOpened;
+        Observer.Singleton.onAppWasAlreadyOpenedTodayCallback += ResetFadeValues;
 
         // ***
 
@@ -129,7 +144,7 @@ public class TextManager : MonoBehaviour {
     {
         textIndex = 0;
 
-        fadeState = (fadeState != FadeState.None) ? FadeState.None : fadeState;
+        textFadeState = (textFadeState != TextFadeState.None) ? TextFadeState.None : textFadeState;
     }
 
     #endregion
@@ -141,7 +156,7 @@ public class TextManager : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("UIManager :: FadeIn");
 
-        fadeState = FadeState.FadeIn;
+        textFadeState = TextFadeState.FadeIn;
 
         // Is the first fade of the entire fade sequence ?
         if (isFirstFadeOfTheSequence)
@@ -159,7 +174,7 @@ public class TextManager : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("UIManager :: FadeInterlude");
 
-        fadeState = FadeState.Interlude;
+        textFadeState = TextFadeState.Interlude;
 
         mainText.DOFade(mainText.color.a, timeToWaitForFade).OnComplete(action);
     }
@@ -169,7 +184,7 @@ public class TextManager : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log("UIManager :: FadeOut");
 
-        fadeState = FadeState.FadeOut;
+        textFadeState = TextFadeState.FadeOut;
 
         mainText.DOFade(0.0f, timeToFadeIn).OnComplete(action);
     }
@@ -209,7 +224,7 @@ public class TextManager : MonoBehaviour {
 
     private void ResetFadeValues()
     {
-        fadeState = FadeState.None;
+        textFadeState = TextFadeState.None;
 
         isFirstFadeOfTheSequence = true;
     } // Control function
@@ -240,7 +255,7 @@ public class TextManager : MonoBehaviour {
 
     #endregion
 
-    #region Fade: Test Result
+    #region Fade: Test result
 
     private void FadeInResult()
     {
@@ -264,7 +279,7 @@ public class TextManager : MonoBehaviour {
 
     #endregion
 
-    #region Fade: Training Screen, Warming Up
+    #region Fade: Training screen, warming up
 
     private void FadeInToWarmingUp()
     {
@@ -288,7 +303,7 @@ public class TextManager : MonoBehaviour {
 
     #endregion
 
-    #region Fade: Training Screen, Training
+    #region Fade: Training screen, training
 
     private void FadeInToTraining()
     {
@@ -312,7 +327,7 @@ public class TextManager : MonoBehaviour {
 
     #endregion
 
-    #region Fade: Training Screen, Stretching
+    #region Fade: Training screen, stretching
 
     private void FadeInToStretching()
     {
@@ -360,7 +375,7 @@ public class TextManager : MonoBehaviour {
 
     #endregion
 
-    #region Fade: Training End
+    #region Fade: Training end
 
     private void FadeInTrainingEnd()
     {
@@ -384,37 +399,7 @@ public class TextManager : MonoBehaviour {
 
     #endregion
 
-    #region Fade: Already Opened
-
-    private void FadeInAlreadyOpened()
-    {
-        FadeIn(alreadyOpenedTexts[0], FadeInterludeAlreadyOpened);
-    } // 1.
-
-    private void FadeInterludeAlreadyOpened()
-    {
-        FadeInterlude(FadeOutAlreadyOpened);
-    }
-
-    private void FadeOutAlreadyOpened()
-    {
-        FadeOut(SetTextAlreadyOpened);
-    }
-
-    private void SetTextAlreadyOpened()
-    {
-        SetText(introductionTexts, FadeInterludeAlreadyOpened, Observer.Singleton.OnAppWasAlreadyOpenedTodayCallback);
-    }
-
-    // First Text
-    private void SetFirstTextAlreadyOpened()
-    {
-        alreadyOpenedTexts[0] = string.Format("Hola {0}", DataManager.Singleton.userName);
-    }
-
-    #endregion
-
-    #region Fade: Daily Training
+    #region Fade: Daily training
 
     private void FadeInDailyTraining()
     {
@@ -441,6 +426,36 @@ public class TextManager : MonoBehaviour {
     private void SetFirstTextDailyTraining()
     {
         dailyTrainingTexts[0] = string.Format("Hola {0}", DataManager.Singleton.userName);
+    }
+
+    #endregion
+
+    #region Fade: Already opened
+
+    private void FadeInAlreadyOpened()
+    {
+        FadeIn(alreadyOpenedTexts[0], FadeInterludeAlreadyOpened);
+    } // 1.
+
+    private void FadeInterludeAlreadyOpened()
+    {
+        FadeInterlude(FadeOutAlreadyOpened);
+    }
+
+    private void FadeOutAlreadyOpened()
+    {
+        FadeOut(SetTextAlreadyOpened);
+    }
+
+    private void SetTextAlreadyOpened()
+    {
+        SetText(introductionTexts, FadeInterludeAlreadyOpened, Observer.Singleton.OnAppWasAlreadyOpenedTodayCallback);
+    }
+
+    // First Text
+    private void SetFirstTextAlreadyOpened()
+    {
+        alreadyOpenedTexts[0] = string.Format("Hola {0}", DataManager.Singleton.userName);
     }
 
     #endregion

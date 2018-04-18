@@ -1,7 +1,7 @@
 ﻿// <copyright file="Fader.cs" company="Up Up Down Studios">
 // Copyright (c) 2018 All Rights Reserved
 // </copyright>
-// <summary>Class that hadle fade events.</summary>
+// <summary>Class that hadle with fade events.</summary>
 
 using System;
 using System.Collections;
@@ -80,15 +80,17 @@ public class Fader : MonoBehaviour {
 
     private void Suscribe()
     {
-        // Fade events.
+        // Normal screens fade events.
         Observer.Singleton.onDataScreenFade += FadeScreen;
         Observer.Singleton.onTestScreenFade += FadeScreen;
         Observer.Singleton.onTestResultScreenFade += FadeScreen;
-        // Training fade events.
+        
+        // Training screens fade events.
         Observer.Singleton.onWarmingUpScreenFade += FadeScreen;
         Observer.Singleton.onTrainingScreenFade += FadeScreen;
         Observer.Singleton.onStretchingScreenFade += FadeScreen;
-        // Button fade events.
+        
+        // Buttons fade events.
         Observer.Singleton.onButtonFadeCallback += ResetButtonAlpha;
     }
 
@@ -325,6 +327,7 @@ public class Fader : MonoBehaviour {
         float fadeTime = 0;
         float fadeValue;
 
+        // Hard mat
         while (fadeTime < screenFadeDuration)
         {
             fadeValue = Mathf.Clamp01(fadeTime / screenFadeDuration) * screenFadeEndValue;

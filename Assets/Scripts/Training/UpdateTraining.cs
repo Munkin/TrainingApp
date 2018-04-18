@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿// <copyright file="UpdateTraining.cs" company="Up Up Down Studios">
+// Copyright (c) 2018 All Rights Reserved
+// </copyright>
+// <summary>Class that manage the daily training update behaviour.</summary>
+
+using UnityEngine;
 
 public class UpdateTraining : MonoBehaviour {
 

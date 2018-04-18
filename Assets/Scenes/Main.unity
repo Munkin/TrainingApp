@@ -138,7 +138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 138263732}
   m_Layer: 5
-  m_Name: 01_InterludeScreen
+  m_Name: 00_Interlude
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -273,7 +273,7 @@ GameObject:
   m_Component:
   - component: {fileID: 158352633}
   m_Layer: 5
-  m_Name: 02_DataScreen
+  m_Name: 01_Data
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -538,6 +538,21 @@ Prefab:
       propertyPath: m_FontData.m_FontSize
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 114022500558855874, guid: 21fb3ffcd9ad127459f930a14ed61567,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114022500558855874, guid: 21fb3ffcd9ad127459f930a14ed61567,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.26740947
+      objectReference: {fileID: 0}
+    - target: {fileID: 114022500558855874, guid: 21fb3ffcd9ad127459f930a14ed61567,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 21fb3ffcd9ad127459f930a14ed61567, type: 2}
   m_IsPrefabParent: 0
@@ -641,7 +656,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &365615563
 Prefab:
@@ -856,7 +871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3825d1242b506e4dbd443697a33dd43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableConsoleLog: 1
+  enableConsoleLog: 0
   _doubleTapTime: 0.5
 --- !u!4 &392849575
 Transform:
@@ -869,7 +884,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &395461989 stripped
 MonoBehaviour:
@@ -949,11 +964,6 @@ MonoBehaviour:
     continueIsAlreadyPressed: 0
     data:
       exercises: []
-  colorChange:
-    warmingUpColor: {r: 0, g: 0.7910862, b: 1, a: 0.8745098}
-    trainingColor: {r: 0, g: 1, b: 0.33793116, a: 0.8745098}
-    stretchingColor: {r: 1, g: 0, b: 0, a: 0.8745098}
-    normalColor: {r: 1, g: 1, b: 1, a: 0.8745098}
   updateTraining: {fileID: 1897563273}
   trainingStage: 0
 --- !u!4 &426486923
@@ -963,12 +973,12 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 426486921}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 1250389275}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &444412723
 GameObject:
@@ -1185,7 +1195,7 @@ Prefab:
     - target: {fileID: 114022500558855874, guid: 21fb3ffcd9ad127459f930a14ed61567,
         type: 2}
       propertyPath: m_Color.r
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114022500558855874, guid: 21fb3ffcd9ad127459f930a14ed61567,
         type: 2}
@@ -1195,7 +1205,7 @@ Prefab:
     - target: {fileID: 114022500558855874, guid: 21fb3ffcd9ad127459f930a14ed61567,
         type: 2}
       propertyPath: m_Color.g
-      value: 1
+      value: 0.6573818
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 21fb3ffcd9ad127459f930a14ed61567, type: 2}
@@ -1215,7 +1225,7 @@ GameObject:
   m_Component:
   - component: {fileID: 477722737}
   m_Layer: 5
-  m_Name: 06_RestScreen
+  m_Name: 05_Rest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1430,7 +1440,7 @@ GameObject:
   m_Component:
   - component: {fileID: 495248485}
   m_Layer: 5
-  m_Name: 04_CompleTestScreen
+  m_Name: 03_TestResult
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1611,6 +1621,21 @@ Prefab:
       propertyPath: m_FontData.m_FontSize
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 114022500558855874, guid: 21fb3ffcd9ad127459f930a14ed61567,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114022500558855874, guid: 21fb3ffcd9ad127459f930a14ed61567,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0.13927579
+      objectReference: {fileID: 0}
+    - target: {fileID: 114022500558855874, guid: 21fb3ffcd9ad127459f930a14ed61567,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 21fb3ffcd9ad127459f930a14ed61567, type: 2}
   m_IsPrefabParent: 0
@@ -1674,7 +1699,7 @@ GameObject:
   m_Component:
   - component: {fileID: 618546947}
   m_Layer: 5
-  m_Name: 05_TrainingScreen
+  m_Name: 04_Training
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3571,7 +3596,7 @@ GameObject:
   - component: {fileID: 1056003705}
   - component: {fileID: 1056003706}
   m_Layer: 0
-  m_Name: _DeveloperTools
+  m_Name: _DEVTOOLS_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3588,7 +3613,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1056003706
 MonoBehaviour:
@@ -3961,7 +3986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableConsoleLog: 1
-  enableFadeCallbacksConsoleLog: 0
+  enableConsoleLogForFadeCallbacks: 0
 --- !u!4 &1192865137
 Transform:
   m_ObjectHideFlags: 0
@@ -4078,6 +4103,36 @@ RectTransform:
   m_AnchoredPosition: {x: 58, y: 0}
   m_SizeDelta: {x: 132, y: 40}
   m_Pivot: {x: 0, y: 0.5}
+--- !u!1 &1250389274
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1250389275}
+  m_Layer: 0
+  m_Name: TrainingHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1250389275
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1250389274}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 426486923}
+  - {fileID: 1897563274}
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1274878050
 GameObject:
   m_ObjectHideFlags: 0
@@ -4170,6 +4225,86 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
+--- !u!1 &1280858791
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1280858793}
+  - component: {fileID: 1280858792}
+  m_Layer: 0
+  m_Name: TextManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1280858792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1280858791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fff2cb21fbc6a24f8e48ef57eb3a207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableConsoleLog: 1
+  mainText: {fileID: 2062422163}
+  timeToFadeIn: 1
+  timeToFadeOut: 1
+  timeToWaitForFade: 3
+  introductionTexts:
+  - Hola, bienvenido al entrenamiento de Ruta & Roca
+  - Disfruta la aventura y lleva una vida saludable
+  - Muy bien, comencemos
+  testResultTexts:
+  - Muy bien, has completado el cuestionario
+  - Este es tu resultado
+  warmingUpTexts:
+  - Ahora podemos empezar
+  - Antes que nada es importante calentar
+  - Realiza los siguientes ejercicios
+  trainingTexts:
+  - Muy bien, has completado el calentamiento
+  - Es hora de entrenar
+  - Muy bien, comencemos
+  stretchingTexts:
+  - Muy bien, has completado el entrenamiento
+  - Es hora de estirar
+  - Muy bien, comencemos
+  restTexts:
+  - "\xA1Muy bien hecho!"
+  - Ahora descansa un poco ...
+  trainingEndTexts:
+  - "\xA1Muy bien hecho!"
+  - Has terminado con todos los ejercicios de hoy
+  - Gracias por estar con nosotros
+  - "Nos vemos ma\xF1ana ..."
+  dailyTrainingTexts:
+  - Hola User
+  - Bienvenido nuevamente a tu entrenamiento diario
+  - Muy bien, empecemos ...
+  alreadyOpenedTexts:
+  - Hola User
+  - Ya has entrenado por hoy
+  - "Nos vemos ma\xF1ana ..."
+--- !u!4 &1280858793
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1280858791}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1296850182
 GameObject:
   m_ObjectHideFlags: 27
@@ -4321,6 +4456,11 @@ Prefab:
         type: 2}
       propertyPath: m_SizeDelta.x
       value: 73.44263
+      objectReference: {fileID: 0}
+    - target: {fileID: 114482624420407572, guid: 7c6b60c06f19d394f80fbc5f59c2424f,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DataContinue
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c6b60c06f19d394f80fbc5f59c2424f, type: 2}
@@ -5907,6 +6047,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1838c0d44b530b4784241f500df4e46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableConsoleLog: 0
   date: {fileID: 11400000, guid: 943eee91b832b3642b44491a95eae7d2, type: 2}
 --- !u!4 &1837246182
 Transform:
@@ -5919,7 +6060,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1857943207 stripped
 MonoBehaviour:
@@ -6082,7 +6223,7 @@ Prefab:
     - target: {fileID: 114482624420407572, guid: 7c6b60c06f19d394f80fbc5f59c2424f,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ContinueToTraining
+      value: TestResultContinue
       objectReference: {fileID: 0}
     - target: {fileID: 114482624420407572, guid: 7c6b60c06f19d394f80fbc5f59c2424f,
         type: 2}
@@ -6187,14 +6328,6 @@ MonoBehaviour:
   - {fileID: 495248484}
   - {fileID: 618546946}
   - {fileID: 477722736}
-  timeToFadeIn: 1
-  timeToFadeOut: 2
-  timeToWaitForFade: 2
-  interludeText: {fileID: 2062422163}
-  interludeTexts:
-  - Hola, bienvenido al entrenamiento de Ruta & Roca
-  - Disfruta la aventura, y lleva una vida saludable
-  - Muy bien, comencemos
   continueButton: {fileID: 814185476}
   questionText: {fileID: 852804722}
   optionTexts:
@@ -6209,38 +6342,10 @@ MonoBehaviour:
   - {fileID: 824313773}
   complexionText: {fileID: 1492056281}
   trainingText: {fileID: 1857943207}
-  completeTestTexts:
-  - Muy bien, has completado el test
-  - Este es tu resultado
   trainingScreens:
   - {fileID: 1014663773}
   - {fileID: 548500941}
   - {fileID: 262317482}
-  warmUpTexts:
-  - Muy bien, hora de comenzar tu entrenamiento
-  - Para ello, vamos a calentar primero
-  trainingTexts:
-  - Felicitaciones, has completado el calentamiento
-  - Es hora de entrenar
-  stretchingTexts:
-  - Felicitaciones, has completado los ejercicios
-  - Es hora de estirar
-  restTexts:
-  - "\xA1Muy bien hecho!"
-  - Ahora descansa un poco ...
-  trainingEndTexts:
-  - Excelente has completado el entrenamiento completo
-  - "Vuelve ma\xF1ana"
-  - Nos vemos ...
-  alreadyOpenedTexts:
-  - Hola User
-  - "Ya haz entrenado el d\xEDa de hoy"
-  - "Vuelve ma\xF1ana"
-  - Nos vemos ...
-  dailyTrainingTexts:
-  - Hola User
-  - Bienvenido a tu entrenamiento diario
-  - Comencemos
 --- !u!4 &1874453971
 Transform:
   m_ObjectHideFlags: 0
@@ -6287,12 +6392,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1897563272}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_Father: {fileID: 1250389275}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1911801462
 Prefab:
@@ -6443,7 +6548,7 @@ Transform:
   m_Children:
   - {fileID: 686370342}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1922824543
 MonoBehaviour:
@@ -6767,7 +6872,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2096448986}
   m_Layer: 5
-  m_Name: 03_ExerciseDataScreen
+  m_Name: 02_Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
