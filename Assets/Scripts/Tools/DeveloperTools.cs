@@ -19,7 +19,7 @@ public class DeveloperTools : MonoBehaviour {
 
     #region Unity functions
 
-    private void Awake()
+    private void Start()
     {
         SetTimeScale();
     }

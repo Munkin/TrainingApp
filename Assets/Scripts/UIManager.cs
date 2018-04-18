@@ -3,6 +3,7 @@
 // </copyright>
 // <summary>Manager for Unity user interface events.</summary>
 
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -54,6 +55,9 @@ public class UIManager : MonoBehaviour {
 
     // Hidden
     private int question = 0;
+
+    // Events
+    public Action onIntroductionScreen;
 
     // Getters & Setters
     public GameObject[] Screens
@@ -436,7 +440,9 @@ public class UIManager : MonoBehaviour {
 
     private void EnableIntroductionScreen()
     {
-        XOXO; // TextManager.ResetTextIndex()
+        if (onIntroductionScreen != null)
+            onIntroductionScreen();
+
         EnableScreen(0);
     }
 

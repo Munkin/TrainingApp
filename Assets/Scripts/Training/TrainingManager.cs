@@ -39,7 +39,7 @@ public class TrainingManager : MonoBehaviour {
     [Space(10f)]
 
     [SerializeField]
-    private Screen[] trainingScreens; // TODO Refactor in the future. DO NOT REFACTOR NOW! (Inspector Data lose in the process).
+    private Screen[] trainingScreens; // TODO Refactor in the future. Do not refactor (Inspector Data lose in the process).
 
     [Space(10f)]
 
@@ -50,15 +50,15 @@ public class TrainingManager : MonoBehaviour {
     [HideInInspector]
     public TrainingStage trainingStage;
 
-    // Consts
-    public const float fadeFixTime = 0.125f;
-
     // Cached Components
     public Training cachedTrainingData
     {
         get; private set;
     }
     private Screen targetScreen;
+
+    // Consts
+    public const float fadeMarginError = 0.125f;
 
     // Coroutines
     private IEnumerator nonTimeExercise;
@@ -103,7 +103,6 @@ public class TrainingManager : MonoBehaviour {
         {
             screen.timer.gameObject.SetActive(false);
             
-            // Timer events.
             Observer.Singleton.onTimerDone += screen.ActiveContinue;
             Observer.Singleton.onTimerDone += screen.FadeInContinue;
             Observer.Singleton.onTimerDone += StopWatchSound;
@@ -120,7 +119,7 @@ public class TrainingManager : MonoBehaviour {
         if (targetScreen.ReadyWasAlreadyPressed())
             return;
 
-        // Ready execution
+        // Button execution
         if (targetScreen.ActualExerciseHasTime())
             ExecuteTimeExercise();
         else
@@ -132,7 +131,7 @@ public class TrainingManager : MonoBehaviour {
         if (targetScreen.ContinueWasAlreadyPressed())
             return;
 
-        // Continue execution
+        // Button execution
         if (targetScreen.ActualExerciseHasRest())
             ExecuteRest();
         else
@@ -148,7 +147,7 @@ public class TrainingManager : MonoBehaviour {
         if (enableConsoleLog)
             Debug.Log(string.Format("Training :: NotifyNewTrainingData :: {0}", trainingData.name));
 
-        AllocateData(); // *.*
+        AllocateData(); // *.* Bless god.
     }
 
     private void SetTrainingData()
@@ -297,13 +296,14 @@ public class TrainingManager : MonoBehaviour {
 
     private void StopWatchSound()
     {
-        AudioManager.Singleton.effects[0].Play(); // Alarm
+        AudioManager.Singleton.effects[0].Play(); // Clock alarm!
     }
 
     private void RestContinue()
     {
         targetScreen.SetActiveReady(true);
         targetScreen.SetActiveContinue(false);
+
         targetScreen.SetupExercise();
 
         // Fade event!
@@ -321,7 +321,8 @@ public class TrainingManager : MonoBehaviour {
             // Is the continue button active ?
             if (targetScreen.timer.gameObject.activeInHierarchy)
             {
-                // Do you wanna quit the stop wathc sound ?
+                // Do you wanna quit the stop watch sound ?
+
                 // -- Observer.Singleton.onTimerDone -= StopWatchSound;
                 Observer.Singleton.OnTimerDone();
                 // -- Observer.Singleton.onTimerDone += StopWatchSound;
@@ -383,7 +384,7 @@ public class TrainingManager : MonoBehaviour {
         if (!isTheLastExercise)
             Observer.Singleton.OnRestEnd();
         else
-            yield return new WaitForSeconds(fadeFixTime); // Fix a fade error
+            yield return new WaitForSeconds(fadeMarginError); // Fix a fade error
 
         if (isTheLastExercise)
             Observer.Singleton.onRestEnd -= UIManager.Singleton.OnLastExerciseRest;

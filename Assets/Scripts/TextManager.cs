@@ -119,11 +119,17 @@ public class TextManager : MonoBehaviour {
 
         Observer.Singleton.onRestStart += FadeInRest;
         Observer.Singleton.onRestEnd += ResetFadeValues;
+
+        // ***
+
+        UIManager.Singleton.onIntroductionScreen += ResetTextIndex;
     }
 
     public void ResetTextIndex()
     {
         textIndex = 0;
+
+        fadeState = (fadeState != FadeState.None) ? FadeState.None : fadeState;
     }
 
     #endregion

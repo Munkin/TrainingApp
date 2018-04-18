@@ -57,22 +57,19 @@ public class DataManager : MonoBehaviour {
         get; private set;
     }
     private bool inputFieldHasCorrectUserName;
-    
-    // ***
+
     public int age
     {
         get; private set;
     }
     private bool inputFieldHasCorrectAge;
     
-    // ***
     public float height
     {
         get; private set;
     }
     private bool inputFieldHasCorrectHeight;
     
-    // ***
     public float weight
     {
         get; private set;
@@ -80,6 +77,7 @@ public class DataManager : MonoBehaviour {
     private bool inputFieldHasCorrectWeight;
 
     // ***
+
     public float imc
     {
         get; private set;
@@ -111,7 +109,7 @@ public class DataManager : MonoBehaviour {
         get; private set;
     }
 
-    // Singelton!
+    // Singleton!
     public static DataManager Singleton
     {
         get; private set;
@@ -148,15 +146,15 @@ public class DataManager : MonoBehaviour {
 
         LimitInputFieldCharacters();
 
-        ValidateInpuFieldEvents();
+        ValidateInpuField();
     }
 
     private void Suscribe()
     {
         Observer.Singleton.onTestScreen += EstimateIMC;
-        // OnTestResult events.
+        // onTestResultScreen events.
         Observer.Singleton.onTestResultScreen += EstimateTotalScore;
-        Observer.Singleton.onTestResultScreen += SetTraining;
+        Observer.Singleton.onTestResultScreen += SetTrainingLevel;
         Observer.Singleton.onTestResultScreen += SaveData;
 
         // Data event.
@@ -168,11 +166,14 @@ public class DataManager : MonoBehaviour {
 
     public bool CanTheUserDoTheTest()
     {
-        return data.canDoTest;
+        return data.enableTest;
     }
 
     public void EstimateIMC()
     {
+        if (enableConsoleLog)
+            Debug.Log("DataManager :: EstimateIMC");
+
         imc = weight / (height * height);
 
         // IMC Score estimation.
@@ -221,6 +222,9 @@ public class DataManager : MonoBehaviour {
 
     public void EstimateTotalScore()
     {
+        if (enableConsoleLog)
+            Debug.Log("DataManager :: EstimateTotalScore");
+
         // Age score estimation.
         if (age <= 20)
             AddScore(1);
@@ -233,7 +237,7 @@ public class DataManager : MonoBehaviour {
             Debug.Log(string.Format("DataManager :: EstimateTotalScore :: {0}", score.ToString()));
     }
 
-    private void SetTraining()
+    private void SetTrainingLevel()
     {
         // Training estimation.
         if (score <= 14)
@@ -425,6 +429,14 @@ public class DataManager : MonoBehaviour {
 
     // ***
 
+    public void NotifySavedData(TrainingLevel trainingLevel, TrainingDay trainingDay)
+    {
+        data.trainingLevel = trainingLevel;
+        data.trainingDay = trainingDay;
+    }
+
+    // ***
+
     private string CheckName(string value)
     {
         string[] words = value.Split(' ');
@@ -462,16 +474,7 @@ public class DataManager : MonoBehaviour {
         }
 
         return name;
-    } // Name validation
-
-    private void LimitInputFieldCharacters()
-    {
-        // InputField character limit
-        nameInputField.characterLimit = 22;
-        ageInputField.characterLimit = 2;
-        weightInputField.characterLimit = 3;
-        heightInputField.characterLimit = 3;
-    }
+    } // Name validation.
 
     private char ValidateLetterChar(char charToValidate)
     {
@@ -491,7 +494,7 @@ public class DataManager : MonoBehaviour {
         return charToValidate;
     }
 
-    private void ValidateInpuFieldEvents()
+    private void ValidateInpuField()
     {
         // For check name input field chars entered by the user.
         nameInputField.characterValidation = InputField.CharacterValidation.Name;
@@ -499,7 +502,7 @@ public class DataManager : MonoBehaviour {
         {
             return ValidateLetterChar(addedChar);
         };
-        nameInputField.onEndEdit.AddListener(delegate { OnNameEndEdit(nameInputField.text); });
+        nameInputField.onEndEdit.AddListener(delegate { OnNameEndEdit(nameInputField.text); }); // New line ...
 
         // For check age input field chars entered by the user.
         ageInputField.characterValidation = InputField.CharacterValidation.Integer;
@@ -507,7 +510,7 @@ public class DataManager : MonoBehaviour {
         {
             return ValidateNumberChar(addedChar);
         };
-        ageInputField.onEndEdit.AddListener(delegate { OnAgeEndEdit(ageInputField.text); });
+        ageInputField.onEndEdit.AddListener(delegate { OnAgeEndEdit(ageInputField.text); }); // New line ...
 
         // For check weight input field chars entered by the user.
         weightInputField.characterValidation = InputField.CharacterValidation.Integer;
@@ -515,7 +518,7 @@ public class DataManager : MonoBehaviour {
         {
             return ValidateNumberChar(addedChar);
         };
-        weightInputField.onEndEdit.AddListener(delegate { OnWeightEndEdit(weightInputField.text); });
+        weightInputField.onEndEdit.AddListener(delegate { OnWeightEndEdit(weightInputField.text); }); // New line ...
 
         // For check height input field chars entered by the user.
         heightInputField.characterValidation = InputField.CharacterValidation.Integer;
@@ -523,7 +526,16 @@ public class DataManager : MonoBehaviour {
         {
             return ValidateNumberChar(addedChar);
         };
-        heightInputField.onEndEdit.AddListener(delegate { OnHeightEndEdit(heightInputField.text); });
+        heightInputField.onEndEdit.AddListener(delegate { OnHeightEndEdit(heightInputField.text); }); // New line ...
+    }
+
+    private void LimitInputFieldCharacters()
+    {
+        // InputField character limit
+        nameInputField.characterLimit = 22;
+        ageInputField.characterLimit = 2;
+        weightInputField.characterLimit = 3;
+        heightInputField.characterLimit = 3;
     }
 
     private void CheckData()
@@ -533,14 +545,6 @@ public class DataManager : MonoBehaviour {
             UIManager.Singleton.EnableContinueButton();
         else
             UIManager.Singleton.DisableContinueButton();
-    }
-
-    // ***
-
-    public void NotifySavedData(TrainingLevel trainingLevel, TrainingDay trainingDay)
-    {
-        data.trainingLevel = trainingLevel;
-        data.trainingDay = trainingDay;
     }
 
     #endregion

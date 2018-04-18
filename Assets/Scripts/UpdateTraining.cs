@@ -78,7 +78,7 @@ public class UpdateTraining : MonoBehaviour {
 
     private void DoTestAgain()
     {
-        DataManager.Singleton.GetData().canDoTest = true;
+        DataManager.Singleton.GetData().enableTest = true;
 
         // Reset the training.
         Observer.Singleton.OnIntroduction();

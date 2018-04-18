@@ -1,7 +1,7 @@
 ﻿// <copyright file="DateManager.cs" company="Up Up Down Studios">
 // Copyright (c) 2018 All Rights Reserved
 // </copyright>
-// <summary>DateManger for Unity date events.</summary>
+// <summary>Date data handler class.</summary>
 
 using System;
 using UnityEngine;

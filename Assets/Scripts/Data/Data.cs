@@ -10,7 +10,7 @@ public class Data : ScriptableObject {
 
     #region Properties
 
-    public bool canDoTest = true;
+    public bool enableTest = true;
 
     [Space(10f)]
 
@@ -35,8 +35,8 @@ public class Data : ScriptableObject {
     public void Save(string userName, int age, float height, float weight, float imc, int score, Complexion complexion, TrainingLevel trainingLevel, TrainingDay trainingDay)
     {
         // Can the user do the test ?
-        if (canDoTest)
-            canDoTest = false;
+        if (enableTest)
+            enableTest = false;
 
         this.userName = userName;
         this.age = age;
