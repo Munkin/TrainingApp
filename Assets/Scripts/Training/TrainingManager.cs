@@ -55,7 +55,10 @@ public class TrainingManager : MonoBehaviour {
     {
         get; private set;
     }
-    private Screen targetScreen;
+    public Screen targetScreen
+    {
+        get; private set;
+    }
 
     // Consts
     public const float fadeMarginError = 0.125f;
@@ -107,9 +110,6 @@ public class TrainingManager : MonoBehaviour {
             Observer.Singleton.onTimerDone += screen.FadeInContinue;
             Observer.Singleton.onTimerDone += StopWatchSound;
         }
-
-        // TouchManager events.
-        TouchManager.OnDoubleTap += SkipTimer;
     }
 
     // ***
@@ -313,21 +313,9 @@ public class TrainingManager : MonoBehaviour {
 
     // ***
 
-    private void SkipTimer()
+    public void StopTimer()
     {
-        // Is the training screen active in the hierarchy ?
-        if (UIManager.Singleton.Screens[4].activeInHierarchy && targetScreen != null)
-        {
-            // Is the continue button active ?
-            if (targetScreen.timer.gameObject.activeInHierarchy)
-            {
-                // Do you wanna quit the stop watch sound ?
-
-                // -- Observer.Singleton.onTimerDone -= StopWatchSound;
-                Observer.Singleton.OnTimerDone();
-                // -- Observer.Singleton.onTimerDone += StopWatchSound;
-            }
-        }
+        Observer.Singleton.OnTimerDone();
     }
 
     #endregion

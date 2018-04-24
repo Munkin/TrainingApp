@@ -81,6 +81,9 @@ public class TextManager : MonoBehaviour {
         get; private set;
     }
 
+    private Tweener cachedTweener;
+    private TweenCallback cachedTweenCallback;
+
     // Singleton
     public static TextManager Singleton
     {
@@ -132,6 +135,7 @@ public class TextManager : MonoBehaviour {
 
         // ***
 
+        // Rest events.
         Observer.Singleton.onRestStart += FadeInRest;
         Observer.Singleton.onRestEnd += ResetFadeValues;
 
@@ -145,6 +149,11 @@ public class TextManager : MonoBehaviour {
         Observer.Singleton.onAppWasAlreadyOpenedToday += SetFirstTextAlreadyOpened;
         Observer.Singleton.onAppWasAlreadyOpenedToday += FadeInAlreadyOpened;
         Observer.Singleton.onAppWasAlreadyOpenedTodayCallback += ResetFadeValues;
+
+        // ***
+
+        // Touch events.
+        TouchManager.OnTap += StopFade;
     }
 
     public void ResetTextIndex()
@@ -161,7 +170,7 @@ public class TextManager : MonoBehaviour {
     private void FadeIn(string screenFirstText, TweenCallback action)
     {
         if (enableConsoleLog)
-            Debug.Log("UIManager :: FadeIn");
+            Debug.Log("TextManager :: FadeIn");
 
         textFadeState = TextFadeState.FadeIn;
 
@@ -179,17 +188,18 @@ public class TextManager : MonoBehaviour {
     private void FadeInterlude(TweenCallback action)
     {
         if (enableConsoleLog)
-            Debug.Log("UIManager :: FadeInterlude");
+            Debug.Log("TextManager :: FadeInterlude");
 
         textFadeState = TextFadeState.Interlude;
 
-        mainText.DOFade(mainText.color.a, timeToWaitForFade).OnComplete(action);
+        cachedTweener = mainText.DOFade(mainText.color.a, timeToWaitForFade).OnComplete(action);
+        cachedTweenCallback = action;
     }
 
     private void FadeOut(TweenCallback action)
     {
         if (enableConsoleLog)
-            Debug.Log("UIManager :: FadeOut");
+            Debug.Log("TextManager :: FadeOut");
 
         textFadeState = TextFadeState.FadeOut;
 
@@ -235,6 +245,25 @@ public class TextManager : MonoBehaviour {
 
         isFirstFadeOfTheSequence = true;
     } // Control function
+
+    private void StopFade()
+    {
+        // Is the interlude screen active ?
+        if (UIManager.Singleton.Screens[0].activeInHierarchy)
+        {
+            // Is the fade sequence in the interlude state ?
+            if (textFadeState == TextFadeState.Interlude)
+            {
+                // Stop!
+                if (enableConsoleLog)
+                    Debug.Log("TextManager :: StopFade");
+
+                cachedTweener.Kill();
+
+                cachedTweenCallback();
+            }
+        }
+    }
 
     // ***
 

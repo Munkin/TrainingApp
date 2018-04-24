@@ -52,9 +52,14 @@ public class UIManager : MonoBehaviour {
     [Space(10f)] [Header("Screen: Training")]
 
     public GameObject[] trainingScreens;
+    [SerializeField]
+    private GameObject dialogueBox;
 
     // Hidden
     private int question = 0;
+
+    // Cached Components
+    private float normalTimeScale;
 
     // Events
     public Action onIntroductionScreen;
@@ -150,6 +155,10 @@ public class UIManager : MonoBehaviour {
 
         Observer.Singleton.onTestScreen += ResetDataContinuButton;
         Observer.Singleton.onWarmingUpScreen += ResetTestResultContinueButton;
+
+        // *** TOUCH EVENTS ***
+
+        TouchManager.OnDoubleTap += EnableDialogueBox;
     }
     
     // *** DATA ***
@@ -533,6 +542,53 @@ public class UIManager : MonoBehaviour {
     {
         for (int i = 0; i < trainingScreens.Length; i++)
             trainingScreens[i].SetActive(false);
+    }
+
+    // ***
+
+    private void EnableDialogueBox()
+    {
+        // Is the training screen active in the hierarchy ?
+        if (Singleton.Screens[4].activeInHierarchy)
+        {
+            // Is the timer active ?
+            if (TrainingManager.Singleton.targetScreen.timer.gameObject.activeInHierarchy)
+            {
+                // Is the dialogue box non active ?
+                if (!dialogueBox.activeInHierarchy)
+                {
+                    dialogueBox.SetActive(true);
+
+                    normalTimeScale = Time.timeScale;
+
+                    Time.timeScale = 0.0f;
+                }
+            }
+        }
+    }
+
+    public void StopTimerYes()
+    {
+        TrainingManager.Singleton.StopTimer();
+
+        DisableDialogueBox();
+    }
+
+    public void StopTimerNo()
+    {
+        DisableDialogueBox();
+    }
+
+    private void DisableDialogueBox()
+    {
+        // Is the training screen active in the hierarchy ?
+        if (Singleton.Screens[4].activeInHierarchy)
+        {
+            if (dialogueBox.activeInHierarchy)
+                dialogueBox.SetActive(false);
+
+            Time.timeScale = normalTimeScale;
+        }
     }
 
     // *** BUTTON CONTROL EVENTS ***

@@ -39,7 +39,7 @@ namespace MaterialUI
 		RectTransform activeLineRect;
 		RectTransform placeholderRect;
 
-		Color placeholderOffColor;
+		// Color placeholderOffColor;
 
 		Color placeholderColor;
 		float placeholderScale;
@@ -79,9 +79,7 @@ namespace MaterialUI
 			inputText.material = displayText.material;
 			inputText.color = displayText.color;
 
-            initialPlaceholderColor = placeholderText.color;
-
-            placeholderOffColor = initialPlaceholderColor;
+            // placeholderOffColor = placeholderText.color;
 
 			if (inputField.lineType == InputField.LineType.MultiLineNewline || inputField.lineType == InputField.LineType.MultiLineSubmit)
 			{
@@ -168,10 +166,10 @@ namespace MaterialUI
 				if (animDeltaTime <= 1f)
 				{
 					Color tempColor = placeholderText.color;
-					tempColor.r = Anim.Quint.Out(placeholderColor.r, placeholderOffColor.r, animDeltaTime, animationDuration);
-					tempColor.g = Anim.Quint.Out(placeholderColor.g, placeholderOffColor.g, animDeltaTime, animationDuration);
-					tempColor.b = Anim.Quint.Out(placeholderColor.b, placeholderOffColor.b, animDeltaTime, animationDuration);
-					tempColor.a = Anim.Quint.Out(placeholderColor.a, placeholderOffColor.a, animDeltaTime, animationDuration);
+					tempColor.r = Anim.Quint.Out(placeholderColor.r, initialPlaceholderColor.r, animDeltaTime, animationDuration);
+					tempColor.g = Anim.Quint.Out(placeholderColor.g, initialPlaceholderColor.g, animDeltaTime, animationDuration);
+					tempColor.b = Anim.Quint.Out(placeholderColor.b, initialPlaceholderColor.b, animDeltaTime, animationDuration);
+					tempColor.a = Anim.Quint.Out(placeholderColor.a, initialPlaceholderColor.a, animDeltaTime, animationDuration);
 					placeholderText.color = tempColor;
 					
 					if (inputField.text.Length == 0)
