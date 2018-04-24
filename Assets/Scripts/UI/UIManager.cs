@@ -440,6 +440,8 @@ public class UIManager : MonoBehaviour {
         if (onIntroductionScreen != null)
             onIntroductionScreen();
 
+        TextManager.Singleton.ResetTextIndex();
+
         EnableScreen(0);
     }
 

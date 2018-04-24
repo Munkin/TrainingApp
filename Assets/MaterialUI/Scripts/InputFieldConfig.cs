@@ -28,7 +28,11 @@ namespace MaterialUI
 		[SerializeField] private Text displayText;
 		[SerializeField] private Image activeLine;
 
-		RectTransform textRect;
+        [Space(10f)]
+
+        [SerializeField] private Color initialPlaceholderColor;
+
+        RectTransform textRect;
 		RectTransform displayTextRect;
 
 		InputField inputField;
@@ -75,7 +79,9 @@ namespace MaterialUI
 			inputText.material = displayText.material;
 			inputText.color = displayText.color;
 
-			placeholderOffColor = placeholderText.color;
+            initialPlaceholderColor = placeholderText.color;
+
+            placeholderOffColor = initialPlaceholderColor;
 
 			if (inputField.lineType == InputField.LineType.MultiLineNewline || inputField.lineType == InputField.LineType.MultiLineSubmit)
 			{
@@ -104,7 +110,7 @@ namespace MaterialUI
 		
 		public void OnDeselect (BaseEventData data)
 		{
-			placeholderColor = placeholderText.color;
+			placeholderColor = initialPlaceholderColor;
 			placeholderPivot = placeholderRect.pivot.y;
 			placeholderScale = placeholderRect.localScale.x;
 

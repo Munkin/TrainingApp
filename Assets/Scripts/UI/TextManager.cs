@@ -81,12 +81,23 @@ public class TextManager : MonoBehaviour {
         get; private set;
     }
 
+    // Singleton
+    public static TextManager Singleton
+    {
+        get; private set;
+    }
+
     #endregion
 
     #region Unity functions
 
     private void Awake()
     {
+        if (Singleton != null)
+            DestroyImmediate(gameObject);
+        else
+            Singleton = this;
+
         Suscribe();
     }
 
@@ -134,10 +145,6 @@ public class TextManager : MonoBehaviour {
         Observer.Singleton.onAppWasAlreadyOpenedToday += SetFirstTextAlreadyOpened;
         Observer.Singleton.onAppWasAlreadyOpenedToday += FadeInAlreadyOpened;
         Observer.Singleton.onAppWasAlreadyOpenedTodayCallback += ResetFadeValues;
-
-        // ***
-
-        UIManager.Singleton.onIntroductionScreen += ResetTextIndex;
     }
 
     public void ResetTextIndex()

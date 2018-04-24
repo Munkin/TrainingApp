@@ -278,7 +278,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &158352633
 RectTransform:
   m_ObjectHideFlags: 0
@@ -977,8 +977,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1250389275}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &444412723
 GameObject:
@@ -2348,7 +2348,7 @@ Prefab:
     - target: {fileID: 224995490754020136, guid: 984f3f7725b4a014faa94c4737e29ab6,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: -7.5737705
+      value: -7.251397
       objectReference: {fileID: 0}
     - target: {fileID: 224222456859498932, guid: 984f3f7725b4a014faa94c4737e29ab6,
         type: 2}
@@ -2423,6 +2423,26 @@ Prefab:
         type: 2}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762110830529968, guid: 984f3f7725b4a014faa94c4737e29ab6,
+        type: 2}
+      propertyPath: initialPlaceholderColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762110830529968, guid: 984f3f7725b4a014faa94c4737e29ab6,
+        type: 2}
+      propertyPath: initialPlaceholderColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762110830529968, guid: 984f3f7725b4a014faa94c4737e29ab6,
+        type: 2}
+      propertyPath: initialPlaceholderColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762110830529968, guid: 984f3f7725b4a014faa94c4737e29ab6,
+        type: 2}
+      propertyPath: initialPlaceholderColor.a
+      value: 0.5019608
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 984f3f7725b4a014faa94c4737e29ab6, type: 2}
@@ -3508,7 +3528,7 @@ Prefab:
     - target: {fileID: 224995490754020136, guid: 984f3f7725b4a014faa94c4737e29ab6,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: -7.5737705
+      value: -7.251397
       objectReference: {fileID: 0}
     - target: {fileID: 224222456859498932, guid: 984f3f7725b4a014faa94c4737e29ab6,
         type: 2}
@@ -3582,6 +3602,26 @@ Prefab:
         type: 2}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762110830529968, guid: 984f3f7725b4a014faa94c4737e29ab6,
+        type: 2}
+      propertyPath: initialPlaceholderColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762110830529968, guid: 984f3f7725b4a014faa94c4737e29ab6,
+        type: 2}
+      propertyPath: initialPlaceholderColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762110830529968, guid: 984f3f7725b4a014faa94c4737e29ab6,
+        type: 2}
+      propertyPath: initialPlaceholderColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762110830529968, guid: 984f3f7725b4a014faa94c4737e29ab6,
+        type: 2}
+      propertyPath: initialPlaceholderColor.a
+      value: 0.5019608
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 984f3f7725b4a014faa94c4737e29ab6, type: 2}
@@ -3868,7 +3908,7 @@ Prefab:
     - target: {fileID: 224995490754020136, guid: 984f3f7725b4a014faa94c4737e29ab6,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: -7.5737705
+      value: -7.251397
       objectReference: {fileID: 0}
     - target: {fileID: 224222456859498932, guid: 984f3f7725b4a014faa94c4737e29ab6,
         type: 2}
@@ -3943,6 +3983,26 @@ Prefab:
         type: 2}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762110830529968, guid: 984f3f7725b4a014faa94c4737e29ab6,
+        type: 2}
+      propertyPath: initialPlaceholderColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762110830529968, guid: 984f3f7725b4a014faa94c4737e29ab6,
+        type: 2}
+      propertyPath: initialPlaceholderColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762110830529968, guid: 984f3f7725b4a014faa94c4737e29ab6,
+        type: 2}
+      propertyPath: initialPlaceholderColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762110830529968, guid: 984f3f7725b4a014faa94c4737e29ab6,
+        type: 2}
+      propertyPath: initialPlaceholderColor.a
+      value: 0.5019608
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 984f3f7725b4a014faa94c4737e29ab6, type: 2}
@@ -4103,36 +4163,6 @@ RectTransform:
   m_AnchoredPosition: {x: 58, y: 0}
   m_SizeDelta: {x: 132, y: 40}
   m_Pivot: {x: 0, y: 0.5}
---- !u!1 &1250389274
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1250389275}
-  m_Layer: 0
-  m_Name: TrainingHolder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1250389275
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1250389274}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 426486923}
-  - {fileID: 1897563274}
-  m_Father: {fileID: 0}
-  m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1274878050
 GameObject:
   m_ObjectHideFlags: 0
@@ -4405,12 +4435,12 @@ Prefab:
     - target: {fileID: 224830822470574772, guid: 7c6b60c06f19d394f80fbc5f59c2424f,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 135.44263
+      value: 137.0838
       objectReference: {fileID: 0}
     - target: {fileID: 224830822470574772, guid: 7c6b60c06f19d394f80fbc5f59c2424f,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 64.42623
+      value: 64.748604
       objectReference: {fileID: 0}
     - target: {fileID: 224830822470574772, guid: 7c6b60c06f19d394f80fbc5f59c2424f,
         type: 2}
@@ -4450,12 +4480,12 @@ Prefab:
     - target: {fileID: 224084983140039130, guid: 7c6b60c06f19d394f80fbc5f59c2424f,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 14.4262295
+      value: 14.748603
       objectReference: {fileID: 0}
     - target: {fileID: 224084983140039130, guid: 7c6b60c06f19d394f80fbc5f59c2424f,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 73.44263
+      value: 75.0838
       objectReference: {fileID: 0}
     - target: {fileID: 114482624420407572, guid: 7c6b60c06f19d394f80fbc5f59c2424f,
         type: 2}
@@ -4673,7 +4703,7 @@ Prefab:
     - target: {fileID: 224995490754020136, guid: 984f3f7725b4a014faa94c4737e29ab6,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: -7.5737705
+      value: -7.251397
       objectReference: {fileID: 0}
     - target: {fileID: 224222456859498932, guid: 984f3f7725b4a014faa94c4737e29ab6,
         type: 2}
@@ -4748,6 +4778,26 @@ Prefab:
         type: 2}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762110830529968, guid: 984f3f7725b4a014faa94c4737e29ab6,
+        type: 2}
+      propertyPath: initialPlaceholderColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762110830529968, guid: 984f3f7725b4a014faa94c4737e29ab6,
+        type: 2}
+      propertyPath: initialPlaceholderColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762110830529968, guid: 984f3f7725b4a014faa94c4737e29ab6,
+        type: 2}
+      propertyPath: initialPlaceholderColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762110830529968, guid: 984f3f7725b4a014faa94c4737e29ab6,
+        type: 2}
+      propertyPath: initialPlaceholderColor.a
+      value: 0.5019608
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 984f3f7725b4a014faa94c4737e29ab6, type: 2}
@@ -6396,8 +6446,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1250389275}
-  m_RootOrder: 1
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1911801462
 Prefab:
