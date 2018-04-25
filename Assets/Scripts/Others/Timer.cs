@@ -30,13 +30,27 @@ public class Timer : MonoBehaviour {
 
     #endregion
 
+    #region Unity functions
+
+    private void Start()
+    {
+        Suscribe();
+    }
+
+    #endregion
+
     #region Class functions
+
+    private void Suscribe()
+    {
+        Observer.Singleton.onTimerDone += StopWatch;
+    }
 
     public void ExecuteWatch(float timeLimit = float.PositiveInfinity)
     {
-        ResetWatch();
-
         this.timeLimit = timeLimit;
+
+        ResetWatch();
 
         // Coroutine execution
         if (timeCoroutine != null)
@@ -82,11 +96,7 @@ public class Timer : MonoBehaviour {
             timeText.text = minutes.ToString("00") + ":" + seconds.ToString("00");
 
             if (timeUpdate >= timeLimit)
-            {
                 Observer.Singleton.OnTimerDone();
-
-                StopWatch();
-            }
 
             yield return null;
         }

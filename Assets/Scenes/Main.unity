@@ -531,7 +531,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1502889001808506, guid: 21fb3ffcd9ad127459f930a14ed61567, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114351272818725524, guid: 21fb3ffcd9ad127459f930a14ed61567,
         type: 2}
@@ -871,7 +871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3825d1242b506e4dbd443697a33dd43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableConsoleLog: 0
+  enableConsoleLog: 1
   _doubleTapTime: 0.5
 --- !u!4 &392849575
 Transform:
@@ -1196,7 +1196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66735dfa4c09a3941b3ea79125be4cc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableConsoleLog: 1
+  enableConsoleLog: 0
   timeToNonTimeExercise: 0.95
   timeToNonRestExercise: 0.95
   trainingScreens:
@@ -1436,7 +1436,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1502889001808506, guid: 21fb3ffcd9ad127459f930a14ed61567, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224855344735324348, guid: 21fb3ffcd9ad127459f930a14ed61567,
         type: 2}
@@ -4464,7 +4464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fff2cb21fbc6a24f8e48ef57eb3a207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableConsoleLog: 1
+  enableConsoleLog: 0
   mainText: {fileID: 2062422163}
   timeToFadeIn: 1
   timeToFadeOut: 1
@@ -6655,7 +6655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66736f92c88e57744a9fe5a14326ad08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableConsoleLog: 0
+  enableConsoleLog: 1
   screens:
   - {fileID: 138263731}
   - {fileID: 158352632}

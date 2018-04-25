@@ -182,7 +182,7 @@ public class TextManager : MonoBehaviour {
             isFirstFadeOfTheSequence = false;
         }
 
-        mainText.DOFade(0.8745f, timeToFadeOut).OnComplete(action);
+        mainText.DOFade(0.8745f, timeToFadeIn).OnComplete(action);
     } // 1.
 
     private void FadeInterlude(TweenCallback action)
@@ -203,7 +203,7 @@ public class TextManager : MonoBehaviour {
 
         textFadeState = TextFadeState.FadeOut;
 
-        mainText.DOFade(0.0f, timeToFadeIn).OnComplete(action);
+        mainText.DOFade(0.0f, timeToFadeOut).OnComplete(action);
     }
 
     private void SetText(string[] screenTexts, TweenCallback action)
@@ -236,6 +236,34 @@ public class TextManager : MonoBehaviour {
             mainText.text = screenTexts[textIndex];
 
             FadeIn(screenTexts[0], action);
+        }
+    }
+
+    private void SetTextNoFinalFlicker(string[] screenTexts, TweenCallback action)
+    {
+        if (textIndex < screenTexts.Length - 2)
+            textIndex++;
+        else
+        {
+            textIndex++;
+
+            mainText.text = screenTexts[textIndex];
+            // FadeIn
+            mainText.DOFade(0.8745f, timeToFadeIn);
+
+            textFadeState = TextFadeState.None;
+
+            return;
+        }
+
+        // Is the interlude screen active in hierarchy ?
+        if (UIManager.Singleton.IsScreenActiveInHierarchy(0))
+        {
+            mainText.text = screenTexts[textIndex];
+
+            FadeIn(screenTexts[0], action);
+
+            mainText.DOFade(0.8745f, timeToFadeIn).OnComplete(action);
         }
     }
 
@@ -310,7 +338,7 @@ public class TextManager : MonoBehaviour {
 
     private void SetTextResult()
     {
-        SetText(introductionTexts, FadeInterludeResult, Observer.Singleton.OnTestResultScreenCallback);
+        SetText(testResultTexts, FadeInterludeResult, Observer.Singleton.OnTestResultScreenCallback);
     }
 
     #endregion
@@ -334,7 +362,7 @@ public class TextManager : MonoBehaviour {
 
     private void SetTextToWarmingUp()
     {
-        SetText(introductionTexts, FadeInterludeToWarmingUp, Observer.Singleton.OnWarmingUpScreenCallback);
+        SetText(warmingUpTexts, FadeInterludeToWarmingUp, Observer.Singleton.OnWarmingUpScreenCallback);
     }
 
     #endregion
@@ -358,7 +386,7 @@ public class TextManager : MonoBehaviour {
 
     private void SetTextToTraining()
     {
-        SetText(introductionTexts, FadeInterludeToTraining, Observer.Singleton.OnTrainingScreenCallback);
+        SetText(trainingTexts, FadeInterludeToTraining, Observer.Singleton.OnTrainingScreenCallback);
     }
 
     #endregion
@@ -382,7 +410,7 @@ public class TextManager : MonoBehaviour {
 
     private void SetTextToStretching()
     {
-        SetText(introductionTexts, FadeInterludeToStretching, Observer.Singleton.OnStretchingScreenCallback);
+        SetText(stretchingTexts, FadeInterludeToStretching, Observer.Singleton.OnStretchingScreenCallback);
     }
 
     #endregion
@@ -406,7 +434,7 @@ public class TextManager : MonoBehaviour {
 
     private void SetTextRest()
     {
-        SetText(introductionTexts, FadeInterludeRest);
+        SetTextNoFinalFlicker(restTexts, FadeInterludeRest);
     }
 
     #endregion
@@ -430,7 +458,7 @@ public class TextManager : MonoBehaviour {
 
     private void SetTextTrainingEnd()
     {
-        SetText(introductionTexts, FadeInterludeTrainingEnd, Observer.Singleton.OnAppEnd);
+        SetText(trainingEndTexts, FadeInterludeTrainingEnd, Observer.Singleton.OnAppEnd);
     }
 
     #endregion
@@ -454,7 +482,7 @@ public class TextManager : MonoBehaviour {
 
     private void SetTextDailyTraining()
     {
-        SetText(introductionTexts, FadeInterludeDailyTraining, Observer.Singleton.OnDailyTrainingCallback);
+        SetText(dailyTrainingTexts, FadeInterludeDailyTraining, Observer.Singleton.OnDailyTrainingCallback);
         //Observer.Singleton.OnWarmingUpScreenStart();
     }
 
@@ -485,7 +513,7 @@ public class TextManager : MonoBehaviour {
 
     private void SetTextAlreadyOpened()
     {
-        SetText(introductionTexts, FadeInterludeAlreadyOpened, Observer.Singleton.OnAppWasAlreadyOpenedTodayCallback);
+        SetText(alreadyOpenedTexts, FadeInterludeAlreadyOpened, Observer.Singleton.OnAppWasAlreadyOpenedTodayCallback);
     }
 
     // First Text
