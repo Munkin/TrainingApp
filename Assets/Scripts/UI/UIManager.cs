@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour {
      * 2. Test
      * 3. Test Result
      * 4. Training
-     * 5. Rest
+     * 5. Info
     */
 
     [Space(10f)] [Header("Screen: Data")]
@@ -54,6 +54,15 @@ public class UIManager : MonoBehaviour {
     public GameObject[] trainingScreens;
     [SerializeField]
     private GameObject dialogueBox;
+
+    [Space(10f)] [Header("Social Networks")]
+
+    [SerializeField]
+    private string facebookPage;
+    [SerializeField]
+    private string twitterPage;
+    [SerializeField]
+    private string instagramPage;
 
     // Hidden
     private int question = 0;
@@ -591,6 +600,23 @@ public class UIManager : MonoBehaviour {
         }
     }
 
+    // ***
+
+    public void VisitUsOnFacebook()
+    {
+        Application.OpenURL(facebookPage);
+    }
+
+    public void VisitUsOnTwitter()
+    {
+        Application.OpenURL(twitterPage);
+    }
+
+    public void VisitUsOnInstagram()
+    {
+        Application.OpenURL(instagramPage);
+    }
+
     // *** BUTTON CONTROL EVENTS ***
 
     private void ResetDataContinuButton()
@@ -618,7 +644,7 @@ public class UIManager : MonoBehaviour {
 
         yield return null; yield return null; yield return null;
 
-        EnableIntroductionScreen();
+        Observer.Singleton.OnWarmingUpScreen();
     }
 
     #endregion

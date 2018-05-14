@@ -220,6 +220,11 @@ public class Screen
             return false;
     }
 
+    public bool IsSpecialExercise()
+    {
+        return data.exercises[actualExercise].isSpecialExercise;
+    }
+
     // ***
 
     public bool ReadyWasAlreadyPressed()

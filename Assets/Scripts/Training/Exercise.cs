@@ -15,6 +15,7 @@ public class Exercise
     public string description;
     public float time;
     public float restTime;
+    public bool isSpecialExercise;
 
     [Space(10f)]
     

@@ -120,10 +120,15 @@ public class TrainingManager : MonoBehaviour {
             return;
 
         // Button execution
-        if (targetScreen.ActualExerciseHasTime())
-            ExecuteTimeExercise();
+        if (!targetScreen.IsSpecialExercise())
+        {
+            if (targetScreen.ActualExerciseHasTime())
+                ExecuteTimeExercise();
+            else
+                ExecuteNonTimeExercise();
+        }
         else
-            ExecuteNonTimeExercise();
+            ExecuteSpecialExercise();
     }
 
     public void Continue()
@@ -290,6 +295,11 @@ public class TrainingManager : MonoBehaviour {
         nonRest = NonRest();
 
         StartCoroutine(nonRest);
+    }
+
+    private void ExecuteSpecialExercise()
+    {
+
     }
 
     // ***

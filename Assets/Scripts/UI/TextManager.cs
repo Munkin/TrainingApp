@@ -110,11 +110,10 @@ public class TextManager : MonoBehaviour {
 
     private void Suscribe()
     {
-        Observer.Singleton.onAppStart += FadeInIntroduction;
-        Observer.Singleton.onAppEnd += ResetFadeValues;
         Observer.Singleton.onDataScreen += ResetFadeValues;
         Observer.Singleton.onTestResultScreen += FadeInResult;
         Observer.Singleton.onTestResultScreenCallback += ResetFadeValues;
+        Observer.Singleton.onAppEnd += ResetFadeValues;
 
         // ***
 
@@ -252,6 +251,37 @@ public class TextManager : MonoBehaviour {
             mainText.DOFade(0.8745f, timeToFadeIn);
 
             textFadeState = TextFadeState.None;
+
+            return;
+        }
+
+        // Is the interlude screen active in hierarchy ?
+        if (UIManager.Singleton.IsScreenActiveInHierarchy(0))
+        {
+            mainText.text = screenTexts[textIndex];
+
+            FadeIn(screenTexts[0], action);
+
+            mainText.DOFade(0.8745f, timeToFadeIn).OnComplete(action);
+        }
+    }
+
+    private void SetTextNoFinalFlicker(string[] screenTexts, TweenCallback action, Action fadeEndCallback)
+    {
+        if (textIndex < screenTexts.Length - 2)
+            textIndex++;
+        else
+        {
+            textIndex++;
+
+            mainText.text = screenTexts[textIndex];
+            // FadeIn
+            mainText.DOFade(0.8745f, timeToFadeIn);
+
+            textFadeState = TextFadeState.None;
+
+            if (fadeEndCallback != null)
+                fadeEndCallback();
 
             return;
         }
@@ -458,7 +488,7 @@ public class TextManager : MonoBehaviour {
 
     private void SetTextTrainingEnd()
     {
-        SetText(trainingEndTexts, FadeInterludeTrainingEnd, Observer.Singleton.OnAppEnd);
+        SetTextNoFinalFlicker(trainingEndTexts, FadeInterludeTrainingEnd, Observer.Singleton.OnAppEnd);
     }
 
     #endregion
@@ -513,7 +543,7 @@ public class TextManager : MonoBehaviour {
 
     private void SetTextAlreadyOpened()
     {
-        SetText(alreadyOpenedTexts, FadeInterludeAlreadyOpened, Observer.Singleton.OnAppWasAlreadyOpenedTodayCallback);
+        SetTextNoFinalFlicker(alreadyOpenedTexts, FadeInterludeAlreadyOpened, Observer.Singleton.OnAppWasAlreadyOpenedTodayCallback);
     }
 
     // First Text
