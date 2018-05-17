@@ -110,6 +110,7 @@ public class TextManager : MonoBehaviour {
 
     private void Suscribe()
     {
+        Observer.Singleton.onIntroduction += FadeInIntroduction;
         Observer.Singleton.onDataScreen += ResetFadeValues;
         Observer.Singleton.onTestResultScreen += FadeInResult;
         Observer.Singleton.onTestResultScreenCallback += ResetFadeValues;
