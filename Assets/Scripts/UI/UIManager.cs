@@ -55,7 +55,14 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     private GameObject dialogueBox;
 
-    [Space(10f)] [Header("Social Networks")]
+    [Space(10f)] [Header("Screen: Info")]
+
+    [SerializeField]
+    private Text title;
+    [SerializeField]
+    private Text description;
+
+    [Space(10f)]
 
     [SerializeField]
     private string facebookPage;
@@ -133,13 +140,14 @@ public class UIManager : MonoBehaviour {
         Observer.Singleton.onDataScreen += EnableDataScreen;
         Observer.Singleton.onTestScreen += EnableExerciseDataScreen;
         Observer.Singleton.onTestResultScreen += EnableIntroductionScreen;
+        Observer.Singleton.onInfoScreen += EnableInfoScreen;
 
         // OnTestResultScreenCallback events.
         Observer.Singleton.onTestResultScreenCallback += EnableCompleteTestScreen;
         Observer.Singleton.onTestResultScreenCallback += ShowResults;
         
         // OnDailyTraining special events.
-        Observer.Singleton.onDailyTrainingCallback += () => StartCoroutine(WaitForTraining());
+        Observer.Singleton.onDailyTrainingCallback += () => StartCoroutine(WaitForApp());
 
         // *** TRAINING EVENTS ***
 
@@ -417,6 +425,38 @@ public class UIManager : MonoBehaviour {
         TrainingManager.Singleton.Continue();
     }
 
+    // *** INFO ***
+
+    public void InfoContinue()
+    {
+        Observer.Singleton.OnTrainingEnd();
+    }
+
+    public void VisitUsOnFacebook()
+    {
+        Application.OpenURL(facebookPage);
+    }
+
+    public void VisitUsOnTwitter()
+    {
+        Application.OpenURL(twitterPage);
+    }
+
+    public void VisitUsOnInstagram()
+    {
+        Application.OpenURL(instagramPage);
+    }
+
+    public void SetTitle(string title)
+    {
+        this.title.text = title;
+    }
+
+    public void SetDescription(string description)
+    {
+        this.description.text = description;
+    }
+
     // ***
 
     public void OnCommonExerciseRest()
@@ -483,7 +523,7 @@ public class UIManager : MonoBehaviour {
         EnableScreen(4);
     }
 
-    private void EnableRestScreen()
+    private void EnableInfoScreen()
     {
         EnableScreen(5);
     }
@@ -600,23 +640,6 @@ public class UIManager : MonoBehaviour {
         }
     }
 
-    // ***
-
-    public void VisitUsOnFacebook()
-    {
-        Application.OpenURL(facebookPage);
-    }
-
-    public void VisitUsOnTwitter()
-    {
-        Application.OpenURL(twitterPage);
-    }
-
-    public void VisitUsOnInstagram()
-    {
-        Application.OpenURL(instagramPage);
-    }
-
     // *** BUTTON CONTROL EVENTS ***
 
     private void ResetDataContinuButton()
@@ -638,13 +661,38 @@ public class UIManager : MonoBehaviour {
 
     #region Coroutines
 
-    private IEnumerator WaitForTraining()
+    private IEnumerator WaitForApp()
     {
         DisableAllScreens();
 
-        yield return null; yield return null; yield return null;
+        yield return null; yield return null; yield return null; yield return null; yield return null; yield return null;
 
-        Observer.Singleton.OnWarmingUpScreen();
+        Debug.Log(DataManager.Singleton.GetData().trainingDay);
+
+        switch (DataManager.Singleton.GetData().trainingDay)
+        {
+            // Normal day
+            case TrainingDay.One:
+            case TrainingDay.Three:
+            case TrainingDay.Five:
+                Observer.Singleton.OnWarmingUpScreen();
+                break;
+            
+            // Special rest day
+            case TrainingDay.Two:
+            case TrainingDay.Four:
+            case TrainingDay.Six:
+                TrainingManager.Singleton.ExecuteSpecialExercise();
+                break;
+
+            // Last day
+            case TrainingDay.Seven:
+                TrainingManager.Singleton.ExecuteSpecialExercise();
+                break;
+
+            default:
+                break;
+        }
     }
 
     #endregion

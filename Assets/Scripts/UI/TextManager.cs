@@ -113,7 +113,6 @@ public class TextManager : MonoBehaviour {
         Observer.Singleton.onDataScreen += ResetFadeValues;
         Observer.Singleton.onTestResultScreen += FadeInResult;
         Observer.Singleton.onTestResultScreenCallback += ResetFadeValues;
-        Observer.Singleton.onAppEnd += ResetFadeValues;
 
         // ***
 
@@ -153,6 +152,7 @@ public class TextManager : MonoBehaviour {
 
         // Touch events.
         TouchManager.OnTap += StopFade;
+        TouchManager.OnDoubleTap += StopRest;
     }
 
     public void ResetTextIndex()
@@ -323,6 +323,16 @@ public class TextManager : MonoBehaviour {
         }
     }
 
+    private void StopRest()
+    {
+        // Is the interlude screen active ?
+        if (UIManager.Singleton.Screens[0].activeInHierarchy)
+        {
+            if (TrainingManager.Singleton.isInRest)
+                TrainingManager.Singleton.StopRest();
+        }
+    }
+
     // ***
 
     #region Fade: Introduction
@@ -488,7 +498,7 @@ public class TextManager : MonoBehaviour {
 
     private void SetTextTrainingEnd()
     {
-        SetTextNoFinalFlicker(trainingEndTexts, FadeInterludeTrainingEnd, Observer.Singleton.OnAppEnd);
+        SetTextNoFinalFlicker(trainingEndTexts, FadeInterludeTrainingEnd);
     }
 
     #endregion
@@ -513,7 +523,6 @@ public class TextManager : MonoBehaviour {
     private void SetTextDailyTraining()
     {
         SetText(dailyTrainingTexts, FadeInterludeDailyTraining, Observer.Singleton.OnDailyTrainingCallback);
-        //Observer.Singleton.OnWarmingUpScreenStart();
     }
 
     // First Text

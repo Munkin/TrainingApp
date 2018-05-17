@@ -87,7 +87,7 @@ public class UpdateTraining : MonoBehaviour {
     private void DoTestAgain()
     {
         if (enableConsoleLog)
-            Debug.Log("DoTestAgain");
+            Debug.Log("UpdateTraining :: DoTestAgain");
 
         DataManager.Singleton.GetData().enableTest = true;
 
@@ -98,7 +98,7 @@ public class UpdateTraining : MonoBehaviour {
     private void DayTwoWeight()
     {
         if (enableConsoleLog)
-            Debug.Log("DayTwoWeight");
+            Debug.Log("UpdateTraining :: DayTwoWeight");
 
         // Day two weight.
         switch (trainingLevel)
@@ -129,7 +129,7 @@ public class UpdateTraining : MonoBehaviour {
     private void DayThreeWeight()
     {
         if (enableConsoleLog)
-            Debug.Log("DayThreeWeight");
+            Debug.Log("UpdateTraining :: DayThreeWeight");
 
         // Day three weight.
         switch (trainingLevel)
@@ -160,7 +160,7 @@ public class UpdateTraining : MonoBehaviour {
     private void DayFourWeight()
     {
         if (enableConsoleLog)
-            Debug.Log("DayFourWeight");
+            Debug.Log("UpdateTraining :: DayFourWeight");
 
         // Day four weight.
         switch (trainingLevel)
@@ -191,7 +191,7 @@ public class UpdateTraining : MonoBehaviour {
     private void DayFiveWeight()
     {
         if (enableConsoleLog)
-            Debug.Log("DayFiveWeight");
+            Debug.Log("UpdateTraining :: DayFiveWeight");
 
         // Day five weight.
         switch (trainingLevel)
@@ -222,7 +222,7 @@ public class UpdateTraining : MonoBehaviour {
     private void DaySixWeight()
     {
         if (enableConsoleLog)
-            Debug.Log("DaySixWeight");
+            Debug.Log("UpdateTraining :: DaySixWeight");
 
         // Day six weight.
         switch (trainingLevel)
@@ -253,7 +253,7 @@ public class UpdateTraining : MonoBehaviour {
     private void DaySevenWeight()
     {
         if (enableConsoleLog)
-            Debug.Log("DaySevenWeight");
+            Debug.Log("UpdateTraining :: DaySevenWeight");
 
         // Day seven weight.
         switch (trainingLevel)
@@ -286,7 +286,7 @@ public class UpdateTraining : MonoBehaviour {
     private void SaveTrainingData(TrainingLevel trainingLevel, TrainingDay trainingDay)
     {
         if (enableConsoleLog)
-            Debug.Log("SaveTrainingData");
+            Debug.Log("UpdateTraining :: SaveTrainingData");
 
         this.trainingLevel = trainingLevel;
         this.trainingDay = trainingDay;
@@ -297,7 +297,7 @@ public class UpdateTraining : MonoBehaviour {
     private void LoadTrainingData()
     {
         if (enableConsoleLog)
-            Debug.Log("LoadTrainingData");
+            Debug.Log("UpdateTraining :: LoadTrainingData");
 
         trainingLevel = DataManager.Singleton.GetData().trainingLevel;
         trainingDay = DataManager.Singleton.GetData().trainingDay;

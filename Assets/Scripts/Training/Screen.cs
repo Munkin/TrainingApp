@@ -67,7 +67,7 @@ public class Screen
                     break;
 
                 case TrainingStage.Stretching:
-                    Observer.Singleton.OnTrainingEnd();
+                    Observer.Singleton.OnInfoScreen();
                     break;
 
                 default:
@@ -218,11 +218,6 @@ public class Screen
             return true;
         else
             return false;
-    }
-
-    public bool IsSpecialExercise()
-    {
-        return data.exercises[actualExercise].isSpecialExercise;
     }
 
     // ***

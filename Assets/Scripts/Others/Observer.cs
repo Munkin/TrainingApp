@@ -27,10 +27,12 @@ public class Observer : MonoBehaviour {
     public Action onTestScreen;
     public Action onTestResultScreen;
     public Action onTestResultScreenCallback;
+    public Action onInfoScreen;
 
     public Action<GameObject, float, float> onDataScreenFade;
     public Action<GameObject, float, float> onTestScreenFade;
     public Action<GameObject, float, float> onTestResultScreenFade;
+    public Action<GameObject, float, float> onInfoScreenFade;
 
     // ***
 
@@ -94,13 +96,18 @@ public class Observer : MonoBehaviour {
         OnAppStart();
     }
 
+    private void OnApplicationQuit()
+    {
+        OnAppEnd();
+    }
+
     #endregion
 
     #region Class functions
 
     private void Suscribe()
     {
-        onAppStart += InitializeApp;
+        onAppStart += LaunchApp;
     }
 
     // ***
@@ -196,6 +203,23 @@ public class Observer : MonoBehaviour {
         // Event call!
         if (onTestResultScreenCallback != null)
             onTestResultScreenCallback();
+    }
+
+    public void OnInfoScreen()
+    {
+        if (enableConsoleLog)
+            Debug.Log("Observer :: OnInfoScreen");
+
+        // Fade event!
+        if (onInfoScreenFade != null)
+            onInfoScreenFade(
+                UIManager.Singleton.Screens[5],
+                Fader.Singleton.screenFadeDuration,
+                Fader.Singleton.screenFadeEndValue);
+
+        // Event call!
+        if (onInfoScreen != null)
+            onInfoScreen();
     }
 
     // ***
@@ -403,7 +427,7 @@ public class Observer : MonoBehaviour {
 
     // *** OTHERS ***
 
-    private void InitializeApp()
+    private void LaunchApp()
     {
         DateManager.Singleton.CheckDate();
 

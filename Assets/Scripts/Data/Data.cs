@@ -24,7 +24,7 @@ public class Data : ScriptableObject {
     [Space(10f)]
 
     public Complexion complexion;
-    // ***
+    
     public TrainingLevel trainingLevel;
     public TrainingDay trainingDay;
 

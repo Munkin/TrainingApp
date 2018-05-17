@@ -63,6 +63,16 @@ public class TrainingManager : MonoBehaviour {
     // Consts
     public const float fadeMarginError = 0.125f;
 
+    // Cached Components
+    public bool isInRest
+    {
+        get; private set;
+    }
+    public float elapsedTime
+    {
+        get; private set;
+    }
+
     // Coroutines
     private IEnumerator nonTimeExercise;
     private IEnumerator rest;
@@ -120,15 +130,10 @@ public class TrainingManager : MonoBehaviour {
             return;
 
         // Button execution
-        if (!targetScreen.IsSpecialExercise())
-        {
-            if (targetScreen.ActualExerciseHasTime())
-                ExecuteTimeExercise();
-            else
-                ExecuteNonTimeExercise();
-        }
+        if (targetScreen.ActualExerciseHasTime())
+            ExecuteTimeExercise();
         else
-            ExecuteSpecialExercise();
+            ExecuteNonTimeExercise();
     }
 
     public void Continue()
@@ -297,9 +302,14 @@ public class TrainingManager : MonoBehaviour {
         StartCoroutine(nonRest);
     }
 
-    private void ExecuteSpecialExercise()
+    public void ExecuteSpecialExercise()
     {
+        Observer.Singleton.OnInfoScreen();
 
+        targetScreen = trainingScreens[1];
+
+        UIManager.Singleton.SetTitle(targetScreen.data.exercises[targetScreen.actualExercise].name);
+        UIManager.Singleton.SetDescription(targetScreen.data.exercises[targetScreen.actualExercise].description);
     }
 
     // ***
@@ -326,6 +336,14 @@ public class TrainingManager : MonoBehaviour {
     public void StopTimer()
     {
         Observer.Singleton.OnTimerDone();
+    }
+
+    public void StopRest()
+    {
+        if (targetScreen != null)
+        {
+            elapsedTime = targetScreen.data.exercises[targetScreen.actualExercise].restTime;
+        }
     }
 
     #endregion
@@ -358,7 +376,18 @@ public class TrainingManager : MonoBehaviour {
 
         Observer.Singleton.OnRestStart();
 
-        yield return new WaitForSeconds(targetScreen.data.exercises[targetScreen.actualExercise].restTime);
+        isInRest = true;
+
+        // *** yield return new WaitForSeconds(targetScreen.data.exercises[targetScreen.actualExercise].restTime);
+
+        elapsedTime = 0;
+
+        while (elapsedTime < targetScreen.data.exercises[targetScreen.actualExercise].restTime)
+        {
+            yield return null;
+
+            elapsedTime += Time.deltaTime;
+        }
 
         // ***
 
@@ -375,6 +404,8 @@ public class TrainingManager : MonoBehaviour {
         // Event execution!
         if (isTheLastExercise)
             Observer.Singleton.OnRestEnd();
+
+        isInRest = false;
 
         yield return null;
 

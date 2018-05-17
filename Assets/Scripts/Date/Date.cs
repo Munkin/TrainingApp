@@ -56,7 +56,7 @@ public class Date : ScriptableObject { // NOTE DateTime default values is : 1/1/
             TryParseLastDate();
 
         return this;
-    } // TODO Not override the last date saved.
+    }
 
     public DateTime GetCurrentDate()
     {

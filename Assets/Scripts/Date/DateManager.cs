@@ -29,6 +29,9 @@ public class DateManager : MonoBehaviour { // NOTE DateTime default values is : 
         get; private set;
     }
 
+    // Cached Components
+    private DateTime tempDate;
+
     // Singleton!
     public static DateManager Singleton
     {
@@ -58,8 +61,12 @@ public class DateManager : MonoBehaviour { // NOTE DateTime default values is : 
         if (enableConsoleLog)
             Debug.Log("DateManager :: CheckDate");
 
-        SetLastDate(currentDate);
+        tempDate = currentDate;
+
         SetCurrentDate();
+
+        if (HasPassOneDaySinceLastTraining())
+            Observer.Singleton.onAppEnd += SetLastDate;
     }
 
     public bool HasPassOneDaySinceLastTraining()
@@ -81,11 +88,11 @@ public class DateManager : MonoBehaviour { // NOTE DateTime default values is : 
         date.SetCurrentDate(currentDate);
     }
 
-    private void SetLastDate(DateTime lastDate)
+    private void SetLastDate()
     {
-        this.lastDate = lastDate;
+        lastDate = currentDate;
 
-        date.SetLastDate(this.lastDate);
+        date.SetLastDate(lastDate);
     }
 
     #endregion
