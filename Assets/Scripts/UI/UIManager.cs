@@ -26,7 +26,13 @@ public class UIManager : MonoBehaviour {
      * 3. Test Result
      * 4. Training
      * 5. Info
+     * 6. Logo
     */
+
+    [Space(10f)] [Header("Screen: Introduction")]
+
+    [SerializeField]
+    private Timer restTimer;
 
     [Space(10f)] [Header("Screen: Data")]
 
@@ -98,6 +104,10 @@ public class UIManager : MonoBehaviour {
     private bool nextQuestionIsAlreadyPressed;
     private bool testResultContinueIsAlreadyPressed;
 
+    // Coroutines
+    private IEnumerator enableTimer;
+    private IEnumerator disableTimer;
+
     // Singleton!
     public static UIManager Singleton
     {
@@ -129,7 +139,7 @@ public class UIManager : MonoBehaviour {
 
     private void Setup()
     {
-        EnableScreen(0);
+        EnableScreen(6);
     }
 
     private void Suscribe()
@@ -137,17 +147,21 @@ public class UIManager : MonoBehaviour {
         // *** GENERAL EVENTS ***
 
         // OnScreen events.
+        Observer.Singleton.onIntroduction += EnableIntroductionScreen;
         Observer.Singleton.onDataScreen += EnableDataScreen;
         Observer.Singleton.onTestScreen += EnableExerciseDataScreen;
         Observer.Singleton.onTestResultScreen += EnableIntroductionScreen;
         Observer.Singleton.onInfoScreen += EnableInfoScreen;
+        Observer.Singleton.onLogoScreen += EnableLogoScreen;
 
         // OnTestResultScreenCallback events.
         Observer.Singleton.onTestResultScreenCallback += EnableCompleteTestScreen;
         Observer.Singleton.onTestResultScreenCallback += ShowResults;
-        
+
         // OnDailyTraining special events.
+        Observer.Singleton.onDailyTraining += EnableIntroductionScreen;
         Observer.Singleton.onDailyTrainingCallback += () => StartCoroutine(WaitForApp());
+        Observer.Singleton.onAppWasAlreadyOpenedToday += EnableIntroductionScreen;
 
         // *** TRAINING EVENTS ***
 
@@ -166,8 +180,10 @@ public class UIManager : MonoBehaviour {
 
         // *** REST EVENTS ***
 
+        Observer.Singleton.onRestStart += StartTimer;
         Observer.Singleton.onRestStart += EnableIntroductionScreen;
-        
+        Observer.Singleton.onRestEnd += StopTimer;
+
         // *** BUTTON CONTROL EVENTS ***
 
         Observer.Singleton.onTestScreen += ResetDataContinuButton;
@@ -177,7 +193,37 @@ public class UIManager : MonoBehaviour {
 
         TouchManager.OnDoubleTap += EnableDialogueBox;
     }
+
+    // *** INTRODUCTION ***
     
+    private void StartTimer()
+    {
+        if (enableConsoleLog)
+            Debug.Log("UIManager :: StartTimer");
+        
+        // Coroutine execution
+        if (enableTimer != null)
+            StopCoroutine(enableTimer);
+
+        enableTimer = EnableTimer();
+
+        StartCoroutine(enableTimer);
+    }
+
+    private void StopTimer()
+    {
+        if (enableConsoleLog)
+            Debug.Log("UIManager :: StopTimer");
+
+        // Coroutine execution
+        if (disableTimer != null)
+            StopCoroutine(disableTimer);
+
+        disableTimer = DisableTimer();
+
+        StartCoroutine(disableTimer);
+    }
+
     // *** DATA ***
 
     public void DataContinue()
@@ -528,6 +574,11 @@ public class UIManager : MonoBehaviour {
         EnableScreen(5);
     }
 
+    private void EnableLogoScreen()
+    {
+        EnableScreen(6);
+    }
+
     private void DisableAllScreens()
     {
         // Loop through every single screen
@@ -665,7 +716,7 @@ public class UIManager : MonoBehaviour {
     {
         DisableAllScreens();
 
-        yield return null; yield return null; yield return null; yield return null; yield return null; yield return null;
+        yield return null; yield return null; yield return null;
 
         Debug.Log(DataManager.Singleton.GetData().trainingDay);
 
@@ -693,6 +744,24 @@ public class UIManager : MonoBehaviour {
             default:
                 break;
         }
+    }
+
+    private IEnumerator EnableTimer()
+    {
+        restTimer.gameObject.SetActive(true);
+
+        yield return null;
+
+        restTimer.ExecuteWatch();
+    }
+
+    private IEnumerator DisableTimer()
+    {
+        restTimer.StopWatch();
+
+        yield return null;
+
+        restTimer.gameObject.SetActive(false);
     }
 
     #endregion

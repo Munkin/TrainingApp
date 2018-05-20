@@ -55,23 +55,23 @@ MonoBehaviour:
       description: Realiza una via que oscile entre 13 y 20 movimientos.
       time: 0
       restTime: 235
-      videoClip: {fileID: 32900000, guid: 14c95c1df7abc304d8b5bf1281508a94, type: 3}
+      videoClip: {fileID: 0}
     - name: RESISTENCIA 2
       description: Realiza una via que oscile entre 13 y 20 movimientos.
       time: 0
       restTime: 235
-      videoClip: {fileID: 32900000, guid: 0a84222fb3ee73d40bf98bb102458cb0, type: 3}
+      videoClip: {fileID: 0}
     - name: RESISTENCIA 3
       description: Realiza una via que oscile entre 13 y 20 movimientos.
       time: 0
       restTime: 235
-      videoClip: {fileID: 32900000, guid: 0a84222fb3ee73d40bf98bb102458cb0, type: 3}
+      videoClip: {fileID: 0}
     - name: ESCALADA LIBRE VIAS LARGAS
       description: "Realiza una via m\xEDnimo de 26 movimientos, de baja intensidad,
         de 20 minutos."
       time: 1200
       restTime: 40
-      videoClip: {fileID: 32900000, guid: 0a84222fb3ee73d40bf98bb102458cb0, type: 3}
+      videoClip: {fileID: 0}
   - exercises:
     - name: CUELLO IZQUIERDA DERECHA
       description: "Manten la posici\xF3n por 10 segundos. Realizar a cada lado."

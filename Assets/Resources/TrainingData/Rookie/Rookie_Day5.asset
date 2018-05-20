@@ -55,7 +55,7 @@ MonoBehaviour:
       description: "Realiza una escalada t\xE9cnica durante 39 minutos."
       time: 2340
       restTime: 80
-      videoClip: {fileID: 32900000, guid: 14c95c1df7abc304d8b5bf1281508a94, type: 3}
+      videoClip: {fileID: 0}
   - exercises:
     - name: CUELLO IZQUIERDA DERECHA
       description: "Manten la posici\xF3n por 10 segundos. Realizar a cada lado."

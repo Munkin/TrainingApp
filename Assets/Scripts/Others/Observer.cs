@@ -5,6 +5,8 @@
 
 using System;
 using UnityEngine;
+using System;
+using System.Collections;
 
 public class Observer : MonoBehaviour {
 
@@ -28,11 +30,13 @@ public class Observer : MonoBehaviour {
     public Action onTestResultScreen;
     public Action onTestResultScreenCallback;
     public Action onInfoScreen;
+    public Action onLogoScreen;
 
     public Action<GameObject, float, float> onDataScreenFade;
     public Action<GameObject, float, float> onTestScreenFade;
     public Action<GameObject, float, float> onTestResultScreenFade;
     public Action<GameObject, float, float> onInfoScreenFade;
+    public Action<GameObject, float, float> onLogoScreenFade;
 
     // ***
 
@@ -220,6 +224,23 @@ public class Observer : MonoBehaviour {
         // Event call!
         if (onInfoScreen != null)
             onInfoScreen();
+    }
+
+    public void OnLogoScreen()
+    {
+        if (enableConsoleLog)
+            Debug.Log("Observer :: OnLogoScreen");
+
+        // Fade event!
+        if (onLogoScreenFade != null)
+            onLogoScreenFade(
+                UIManager.Singleton.Screens[6],
+                Fader.Singleton.screenFadeDuration,
+                Fader.Singleton.screenFadeEndValue);
+
+        // Event call!
+        if (onLogoScreen != null)
+            onLogoScreen();
     }
 
     // ***
@@ -429,6 +450,19 @@ public class Observer : MonoBehaviour {
 
     private void LaunchApp()
     {
+        StartCoroutine(LaunchAppCoroutine());
+    }
+
+    #endregion
+
+    #region Coroutines
+
+    private IEnumerator LaunchAppCoroutine()
+    {
+        OnLogoScreen();
+
+        yield return new WaitForSeconds(Fader.Singleton.screenFadeDuration * 3.0f);
+
         DateManager.Singleton.CheckDate();
 
         // Can the user do the test ?

@@ -58,10 +58,8 @@ public class Fader : MonoBehaviour {
             DestroyImmediate(gameObject);
         else
             Singleton = this;
-    }
 
-    private void Start()
-    {
+        // ***
         Setup();
         Suscribe();
     }
@@ -84,6 +82,7 @@ public class Fader : MonoBehaviour {
         Observer.Singleton.onDataScreenFade += FadeScreen;
         Observer.Singleton.onTestScreenFade += FadeScreen;
         Observer.Singleton.onTestResultScreenFade += FadeScreen;
+        Observer.Singleton.onLogoScreenFade += FadeLogo;
         
         // Training screens fade events.
         Observer.Singleton.onWarmingUpScreenFade += FadeScreen;
@@ -229,6 +228,49 @@ public class Fader : MonoBehaviour {
         cachedTextAlphaInitialValue = cachedText.color.a;
 
         cachedText.DOFade(1 - Mathf.Clamp01(screenFadeEndValue), screenFadeDuration).OnComplete(OnButtonFadeCallback);
+    }
+
+    public void FadeLogo(GameObject parent, float fadeDuration = 1.0f, float fadeEndValue = 1.0f)
+    {
+        if (enableConsoleLog)
+            Debug.Log("Fader :: FadeLogo");
+
+        // Data temp allocation
+        float tempFadeDuration = screenFadeDuration;
+        float tempFadeEndValue = screenFadeEndValue;
+
+        // Comparing parameters with class values
+        if (screenFadeDuration != fadeDuration)
+            screenFadeDuration = fadeDuration;
+
+        if (screenFadeEndValue != fadeEndValue)
+            screenFadeEndValue = fadeEndValue;
+
+        // Getting components from screen parent
+        images = parent.GetComponentsInChildren<Image>();
+        texts = parent.GetComponentsInChildren<Text>();
+
+        // Is there some image on the screen ?
+        if (images != null && images.Length > 0)
+        {
+            foreach (Image image in images)
+            {
+                image.DOFade(fadeEndValue, fadeDuration).OnComplete(
+                    () => image.DOFade(fadeEndValue, fadeDuration).OnComplete(
+                        () => image.DOFade(1 - fadeEndValue, fadeDuration)));
+            }
+        }
+
+        // Is there some text on the screen ?
+        if (texts != null && texts.Length > 0)
+        {
+            foreach (Text text in texts)
+            {
+                text.DOFade(fadeEndValue, fadeDuration).OnComplete(
+                    () => text.DOFade(fadeEndValue, fadeDuration).OnComplete(
+                        () => text.DOFade(1 - fadeEndValue, fadeDuration)));
+            }
+        }
     }
 
     private void CheckAlphaStatus(GameObject parent)
