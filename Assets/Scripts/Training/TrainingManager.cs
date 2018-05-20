@@ -391,6 +391,8 @@ public class TrainingManager : MonoBehaviour {
 
         // ***
 
+        isInRest = false;
+
         bool isTheLastExercise;
 
         // Is the last exercise of the practice sequence ?
@@ -404,8 +406,6 @@ public class TrainingManager : MonoBehaviour {
         // Event execution!
         if (isTheLastExercise)
             Observer.Singleton.OnRestEnd();
-
-        isInRest = false;
 
         yield return null;
 

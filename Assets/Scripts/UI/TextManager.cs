@@ -329,8 +329,14 @@ public class TextManager : MonoBehaviour {
         // Is the interlude screen active ?
         if (UIManager.Singleton.Screens[0].activeInHierarchy)
         {
+            // Stop!
+            if (enableConsoleLog)
+                Debug.Log("TextManager :: StopRest");
+
             if (TrainingManager.Singleton.isInRest)
                 TrainingManager.Singleton.StopRest();
+
+            mainText.text = "";
         }
     }
 
@@ -499,7 +505,7 @@ public class TextManager : MonoBehaviour {
 
     private void SetTextTrainingEnd()
     {
-        SetTextNoFinalFlicker(trainingEndTexts, FadeInterludeTrainingEnd);
+        SetTextNoFinalFlicker(trainingEndTexts, FadeInterludeTrainingEnd, Observer.Singleton.OnAppEnd);
     }
 
     #endregion
